@@ -41,10 +41,10 @@ jobs:
       - name: Name the artifact
         id: apk
         run: |
-          src=android/app/build/outputs/apk/debug/app-debug.apk
-          out="epi-${GITHUB_REF_NAME//\//-}-${GITHUB_SHA::7}.apk"
-          cp "$src" "$out"
-          echo "path=$out" >> "$GITHUB_OUTPUT"
+          # A fixed file name keeps releases/latest/download/epi-android.apk
+          # working as a permanent link from the site.
+          cp android/app/build/outputs/apk/debug/app-debug.apk epi-android.apk
+          echo "path=epi-android.apk" >> "$GITHUB_OUTPUT"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
