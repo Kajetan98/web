@@ -50,6 +50,7 @@
     <section class="view" id="view-monitor" aria-labelledby="monitorTitle">
       <h1 class="sr-only" id="monitorTitle" data-i18n="monitor.title">Monitorowanie</h1>
 
+      <div class="col col-main">
       <div class="state-card" id="stateCard" data-state="off">
         <div class="state-head">
           <span class="state-dot" aria-hidden="true"></span>
@@ -87,6 +88,9 @@
         </div>
       </div>
 
+      </div><!-- /col-main -->
+
+      <div class="col col-side">
       <div class="card">
         <div class="card-head">
           <h2 data-i18n="chart.ppg">Sygnał PPG</h2>
@@ -113,6 +117,9 @@
         </ul>
         <p class="card-note" id="fusionNote" data-i18n="fusion.note">Alarm wymaga kryterium ruchowego i co najmniej jednego biometrycznego — to odróżnia napad od wysiłku fizycznego.</p>
       </div>
+      </div><!-- /col-side -->
+
+      <div class="col col-main col-main-2">
 
       <div class="card demo">
         <div class="card-head">
@@ -136,6 +143,7 @@
         <span class="sos-label" id="sosLabel">SOS</span>
         <span class="sos-note mono" id="sosNote" data-i18n="sos.note">przytrzymaj 1 s</span>
       </button>
+      </div><!-- /col-main-2 -->
     </section>
 
     <!-- ============================= HISTORIA ============================= -->
