@@ -83,8 +83,10 @@ canvas{ display: block; width: 100%; height: auto; }
   background: var(--app-bg);
   box-shadow: 0 0 0 1px var(--line);
 }
+/* Header and the alarm bar share one sticky block so the bar cannot slide
+   underneath the header when the page is scrolled. */
+.app-sticky{ position: sticky; top: 0; z-index: 20; }
 .app-header{
-  position: sticky; top: 0; z-index: 20;
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding: max(10px, env(safe-area-inset-top)) 16px 10px;
   background: rgba(23,29,43,0.94);
@@ -216,7 +218,6 @@ hr{ border: 0; border-top: 1px solid var(--line); margin: 4px 0; width: 100%; }
 /* Shown when the confirmation overlay is minimised, so the countdown stays
    visible and cancellable without the app being blocked by a modal. */
 .alarm-bar{
-  position: sticky; top: 0; z-index: 18;
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
   padding: 9px 14px; background: #3a1416; border-bottom: 1px solid rgba(255,75,70,0.45);
 }
