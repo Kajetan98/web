@@ -1,0 +1,67 @@
+/*
+ * Przypisanie wyprowadzeń. Numery pinów w blokach pinctrl trzeba wpisać
+ * z pinoutu płytki (plik boards/seeed/xiao_nrf54l15/*.dts w Zephyrze) —
+ * zostawione tu wartości są miejscem na wpis, nie gotową konfiguracją.
+ *
+ * Rozkład zgodny z tabelą w hardware/README.md:
+ *   D0  przycisk           D1..D3 kanały diody RGB
+ *   D4  SDA, D5 SCL        D6  buzzer, D7 silnik wibracyjny
+ *   D8  INT z pulsoksymetru   D9  STAT ładowarki   D10 wykrycie ładowarki
+ */
+
+/ {
+    aliases {
+        epi-button = &btn_sos;
+        epi-buzzer = &out_buzzer;
+        epi-motor  = &out_motor;
+        /* Nazwa węzła IMU pochodzi z pliku płytki dla wersji Sense. */
+        epi-imu    = &lsm6ds3tr_c;
+    };
+
+    buttons {
+        compatible = "gpio-keys";
+        btn_sos: btn_sos {
+            gpios = <&xiao_d 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+            label = "SOS";
+            zephyr,code = <0>;
+        };
+    };
+
+    outputs {
+        compatible = "gpio-leds";
+        out_buzzer: out_buzzer {
+            gpios = <&xiao_d 6 GPIO_ACTIVE_HIGH>;
+            label = "buzzer";
+        };
+        out_motor: out_motor {
+            gpios = <&xiao_d 7 GPIO_ACTIVE_HIGH>;
+            label = "silnik wibracyjny";
+        };
+    };
+
+    epi_led: epi-led {
+        compatible = "pwm-leds";
+        led_r: led_r { pwms = <&pwm20 0 PWM_USEC(500) PWM_POLARITY_NORMAL>; };
+        led_g: led_g { pwms = <&pwm20 1 PWM_USEC(500) PWM_POLARITY_NORMAL>; };
+        led_b: led_b { pwms = <&pwm20 2 PWM_USEC(500) PWM_POLARITY_NORMAL>; };
+    };
+};
+
+&xiao_i2c {
+    status = "okay";
+    clock-frequency = <I2C_BITRATE_STANDARD>;
+
+    /* Fermion MAX30102 (SEN0344), adres 0x57. Sterownik zależy od tego, czy
+     * moduł oddaje surowe próbki, czy tylko wynik algorytmu — patrz README. */
+    ppg: ppg@57 {
+        reg = <0x57>;
+        status = "okay";
+    };
+};
+
+&pwm20 {
+    status = "okay";
+    pinctrl-0 = <&pwm20_default>;
+    pinctrl-1 = <&pwm20_sleep>;
+    pinctrl-names = "default", "sleep";
+};
