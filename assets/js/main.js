@@ -27,18 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Full-screen nav overlay toggle
   if (navToggle && navOverlay) {
+    // Labels live in the markup so each language version carries its own.
+    const labelOpen = navToggle.dataset.labelOpen || navToggle.getAttribute('aria-label');
+    const labelClose = navToggle.dataset.labelClose || labelOpen;
+
     const closeNav = () => {
       navOverlay.classList.remove('open');
       navOverlay.setAttribute('aria-hidden', 'true');
       navToggle.setAttribute('aria-expanded', 'false');
-      navToggle.setAttribute('aria-label', 'Otwórz menu');
+      navToggle.setAttribute('aria-label', labelOpen);
       document.body.style.overflow = '';
     };
     const openNav = () => {
       navOverlay.classList.add('open');
       navOverlay.setAttribute('aria-hidden', 'false');
       navToggle.setAttribute('aria-expanded', 'true');
-      navToggle.setAttribute('aria-label', 'Zamknij menu');
+      navToggle.setAttribute('aria-label', labelClose);
       document.body.style.overflow = 'hidden';
     };
 
@@ -85,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.reportValidity();
         return;
       }
-      formNote.textContent = 'Dziękujemy! Wiadomość została przygotowana do wysyłki (podłącz backend, aby ją faktycznie dostarczyć).';
+      formNote.textContent = contactForm.dataset.sentMessage || '';
       contactForm.reset();
     });
   }

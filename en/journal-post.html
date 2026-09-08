@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why a pulse oximeter gets it wrong in microgravity — SPACER Journal</title>
+<meta name="description" content="An oxygen saturation reading assumes a particular distribution of body fluids. In weightlessness that distribution shifts — and the measurement starts to understate the result.">
+<meta name="theme-color" content="#1b212f">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SPACER">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="Why a pulse oximeter gets it wrong in microgravity">
+<meta property="og:description" content="An oxygen saturation reading assumes a particular distribution of body fluids. In weightlessness that distribution shifts.">
+<meta property="og:image" content="../assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why a pulse oximeter gets it wrong in microgravity">
+<meta name="twitter:description" content="An oxygen saturation reading assumes a particular distribution of body fluids. In weightlessness that distribution shifts.">
+<meta name="twitter:image" content="../assets/img/og-image.png">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="alternate" hreflang="pl" href="../dziennik-wpis.html">
+<link rel="alternate" hreflang="en" href="journal-post.html">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="announce-bar">SPACER / SYSTEMS FOR HUMAN EXPLORATION</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="../assets/img/logo-dark.png" alt="SPACER — home" width="723" height="121">
+    </a>
+    <div class="header-actions">
+      <div class="lang-switch mono">
+        <a href="../dziennik-wpis.html" hreflang="pl" lang="pl">PL</a>
+        <span class="divider" aria-hidden="true">/</span>
+        <a href="journal-post.html" aria-current="true">EN</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" data-label-open="Open menu" data-label-close="Close menu" aria-expanded="false" aria-controls="navOverlay">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+  <button class="nav-close" id="navClose" aria-label="Close menu">✕</button>
+  <div class="container nav-overlay-inner">
+    <a href="about.html">About</a>
+    <a href="index.html#technologia">Technology</a>
+    <a href="projects.html">Projects</a>
+    <a href="journal.html" aria-current="page">Journal</a>
+    <a href="index.html#kontakt">Contact</a>
+  </div>
+  <div class="container nav-overlay-foot mono">
+    <span>© <span id="yearNav"></span> SPACER</span>
+    <span>kontakt@spacer.example</span>
+    <span class="lang-switch">
+      <a href="../dziennik-wpis.html" hreflang="pl" lang="pl">PL</a>
+      <span class="divider" aria-hidden="true">/</span>
+      <a href="journal-post.html" aria-current="true">EN</a>
+    </span>
+  </div>
+</nav>
+
+<main id="main">
+
+  <article>
+    <header class="article-head">
+      <div class="container">
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Journal / Physiology</span></div>
+        <h1>Why a pulse oximeter gets it wrong in microgravity</h1>
+        <div class="post-meta">
+          <span>12 February 2026</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>Anna Nowak</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="article-body">
+      <div class="container">
+        <div class="prose">
+          <p class="lead">
+            A pulse oximeter is one of the simplest devices on a hospital ward and one of the
+            most treacherous in orbit. The reason isn't the electronics — it's an assumption
+            nobody wrote into the manual.
+          </p>
+
+          <p>
+            Saturation measurement relies on the difference in how oxygenated and deoxygenated
+            haemoglobin absorb light. For that difference to be readable, a pulsatile wave of
+            arterial blood with a predictable volume has to pass through the measured site,
+            usually a fingertip. That predictability is exactly what disappears on entering
+            weightlessness.
+          </p>
+
+          <h2>Fluids shift towards the head</h2>
+          <p>
+            On Earth, gravity keeps part of the blood volume in the lower body. Once that load
+            is removed, fluids move upward — hence the characteristic facial puffiness and blocked
+            nose astronauts describe in the first days of a flight. The limbs lose part of their
+            volume at the same time.
+          </p>
+          <p>
+            For a finger sensor this means a weaker, shallower pulsatile wave. The signal is still
+            there, but the signal-to-noise ratio drops and the algorithm reads that state as poorer
+            oxygenation. The result is a systematic understatement that is neither a hardware fault
+            nor a patient condition.
+          </p>
+
+          <h2>Why this is worse than plain inaccuracy</h2>
+          <p>
+            Random measurement error averages out. Systematic error does not. If a device
+            understates the result in the same direction every time, then after a few days of
+            flight the thresholds set on Earth start firing for no reason. And an alert that turns
+            out to be false a dozen times in a row stops being taken seriously by the crew.
+          </p>
+
+          <blockquote>
+            <p>The worst case isn't a bad reading. It's a bad reading that everyone has stopped believing.</p>
+          </blockquote>
+
+          <h2>What we do about it</h2>
+          <p>
+            We don't try to fix the physics of the measurement — we try to give the system an
+            awareness of the conditions it is working in. In practice that comes down to three things:
+          </p>
+          <ul>
+            <li>The baseline is captured again after adaptation to weightlessness, not only before launch.</li>
+            <li>Signal quality is reported alongside the result, so a reading from a weak pulse is visibly uncertain.</li>
+            <li>Alert thresholds move with each person's baseline instead of staying at their Earth values.</li>
+          </ul>
+          <p>
+            None of this is spectacular. All of it comes down to the same principle: the device
+            has to say plainly when it stops being confident in its own result. That is the only
+            way anyone is still looking at it several weeks into a mission.
+          </p>
+
+          <a href="journal.html" class="back-link">← Back to the journal</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="note-band" style="margin-top: 0;">
+        <p>
+          This is an article template showing the layout of body text, headings, a pull quote
+          and a list — the content is an example, to be replaced with a real SPACER post.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <h2 class="display-headline">Questions about <span class="accent">this post</span>?</h2>
+      <p class="section-lead">We write about things we actually work on — happy to go further into any of it.</p>
+      <a href="index.html#kontakt" class="btn-block">Write to us <span class="arrow">↗</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-logo">
+      <img src="../assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+    </div>
+    <p class="footer-tagline">We design medicine for places where nothing can be left to chance.</p>
+    <div class="footer-bottom">
+      <a href="index.html" class="logo">
+        <img src="../assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+      </a>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="index.html#technologia">Technology</a>
+        <a href="projects.html">Projects</a>
+        <a href="journal.html" aria-current="page">Journal</a>
+        <a href="index.html#kontakt">Contact</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> SPACER. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Back to top">↑</button>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

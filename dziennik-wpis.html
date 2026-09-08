@@ -20,6 +20,8 @@
 <link rel="icon" href="assets/img/favicon-16.png" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="alternate" hreflang="pl" href="dziennik-wpis.html">
+<link rel="alternate" hreflang="en" href="en/journal-post.html">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -34,9 +36,16 @@
     <a href="index.html" class="logo">
       <img src="assets/img/logo-dark.png" alt="SPACER — strona główna" width="723" height="121">
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="navOverlay">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="header-actions">
+      <div class="lang-switch mono">
+        <a href="dziennik-wpis.html" aria-current="true">PL</a>
+        <span class="divider" aria-hidden="true">/</span>
+        <a href="en/journal-post.html" hreflang="en" lang="en">EN</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" data-label-open="Otwórz menu" data-label-close="Zamknij menu" aria-expanded="false" aria-controls="navOverlay">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -52,6 +61,11 @@
   <div class="container nav-overlay-foot mono">
     <span>© <span id="yearNav"></span> SPACER</span>
     <span>kontakt@spacer.example</span>
+    <span class="lang-switch">
+      <a href="dziennik-wpis.html" aria-current="true">PL</a>
+      <span class="divider" aria-hidden="true">/</span>
+      <a href="en/journal-post.html" hreflang="en" lang="en">EN</a>
+    </span>
   </div>
 </nav>
 
