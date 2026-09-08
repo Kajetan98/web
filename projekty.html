@@ -225,29 +225,142 @@
           <figcaption>Opaska EPI — prototyp</figcaption>
         </figure>
 
+        <!-- EPI-APP:START -->
         <div class="app-showcase" id="epi-aplikacja">
           <div class="eyebrow-row"><span class="dash"></span><span class="mono">Aplikacja EPI</span></div>
-          <h3 class="app-showcase-title">Podgląd na żywo, historia napadów i powiadomienia dla bliskich</h3>
-          <p>
-            Sekcja na prezentację aplikacji mobilnej — ekrany, przepływ użytkownika i opis
-            funkcji. Kadry poniżej czekają na materiały.
-          </p>
+          <h3 class="app-showcase-title">Podgląd na żywo, okno anulowania i historia napadów</h3>
+          <p>Prototyp aplikacji towarzyszącej opasce, zbudowany na podstawie koncepcji systemu: usługa BLE przekazuje stan urządzenia, tętno, SpO₂ i poziom baterii, a każde zdarzenie zapisuje się lokalnie razem z przebiegiem sygnału w oknie od 30 sekund przed napadem do 60 sekund po nim.</p>
 
           <div class="app-shots">
             <figure class="app-shot">
-              <div class="asset-slot">Ekran 01</div>
-              <figcaption>Podgląd na żywo</figcaption>
-            </figure>
-            <figure class="app-shot">
-              <div class="asset-slot">Ekran 02</div>
-              <figcaption>Historia napadu</figcaption>
-            </figure>
-            <figure class="app-shot">
-              <div class="asset-slot">Ekran 03</div>
-              <figcaption>Powiadomienie</figcaption>
-            </figure>
+              <div class="phone">
+        <div class="phone-screen">
+          <div class="app-top">
+            <span class="conn">Połączono</span>
+            <span>Bateria 78%</span>
+          </div>
+          <div class="app-body">
+            <div class="app-state"><span class="pulse"></span>Monitorowanie aktywne</div>
+            <p class="app-state-note">Stan IDLE — czujnik ruchu wybudza pomiar PPG.</p>
+            <div class="app-metrics">
+              <div class="app-metric">
+                <span class="label">Tętno</span>
+                <span class="value">72 <small>bpm</small></span>
+              </div>
+              <div class="app-metric">
+                <span class="label">SpO₂</span>
+                <span class="value">98 <small>%</small></span>
+              </div>
+            </div>
+            <div class="app-trace">
+              <span class="label">Sygnał PPG — ostatnie 30 s</span>
+              <svg viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,26 L6,24 L9,10 L12,30 L15,25 L22,26 L28,24 L31,11 L34,31 L37,25 L44,26 L50,24 L53,12 L56,30 L59,25 L66,26 L72,24 L75,10 L78,31 L81,25 L88,26 L94,24 L97,12 L100,30 L103,25 L110,26 L116,25 L120,26" fill="none" stroke="#4fd18b" stroke-width="1.4"
+                      stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="app-rows">
+            <div class="app-row"><span>Jakość sygnału</span><strong>Dobra</strong></div>
+            <div class="app-row"><span>Ostatnia synchronizacja</span><strong>przed chwilą</strong></div>
+            <div class="app-row"><span>Linia bazowa</span><strong>64 bpm / 97%</strong></div>
+            </div>
+          </div>
+          <div class="app-nav">
+          <span class="on">Monitoring</span>
+          <span>Historia</span>
+          <span>Kontakty</span>
           </div>
         </div>
+              </div>
+              <figcaption>Monitorowanie</figcaption>
+            </figure>
+            <figure class="app-shot">
+              <div class="phone">
+        <div class="phone-screen is-alarm" id="epiAlarmScreen" data-state-confirming="Potwierdzanie napadu" data-title-confirming="Wykryto wzorzec napadu toniczno-klonicznego" data-notify="Po upływie czasu powiadomimy: Anna K., Marek W. oraz zapiszemy przebieg zdarzenia." data-state-sent="Powiadomienia wysłane" data-title-sent="Kontakty alarmowe zostały powiadomione" data-note-sent="Przebieg zdarzenia zapisany w historii (−30 s / +60 s)." data-state-cancelled="Alarm anulowany" data-title-cancelled="Zdarzenie zapisane jako fałszywy alarm" data-note-cancelled="Zapis posłuży do kalibracji progów detekcji." data-restart="Uruchom ponownie">
+          <div class="app-top">
+            <span class="conn">Połączono</span>
+            <span>Bateria 78%</span>
+          </div>
+          <div class="app-body">
+            <div class="app-alarm">
+              <div class="app-state" style="color: var(--red);"><span class="pulse"></span><span id="epiAlarmState">Potwierdzanie napadu</span></div>
+              <p class="app-alarm-title" id="epiAlarmTitle">Wykryto wzorzec napadu toniczno-klonicznego</p>
+              <div class="app-countdown" id="epiCountdownWrap">
+                <span id="epiCountdown">15</span><small>s do powiadomienia</small>
+              </div>
+              <div class="app-triggers" id="epiTriggers">
+                <div class="app-trigger"><span>Drgania rytmiczne</span><em>3,4 Hz</em></div>
+                <div class="app-trigger"><span>Tętno</span><em>148 bpm ↑</em></div>
+                <div class="app-trigger"><span>SpO₂</span><em>91% ↓</em></div>
+              </div>
+              <div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px;">
+                <button type="button" class="app-cancel" id="epiCancel">To fałszywy alarm — anuluj</button>
+                <p class="app-notify" id="epiNotify">Po upływie czasu powiadomimy: Anna K., Marek W. oraz zapiszemy przebieg zdarzenia.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+              </div>
+              <figcaption>Okno potwierdzenia</figcaption>
+            </figure>
+            <figure class="app-shot">
+              <div class="phone">
+        <div class="phone-screen">
+          <div class="app-top">
+            <span class="conn">Połączono</span>
+            <span>Bateria 78%</span>
+          </div>
+          <div class="app-body">
+            <div class="app-state" style="color: var(--app-text);">Historia zdarzeń</div>
+            <div class="app-events">
+              <div class="app-event">
+                <div class="app-event-top">
+                  <span class="when">12.02.2026 · 03:14</span>
+                  <span class="tag tag-sent">Wysłano</span>
+                </div>
+                <p class="kind">Napad toniczno-kloniczny<span class="dur">1 min 42 s</span></p>
+              </div>
+              <div class="app-event">
+                <div class="app-event-top">
+                  <span class="when">28.01.2026 · 19:02</span>
+                  <span class="tag tag-sent">Wysłano</span>
+                </div>
+                <p class="kind">Napad ogniskowy<span class="dur">38 s</span></p>
+              </div>
+              <div class="app-event">
+                <div class="app-event-top">
+                  <span class="when">21.01.2026 · 08:47</span>
+                  <span class="tag tag-cancelled">Fałszywy</span>
+                </div>
+                <p class="kind">Anulowane przez użytkownika<span class="dur">—</span></p>
+              </div>
+            </div>
+            <div class="app-export">
+              <span>Eksport PDF</span>
+              <span>Eksport CSV</span>
+            </div>
+          </div>
+          <div class="app-nav">
+          <span>Monitoring</span>
+          <span class="on">Historia</span>
+          <span>Kontakty</span>
+          </div>
+        </div>
+              </div>
+              <figcaption>Historia zdarzeń</figcaption>
+            </figure>
+          </div>
+
+          <div class="app-demo">
+            <button type="button" class="btn-block" id="epiReplay">Odtwórz wykrycie napadu <span class="arrow">↗</span></button>
+            <p class="hint">Symulacja automatu detekcji na środkowym ekranie</p>
+          </div>
+
+          <div class="note-band">
+            <p>Prototyp interfejsu — dane są przykładowe. Progi detekcji wymagają kalibracji na danych rzeczywistych; urządzenie jest na etapie koncepcji inżynierskiej (TRL 2→3) i nie stanowi wyrobu medycznego.</p>
+          </div>
+        </div>
+        <!-- EPI-APP:END -->
 
       </article>
 
@@ -289,5 +402,6 @@
 <button class="scroll-top" id="scrollTop" aria-label="Wróć na górę strony">↑</button>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/epi-app.js"></script>
 </body>
 </html>
