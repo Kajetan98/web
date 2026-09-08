@@ -27,22 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Full-screen nav overlay toggle
   if (navToggle && navOverlay) {
-    // Labels live in the markup so each language version carries its own.
-    const labelOpen = navToggle.dataset.labelOpen || navToggle.getAttribute('aria-label');
-    const labelClose = navToggle.dataset.labelClose || labelOpen;
+    // Labels live in the markup so each language version carries its own,
+    // and are read on use so they stay correct if the markup is swapped.
+    const labelOpen = () => navToggle.dataset.labelOpen || navToggle.getAttribute('aria-label');
+    const labelClose = () => navToggle.dataset.labelClose || labelOpen();
 
     const closeNav = () => {
       navOverlay.classList.remove('open');
       navOverlay.setAttribute('aria-hidden', 'true');
       navToggle.setAttribute('aria-expanded', 'false');
-      navToggle.setAttribute('aria-label', labelOpen);
+      navToggle.setAttribute('aria-label', labelOpen());
       document.body.style.overflow = '';
     };
     const openNav = () => {
       navOverlay.classList.add('open');
       navOverlay.setAttribute('aria-hidden', 'false');
       navToggle.setAttribute('aria-expanded', 'true');
-      navToggle.setAttribute('aria-label', labelClose);
+      navToggle.setAttribute('aria-label', labelClose());
       document.body.style.overflow = 'hidden';
     };
 
