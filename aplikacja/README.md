@@ -6,6 +6,10 @@ strona — bez backendu, bez kont użytkowników, bez wysyłania danych na zewn�
 
 ## Uruchomienie
 
+Opublikowana wersja: https://kajetan98.github.io/web/aplikacja/ (strona projektu:
+https://kajetan98.github.io/web/epi.html). Wersja na Androida:
+https://github.com/Kajetan98/web/releases/latest/download/epi-android.apk
+
 Katalog jest częścią strony SPACER i nie wymaga budowania. Lokalnie:
 
 ```
@@ -49,7 +53,9 @@ Stany odpowiadają rozdziałowi 5 dokumentu:
 - **IDLE** — analiza ruchu w tle, powolna aktualizacja linii bazowej tętna i SpO₂.
 - **SUSPECT** — amplituda ≥ progu i częstotliwość w paśmie napadowym.
 - **CONFIRMING** — wzorzec utrzymany przez zadany czas; startuje odliczanie
-  z możliwością anulowania (przycisk w overlayu albo przycisk SOS).
+  z możliwością anulowania (przycisk w overlayu albo przycisk SOS). Okno można
+  zwinąć do paska na górze — odliczanie biegnie dalej i nadal da się je
+  anulować, a reszta aplikacji pozostaje dostępna.
 - **ALARM** — po odliczeniu spełnione kryterium ruchowe i biometryczne.
 - **ANULOWANO / odrzucone** — zapisywane do kalibracji progów.
 

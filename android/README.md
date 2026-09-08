@@ -5,6 +5,8 @@ projekt Androida nie zawiera jej kopii, tylko kopiuje pliki z repozytorium
 podczas budowania (`copySite` w `app/build.gradle`). Zmiana w aplikacji
 webowej trafia więc do APK bez żadnej synchronizacji ręcznej.
 
+Gotowy plik: https://github.com/Kajetan98/web/releases/latest/download/epi-android.apk
+
 ## Budowanie
 
 Wymagane: JDK 17 i Android SDK (platforma 34).
@@ -17,8 +19,10 @@ cd android
 
 Repozytorium ma też workflow `.github/workflows/android.yml`, który buduje APK
 na GitHubie: uruchamiany ręcznie („Run workflow" w zakładce Actions) albo przy
-zmianie w `android/` lub `aplikacja/`. Plik trafia do artefaktów przebiegu,
-a przy tagu `v*` — do wydania repozytorium.
+zmianie w `android/` lub `aplikacja/`. Plik trafia do artefaktów przebiegu.
+Żeby opublikować wydanie, uruchom workflow ręcznie i wpisz tag w polu
+`release_tag` (np. `v0.1.1`) — APK zostanie dołączony do wydania pod stałą
+nazwą `epi-android.apk`. Ten sam efekt daje wypchnięcie tagu `v*`.
 
 APK jest podpisany kluczem debugowym, więc instaluje się poza sklepem Play po
 włączeniu zgody „Zainstaluj nieznane aplikacje". Do dystrybucji w sklepie
