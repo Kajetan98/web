@@ -139,7 +139,7 @@ button{ font-family: inherit; }
 .eyebrow-row .dash{ width: 40px; height: 1px; background: var(--red); flex: none; }
 .eyebrow-row span{
   font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--red); white-space: nowrap;
+  color: var(--red); min-width: 0;
 }
 
 .display-headline{
@@ -183,6 +183,7 @@ button{ font-family: inherit; }
 .hero-inner{
   display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center;
 }
+.hero-inner > *{ min-width: 0; }
 .hero-lead{ font-size: 1.08rem; max-width: 48ch; }
 .hero-cta{ display: flex; align-items: center; gap: 30px; flex-wrap: wrap; margin: 30px 0 30px; }
 .hero-tags{ display: flex; flex-wrap: wrap; gap: 20px; }
@@ -194,7 +195,7 @@ button{ font-family: inherit; }
 .hero-visual{ position: relative; display: flex; justify-content: center; align-items: center; min-height: 380px; }
 .orbit-deco{ position: absolute; inset: 0; width: 100%; height: 100%; }
 .orbit-deco circle{ fill: none; stroke: var(--navy); stroke-opacity: 0.14; }
-.hero-icon{ position: relative; width: 210px; z-index: 2; }
+.hero-icon{ position: relative; width: 260px; z-index: 2; }
 .vitals-card{
   position: absolute; bottom: 4px; right: -6px; z-index: 3;
   background: var(--cream); border: 1px solid var(--border); border-radius: var(--radius);
@@ -349,16 +350,23 @@ button{ font-family: inherit; }
 .scroll-top.visible{ opacity: 1; visibility: visible; transform: translateY(0); }
 .scroll-top:hover{ border-color: var(--red); color: var(--red); }
 
-/* Reveal on scroll */
-.reveal{ opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.reveal.is-visible{ opacity: 1; transform: translateY(0); }
+/* Reveal on scroll — only hidden when JS is running, so a failed script
+   never leaves the page blank. */
+.js .reveal{ opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.js .reveal.is-visible{ opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  .js .reveal{ opacity: 1; transform: none; transition: none; }
+  .btn-block:hover, .pillar-card:hover{ transform: none; }
+}
 
 /* ==========================================================================
    Responsive
    ========================================================================== */
 @media (max-width: 980px){
   .hero-inner{ grid-template-columns: 1fr; }
-  .hero-visual{ order: -1; min-height: 300px; }
+  .hero-visual{ min-height: 300px; }
   .pillar-grid, .feature-grid, .team-grid{ grid-template-columns: 1fr 1fr; }
   .kontakt-grid{ grid-template-columns: 1fr; }
 }
