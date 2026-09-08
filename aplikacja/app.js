@@ -14,8 +14,11 @@
   const KEYS = {
     events: 'epi.v1.events',
     contacts: 'epi.v1.contacts',
-    settings: 'epi.v1.settings'
+    settings: 'epi.v1.settings',
+    accounts: 'epi.v1.accounts',
+    session: 'epi.v1.session'
   };
+  const GUEST = 'guest';
 
   const DEFAULTS = {
     lang: null,
@@ -48,6 +51,45 @@
       'header.tag': 'prototyp',
       'header.offline': 'Czujniki: symulacja',
       'header.exit': 'Wyjdź',
+      'account.title': 'Konto',
+      'account.guest': 'Gość',
+      'account.tagline': 'konto na tym urządzeniu',
+      'account.loginTitle': 'Zaloguj się',
+      'account.loginNote': 'Wybierz konto i podaj PIN. Dane każdego konta są trzymane osobno.',
+      'account.registerTitle': 'Załóż konto',
+      'account.registerNote': 'Konto powstaje wyłącznie na tym urządzeniu — nic nie jest wysyłane na serwer. PIN chroni dostęp do historii napadów i kontaktów.',
+      'account.account': 'Konto',
+      'account.pin': 'PIN',
+      'account.pinNew': 'PIN (min. 4 cyfry)',
+      'account.pinRepeat': 'Powtórz PIN',
+      'account.name': 'Imię i nazwisko',
+      'account.email': 'E-mail (opcjonalnie)',
+      'account.login': 'Zaloguj',
+      'account.create': 'Załóż konto',
+      'account.toRegister': 'Załóż nowe konto',
+      'account.toLogin': 'Mam już konto',
+      'account.guestMode': 'Korzystaj bez konta',
+      'account.switch': 'Przełącz konto',
+      'account.logout': 'Wyloguj',
+      'account.delete': 'Usuń konto',
+      'account.privacy': 'Konta i dane medyczne pozostają w pamięci tej przeglądarki. Wyczyszczenie danych witryny usuwa je bezpowrotnie.',
+      'account.kindLocal': 'lokalne',
+      'account.kindGuest': 'bez konta',
+      'account.noteGuest': 'Pracujesz bez konta — dane zapisują się w tej przeglądarce i są widoczne dla każdego, kto ją otworzy.',
+      'account.noteUser': 'Zalogowano {when}. Dane tego konta są oddzielone od pozostałych i chronione PIN-em.',
+      'account.noteNoPin': 'Konto bez PIN-u — ta przeglądarka nie udostępnia szyfrowania wymaganego do jego zapisania.',
+      'account.errName': 'Podaj imię i nazwisko.',
+      'account.errPin': 'PIN musi mieć co najmniej 4 znaki.',
+      'account.errPinMatch': 'Podane PIN-y różnią się od siebie.',
+      'account.errTaken': 'Konto o tej nazwie już istnieje na tym urządzeniu.',
+      'account.errWrongPin': 'Nieprawidłowy PIN.',
+      'account.created': 'Konto założone. Witaj, {name}.',
+      'account.loggedIn': 'Zalogowano jako {name}.',
+      'account.loggedOut': 'Wylogowano.',
+      'account.deleted': 'Konto i jego dane zostały usunięte.',
+      'account.confirmDelete': 'Usunąć konto {name} razem z jego historią zdarzeń i kontaktami? Tej operacji nie można cofnąć.',
+      'account.guestOnly': 'Ta opcja wymaga zalogowania na konto.',
+      'account.noCrypto': 'Ta przeglądarka nie udostępnia szyfrowania — konto powstanie bez PIN-u.',
       'monitor.title': 'Monitorowanie',
       'monitor.start': 'Uruchom monitorowanie',
       'monitor.stop': 'Zatrzymaj',
@@ -239,6 +281,45 @@
       'header.tag': 'prototype',
       'header.offline': 'Sensors: simulated',
       'header.exit': 'Exit',
+      'account.title': 'Account',
+      'account.guest': 'Guest',
+      'account.tagline': 'account on this device',
+      'account.loginTitle': 'Sign in',
+      'account.loginNote': 'Pick an account and enter its PIN. Each account keeps its data separately.',
+      'account.registerTitle': 'Create an account',
+      'account.registerNote': 'The account is created on this device only — nothing is sent to a server. The PIN guards access to the seizure history and contacts.',
+      'account.account': 'Account',
+      'account.pin': 'PIN',
+      'account.pinNew': 'PIN (at least 4 digits)',
+      'account.pinRepeat': 'Repeat the PIN',
+      'account.name': 'Full name',
+      'account.email': 'Email (optional)',
+      'account.login': 'Sign in',
+      'account.create': 'Create account',
+      'account.toRegister': 'Create a new account',
+      'account.toLogin': 'I already have an account',
+      'account.guestMode': 'Continue without an account',
+      'account.switch': 'Switch account',
+      'account.logout': 'Sign out',
+      'account.delete': 'Delete account',
+      'account.privacy': 'Accounts and medical data stay in this browser. Clearing the site data removes them for good.',
+      'account.kindLocal': 'local',
+      'account.kindGuest': 'no account',
+      'account.noteGuest': 'You are working without an account — the data is stored in this browser and visible to anyone who opens it.',
+      'account.noteUser': 'Signed in {when}. This account keeps its data apart from the others, behind its PIN.',
+      'account.noteNoPin': 'Account without a PIN — this browser exposes no crypto to store one.',
+      'account.errName': 'Enter a name.',
+      'account.errPin': 'The PIN needs at least 4 characters.',
+      'account.errPinMatch': 'The two PINs differ.',
+      'account.errTaken': 'An account with that name already exists on this device.',
+      'account.errWrongPin': 'Wrong PIN.',
+      'account.created': 'Account created. Welcome, {name}.',
+      'account.loggedIn': 'Signed in as {name}.',
+      'account.loggedOut': 'Signed out.',
+      'account.deleted': 'The account and its data were deleted.',
+      'account.confirmDelete': 'Delete the account {name} together with its event history and contacts? This cannot be undone.',
+      'account.guestOnly': 'That needs an account to be signed in.',
+      'account.noCrypto': 'This browser exposes no crypto — the account is created without a PIN.',
       'monitor.title': 'Monitoring',
       'monitor.start': 'Start monitoring',
       'monitor.stop': 'Stop',
@@ -460,20 +541,48 @@
     },
     size() {
       let bytes = 0;
-      for (const key of Object.values(KEYS)) {
-        try { bytes += (localStorage.getItem(key) || '').length; } catch (err) { /* ignore */ }
-      }
+      try {
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith('epi.v1.')) bytes += (localStorage.getItem(key) || '').length;
+        }
+      } catch (err) { /* private mode */ }
       return Math.round(bytes / 1024);
     }
   };
 
-  let settings = Object.assign({}, DEFAULTS, store.read(KEYS.settings, {}));
-  let events = store.read(KEYS.events, []);
-  let contacts = store.read(KEYS.contacts, []);
+  /* Every account keeps its own events, contacts and thresholds; the guest
+     profile is just another bucket, so nothing is shared by accident. */
+  let accountId = GUEST;
+  let accounts = store.read(KEYS.accounts, []);
 
-  const saveSettings = () => store.write(KEYS.settings, settings);
-  const saveEvents = () => store.write(KEYS.events, events);
-  const saveContacts = () => store.write(KEYS.contacts, contacts);
+  const dataKey = (base) => base + ':' + accountId;
+  const currentAccount = () => accounts.find((a) => a.id === accountId) || null;
+
+  let settings = Object.assign({}, DEFAULTS);
+  let events = [];
+  let contacts = [];
+
+  const saveSettings = () => store.write(dataKey(KEYS.settings), settings);
+  const saveEvents = () => store.write(dataKey(KEYS.events), events);
+  const saveContacts = () => store.write(dataKey(KEYS.contacts), contacts);
+  const saveAccounts = () => store.write(KEYS.accounts, accounts);
+
+  function loadAccountData() {
+    settings = Object.assign({}, DEFAULTS, store.read(dataKey(KEYS.settings), {}));
+    events = store.read(dataKey(KEYS.events), []);
+    contacts = store.read(dataKey(KEYS.contacts), []);
+  }
+
+  /** Data written before accounts existed becomes the guest profile. */
+  function migrateLegacyData() {
+    [KEYS.events, KEYS.contacts, KEYS.settings].forEach((base) => {
+      const legacy = store.read(base, null);
+      if (legacy === null) return;
+      if (store.read(base + ':' + GUEST, null) === null) store.write(base + ':' + GUEST, legacy);
+      store.remove(base);
+    });
+  }
 
   /* ====================================================================== */
   /* DOM helpers                                                            */
@@ -502,7 +611,12 @@
     'valAmp', 'valFreqMin', 'valFreqMax', 'valHold', 'valWindow', 'valHr', 'valSpo2',
     'btnResetThresholds', 'setBaseHr', 'setBaseSpo2',
     'setSound', 'setVibrate', 'setNotify', 'setGeo',
-    'btnExportJson', 'btnWipe', 'langPl', 'langEn'
+    'btnExportJson', 'btnWipe', 'langPl', 'langEn',
+    'authGate', 'gateLogin', 'gateRegister', 'loginForm', 'loginAccount', 'loginPin',
+    'loginPinField', 'loginError', 'registerForm', 'regName', 'regEmail', 'regPin', 'regPin2',
+    'registerError', 'toRegister', 'toLogin', 'loginAsGuest', 'registerAsGuest',
+    'accountPill', 'accountCard', 'accountKind', 'accountName', 'accountNote',
+    'btnSwitchAccount', 'btnLogout', 'btnDeleteAccount'
   ].forEach((id) => { el[id] = $(id); });
 
   function toast(message, kind) {
@@ -1583,6 +1697,7 @@
     renderHistory();
     renderContacts();
     renderSettings();
+    if (el.accountPill) renderAccount();
   }
 
   /* ====================================================================== */
@@ -1897,10 +2012,12 @@
   el.btnExportJson.addEventListener('click', exportJson);
   el.btnWipe.addEventListener('click', () => {
     if (!confirm(t('settings.confirmWipe'))) return;
-    Object.values(KEYS).forEach(store.remove);
+    // Only this profile's data — other accounts on the device are not touched.
+    [KEYS.events, KEYS.contacts, KEYS.settings].forEach((base) => store.remove(dataKey(base)));
     events = [];
     contacts = [];
     settings = Object.assign({}, DEFAULTS, { lang });
+    saveSettings();
     renderHistory();
     renderContacts();
     renderSettings();
@@ -1953,9 +2070,198 @@
   }
 
   /* ====================================================================== */
+  /* Accounts — local profiles, no server involved                          */
+  /* ====================================================================== */
+  const subtleCrypto = () => (window.crypto && window.crypto.subtle) || null;
+
+  function randomB64(bytes) {
+    const a = new Uint8Array(bytes);
+    (window.crypto || {}).getRandomValues ? window.crypto.getRandomValues(a) : a.forEach((_, i) => { a[i] = Math.floor(Math.random() * 256); });
+    return btoa(String.fromCharCode.apply(null, a));
+  }
+
+  /** PBKDF2-SHA256; null when the browser exposes no SubtleCrypto (file://). */
+  async function derivePin(pin, saltB64) {
+    const s = subtleCrypto();
+    if (!s) return null;
+    const salt = Uint8Array.from(atob(saltB64), (c) => c.charCodeAt(0));
+    const material = await s.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveBits']);
+    const bits = await s.deriveBits({ name: 'PBKDF2', salt, iterations: 120000, hash: 'SHA-256' }, material, 256);
+    return btoa(String.fromCharCode.apply(null, new Uint8Array(bits)));
+  }
+
+  function setSession(id) {
+    accountId = id;
+    store.write(KEYS.session, { accountId: id, since: new Date().toISOString() });
+    loadAccountData();
+    applyLanguage(settings.lang || lang);
+    showView('monitor');
+  }
+
+  function renderAccount() {
+    const account = currentAccount();
+    const guest = !account;
+    el.accountPill.textContent = guest ? t('account.guest') : account.name.split(' ')[0];
+    el.accountKind.textContent = guest ? t('account.kindGuest') : t('account.kindLocal');
+    el.accountName.textContent = guest ? t('account.guest') : account.name + (account.email ? ' · ' + account.email : '');
+    if (guest) {
+      el.accountNote.textContent = t('account.noteGuest');
+    } else if (!account.pin) {
+      el.accountNote.textContent = t('account.noteNoPin');
+    } else {
+      const session = store.read(KEYS.session, {});
+      const when = session.since ? new Date(session.since).toLocaleString(lang) : '—';
+      el.accountNote.textContent = t('account.noteUser', { when });
+    }
+    el.btnLogout.hidden = guest;
+    el.btnDeleteAccount.hidden = guest;
+  }
+
+  function openGate(mode) {
+    el.authGate.hidden = false;
+    const login = mode === 'login' && accounts.length > 0;
+    el.gateLogin.hidden = !login;
+    el.gateRegister.hidden = login;
+    el.loginError.hidden = true;
+    el.registerError.hidden = true;
+    if (login) {
+      el.loginAccount.innerHTML = accounts
+        .map((a) => `<option value="${escapeHtml(a.id)}">${escapeHtml(a.name)}</option>`).join('');
+      el.loginPin.value = '';
+      const first = accounts[0];
+      el.loginPinField.hidden = !(first && first.pin);
+      requestAnimationFrame(() => { try { el.loginPin.focus(); } catch (err) { /* ignore */ } });
+    } else {
+      el.registerForm.reset();
+      requestAnimationFrame(() => { try { el.regName.focus(); } catch (err) { /* ignore */ } });
+    }
+  }
+
+  function closeGate() {
+    el.authGate.hidden = true;
+  }
+
+  function showFormError(node, message) {
+    node.textContent = message;
+    node.hidden = false;
+  }
+
+  /** The work done before signing up should not be lost by signing up. */
+  function adoptGuestData(newId) {
+    [KEYS.events, KEYS.contacts, KEYS.settings].forEach((base) => {
+      const value = store.read(base + ':' + GUEST, null);
+      if (value === null) return;
+      store.write(base + ':' + newId, value);
+      store.remove(base + ':' + GUEST);
+    });
+  }
+
+  el.registerForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const name = el.regName.value.trim();
+    const pin = el.regPin.value;
+    const pin2 = el.regPin2.value;
+    if (!name) return showFormError(el.registerError, t('account.errName'));
+    if (pin.length < 4) return showFormError(el.registerError, t('account.errPin'));
+    if (pin !== pin2) return showFormError(el.registerError, t('account.errPinMatch'));
+    if (accounts.some((a) => a.name.toLowerCase() === name.toLowerCase())) {
+      return showFormError(el.registerError, t('account.errTaken'));
+    }
+
+    const salt = randomB64(16);
+    const hash = await derivePin(pin, salt);
+    if (!hash) toast(t('account.noCrypto'), 'warn');
+
+    const account = {
+      id: 'a' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      name,
+      email: el.regEmail.value.trim(),
+      salt,
+      pin: hash,
+      createdAt: new Date().toISOString()
+    };
+    const firstAccount = accounts.length === 0;
+    accounts.push(account);
+    saveAccounts();
+    if (firstAccount) adoptGuestData(account.id);
+
+    closeGate();
+    setSession(account.id);
+    renderAccount();
+    toast(t('account.created', { name: account.name }));
+  });
+
+  el.loginAccount.addEventListener('change', () => {
+    const account = accounts.find((a) => a.id === el.loginAccount.value);
+    el.loginPinField.hidden = !(account && account.pin);
+    el.loginError.hidden = true;
+  });
+
+  el.loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const account = accounts.find((a) => a.id === el.loginAccount.value);
+    if (!account) return;
+    if (account.pin) {
+      const hash = await derivePin(el.loginPin.value, account.salt);
+      if (hash !== account.pin) return showFormError(el.loginError, t('account.errWrongPin'));
+    }
+    closeGate();
+    setSession(account.id);
+    renderAccount();
+    toast(t('account.loggedIn', { name: account.name }));
+  });
+
+  const continueAsGuest = () => {
+    closeGate();
+    setSession(GUEST);
+    renderAccount();
+  };
+  el.loginAsGuest.addEventListener('click', continueAsGuest);
+  el.registerAsGuest.addEventListener('click', continueAsGuest);
+  el.toRegister.addEventListener('click', () => openGate('register'));
+  el.toLogin.addEventListener('click', () => openGate('login'));
+
+  el.accountPill.addEventListener('click', () => showView('settings'));
+  el.btnSwitchAccount.addEventListener('click', () => {
+    if (detector.running) stopMonitoring();
+    openGate(accounts.length ? 'login' : 'register');
+  });
+  el.btnLogout.addEventListener('click', () => {
+    if (detector.running) stopMonitoring();
+    store.remove(KEYS.session);
+    accountId = GUEST;
+    loadAccountData();
+    renderAccount();
+    toast(t('account.loggedOut'));
+    openGate(accounts.length ? 'login' : 'register');
+  });
+  el.btnDeleteAccount.addEventListener('click', () => {
+    const account = currentAccount();
+    if (!account) return toast(t('account.guestOnly'), 'warn');
+    if (!confirm(t('account.confirmDelete', { name: account.name }))) return;
+    [KEYS.events, KEYS.contacts, KEYS.settings].forEach((base) => store.remove(base + ':' + account.id));
+    accounts = accounts.filter((a) => a.id !== account.id);
+    saveAccounts();
+    store.remove(KEYS.session);
+    accountId = GUEST;
+    loadAccountData();
+    renderAccount();
+    renderHistory();
+    renderContacts();
+    toast(t('account.deleted'));
+    openGate(accounts.length ? 'login' : 'register');
+  });
+
+  /* ====================================================================== */
   /* Boot                                                                   */
   /* ====================================================================== */
   function boot() {
+    migrateLegacyData();
+    const session = store.read(KEYS.session, null);
+    const known = session && (session.accountId === GUEST || accounts.some((a) => a.id === session.accountId));
+    accountId = known ? session.accountId : GUEST;
+    loadAccountData();
+
     const params = new URLSearchParams(location.search);
     const requested = params.get('lang') || settings.lang
       || ((navigator.language || 'pl').toLowerCase().startsWith('pl') ? 'pl' : 'en');
@@ -1964,9 +2270,13 @@
 
     el.appVersion.textContent = 'v' + VERSION;
     applyLanguage(settings.lang);
+    renderAccount();
     showView(location.hash.slice(1) || 'monitor');
     initBattery();
     renderLive();
+    // A returning visitor lands where they left off; everyone else is asked
+    // whether to create an account, sign in, or carry on as a guest.
+    if (!known) openGate(accounts.length ? 'login' : 'register');
     rafId = requestAnimationFrame(frame);
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {

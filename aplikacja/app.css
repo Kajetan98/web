@@ -304,13 +304,15 @@ hr{ border: 0; border-top: 1px solid var(--line); margin: 4px 0; width: 100%; }
 /* ================================ Forms ================================ */
 .form{ gap: 12px; }
 .field{ display: flex; flex-direction: column; gap: 5px; }
-.field-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.field-row{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 label{ font-size: 0.76rem; color: var(--muted); }
-input[type="text"], input[type="tel"], input[type="number"]{
+input[type="text"], input[type="tel"], input[type="number"],
+input[type="email"], input[type="password"]{
   background: var(--app-bg); border: 1px solid var(--line); border-radius: 9px;
   padding: 10px 11px; color: var(--text); font: inherit; font-size: 0.86rem; width: 100%;
 }
-input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus{
+input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus,
+input[type="email"]:focus, input[type="password"]:focus{
   outline: none; border-color: rgba(79,209,139,0.6);
 }
 .check{
@@ -410,6 +412,36 @@ input[type="range"]{ width: 100%; accent-color: var(--red); }
 .key-acc{ background: #7aa2ff; }
 .key-hr{ background: var(--red-bright); }
 .key-spo2{ background: var(--ok); }
+
+/* ============================ Account gate ============================= */
+.gate{ align-items: center; z-index: 60; }
+.gate .overlay-inner{ max-width: 440px; gap: 14px; }
+.gate-brand{ display: flex; align-items: center; gap: 10px; }
+.gate-brand img{ width: 62px; height: auto; filter: brightness(0) invert(1); opacity: 0.92; }
+.gate-brand span{
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+.gate h2{ font-size: 1.2rem; }
+.gate .form{ gap: 12px; margin-top: 4px; }
+.gate-links{ display: flex; flex-wrap: wrap; gap: 14px; padding-top: 2px; }
+.gate-foot{
+  font-size: 0.7rem; line-height: 1.55; color: var(--muted);
+  border-top: 1px solid var(--line); padding-top: 12px;
+}
+.linklike{
+  background: none; border: 0; padding: 0; font-size: 0.78rem; color: var(--text);
+  border-bottom: 1px solid var(--line);
+}
+.linklike:hover{ border-bottom-color: var(--text); }
+.form-error{ font-size: 0.76rem; color: #ff8b88; }
+.form-error[hidden]{ display: none; }
+select{
+  background: var(--app-bg); border: 1px solid var(--line); border-radius: 9px;
+  padding: 10px 11px; color: var(--text); font: inherit; font-size: 0.86rem; width: 100%;
+}
+#accountPill{ cursor: pointer; }
+#accountPill:hover{ color: var(--text); border-color: var(--text); }
+.account-name{ font-size: 1.05rem; font-weight: 700; }
 
 /* ================================ Toasts =============================== */
 .toasts{

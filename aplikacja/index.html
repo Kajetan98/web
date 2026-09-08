@@ -30,6 +30,7 @@
     </div>
     <div class="header-right">
       <span class="pill" id="linkPill" data-state="off"><span class="pill-dot"></span><span id="linkLabel" data-i18n="header.offline">Urządzenie: symulacja</span></span>
+      <button type="button" class="pill" id="accountPill" data-i18n="account.guest">Gość</button>
       <span class="pill mono" id="batteryPill">— %</span>
       <a class="exit mono" href="../epi.html#epi-aplikacja" id="exitLink" data-i18n="header.exit">Wyjdź</a>
     </div>
@@ -199,6 +200,20 @@
         <span class="mono" id="appVersion">v—</span>
       </div>
 
+      <div class="card" id="accountCard">
+        <div class="card-head">
+          <h2 data-i18n="account.title">Konto</h2>
+          <span class="chip mono" id="accountKind">—</span>
+        </div>
+        <p class="account-name" id="accountName">—</p>
+        <p class="card-note" id="accountNote">—</p>
+        <div class="demo-actions">
+          <button type="button" class="btn btn-ghost" id="btnSwitchAccount" data-i18n="account.switch">Przełącz konto</button>
+          <button type="button" class="btn btn-ghost" id="btnLogout" data-i18n="account.logout">Wyloguj</button>
+          <button type="button" class="btn btn-ghost danger" id="btnDeleteAccount" data-i18n="account.delete">Usuń konto</button>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-head"><h2 data-i18n="settings.sources">Źródła danych</h2></div>
         <label class="check"><input type="checkbox" id="setMotion"><span data-i18n="settings.useMotion">Używaj akcelerometru urządzenia</span></label>
@@ -341,6 +356,71 @@
         <button type="button" class="btn btn-ghost" id="btnSheetCsv" data-i18n="sheet.csv">Eksport przebiegu CSV</button>
         <button type="button" class="btn btn-ghost danger" id="btnSheetDelete" data-i18n="sheet.delete">Usuń zdarzenie</button>
       </div>
+    </div>
+  </div>
+
+  <div class="overlay gate" id="authGate" hidden role="dialog" aria-labelledby="gateTitle" aria-modal="true">
+    <div class="overlay-inner">
+      <div class="gate-brand">
+        <img src="../assets/img/epi-logo.png" alt="EPI" width="532" height="216">
+        <span class="mono" data-i18n="account.tagline">konto na tym urządzeniu</span>
+      </div>
+
+      <!-- logowanie -->
+      <div id="gateLogin" hidden>
+        <h2 id="gateTitle" data-i18n="account.loginTitle">Zaloguj się</h2>
+        <p class="card-note" data-i18n="account.loginNote">Wybierz konto i podaj PIN. Dane każdego konta są trzymane osobno.</p>
+        <form class="form" id="loginForm">
+          <div class="field">
+            <label for="loginAccount" data-i18n="account.account">Konto</label>
+            <select id="loginAccount"></select>
+          </div>
+          <div class="field" id="loginPinField">
+            <label for="loginPin" data-i18n="account.pin">PIN</label>
+            <input type="password" id="loginPin" inputmode="numeric" autocomplete="current-password" maxlength="12">
+          </div>
+          <p class="form-error" id="loginError" hidden></p>
+          <button type="submit" class="btn btn-primary" data-i18n="account.login">Zaloguj</button>
+        </form>
+        <div class="gate-links">
+          <button type="button" class="linklike" id="toRegister" data-i18n="account.toRegister">Załóż nowe konto</button>
+          <button type="button" class="linklike" id="loginAsGuest" data-i18n="account.guestMode">Korzystaj bez konta</button>
+        </div>
+      </div>
+
+      <!-- rejestracja -->
+      <div id="gateRegister" hidden>
+        <h2 data-i18n="account.registerTitle">Załóż konto</h2>
+        <p class="card-note" data-i18n="account.registerNote">Konto powstaje wyłącznie na tym urządzeniu — nic nie jest wysyłane na serwer. PIN chroni dostęp do historii napadów i kontaktów.</p>
+        <form class="form" id="registerForm">
+          <div class="field">
+            <label for="regName" data-i18n="account.name">Imię i nazwisko</label>
+            <input type="text" id="regName" required maxlength="60" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="regEmail" data-i18n="account.email">E-mail (opcjonalnie)</label>
+            <input type="email" id="regEmail" maxlength="120" autocomplete="email">
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="regPin" data-i18n="account.pinNew">PIN (min. 4 cyfry)</label>
+              <input type="password" id="regPin" inputmode="numeric" autocomplete="new-password" maxlength="12">
+            </div>
+            <div class="field">
+              <label for="regPin2" data-i18n="account.pinRepeat">Powtórz PIN</label>
+              <input type="password" id="regPin2" inputmode="numeric" autocomplete="new-password" maxlength="12">
+            </div>
+          </div>
+          <p class="form-error" id="registerError" hidden></p>
+          <button type="submit" class="btn btn-primary" data-i18n="account.create">Załóż konto</button>
+        </form>
+        <div class="gate-links">
+          <button type="button" class="linklike" id="toLogin" data-i18n="account.toLogin">Mam już konto</button>
+          <button type="button" class="linklike" id="registerAsGuest" data-i18n="account.guestMode">Korzystaj bez konta</button>
+        </div>
+      </div>
+
+      <p class="gate-foot" data-i18n="account.privacy">Konta i dane medyczne pozostają w pamięci tej przeglądarki. Wyczyszczenie danych witryny usuwa je bezpowrotnie.</p>
     </div>
   </div>
 

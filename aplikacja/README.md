@@ -70,10 +70,28 @@ potwierdzenia 15 s, wzrost tętna 35%, spadek SpO₂ 4 pp) pochodzą z wartości
 orientacyjnych i wymagają kalibracji na danych rzeczywistych. Wszystkie są
 edytowalne w zakładce Ustawienia.
 
+## Konta
+
+Aplikacja prowadzi konta lokalne: przy pierwszym wejściu proponuje rejestrację,
+logowanie na istniejące konto albo pracę bez konta. Konto to wpis w
+`epi.v1.accounts` z nazwą, opcjonalnym adresem e-mail, losową solą i skrótem
+PIN-u (PBKDF2-SHA256, 120 000 iteracji) — sam PIN nigdy nie jest zapisywany.
+Zalogowane konto zapamiętuje `epi.v1.session`.
+
+Dane każdego konta trzymane są pod osobnym kluczem z sufiksem identyfikatora,
+więc kilka osób może korzystać z jednej przeglądarki bez mieszania historii.
+Praca bez konta to profil `guest`. Zapisy sprzed wprowadzenia kont trafiają do
+profilu gościa, a przy zakładaniu pierwszego konta przechodzą na nie.
+
+Nie jest to konto serwerowe: nic nie jest wysyłane ani synchronizowane między
+urządzeniami, a PIN chroni wyłącznie przed zajrzeniem do danych na tym samym
+urządzeniu. Na `file://` przeglądarka nie udostępnia Web Crypto — konto
+powstaje wtedy bez PIN-u, o czym aplikacja informuje.
+
 ## Dane
 
 Zdarzenia, kontakty i ustawienia trzymane są w `localStorage` pod kluczami
-`epi.v1.events`, `epi.v1.contacts`, `epi.v1.settings`. Każde zdarzenie zapisuje
+`epi.v1.events:<konto>`, `epi.v1.contacts:<konto>`, `epi.v1.settings:<konto>`. Każde zdarzenie zapisuje
 przebieg sygnału w oknie −30 s / +60 s (4 Hz: amplituda ruchu, tętno, SpO₂),
 szczytowe tętno, najniższe SpO₂ i czas trwania drgań. Historia trzyma 60
 ostatnich zdarzeń.
