@@ -1,0 +1,17 @@
+{
+  "name": "EPI — detektor napadów padaczkowych",
+  "short_name": "EPI",
+  "description": "Prototyp aplikacji monitorującej: detekcja napadów, historia zdarzeń i kontakty alarmowe.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#171d2b",
+  "theme_color": "#171d2b",
+  "lang": "pl",
+  "icons": [
+    { "src": "../assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "../assets/img/Logo_Epi.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
+    { "src": "../assets/img/Logo_Epi.png", "sizes": "1024x1024", "type": "image/png", "purpose": "maskable" }
+  ]
+}

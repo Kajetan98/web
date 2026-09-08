@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>EPI — aplikacja monitorująca | SPACER</title>
+<meta name="description" content="Aplikacja EPI: detekcja napadów padaczkowych w czasie rzeczywistym, historia zdarzeń, kontakty alarmowe i eksport danych.">
+<meta name="theme-color" content="#171d2b">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="EPI">
+<link rel="preload" href="../assets/fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="app-header">
+    <div class="brand">
+      <img src="../assets/img/epi-logo.png" alt="EPI" width="532" height="216">
+      <span class="mono" data-i18n="header.tag">prototyp</span>
+    </div>
+    <div class="header-right">
+      <span class="pill" id="linkPill" data-state="off"><span class="pill-dot"></span><span id="linkLabel" data-i18n="header.offline">Urządzenie: symulacja</span></span>
+      <span class="pill mono" id="batteryPill">— %</span>
+      <a class="exit mono" href="../projekty.html#epi-aplikacja" id="exitLink" data-i18n="header.exit">Wyjdź</a>
+    </div>
+  </header>
+
+  <main class="app-main" id="appMain">
+
+    <!-- ============================ MONITORING ============================ -->
+    <section class="view" id="view-monitor" aria-labelledby="monitorTitle">
+      <h1 class="sr-only" id="monitorTitle" data-i18n="monitor.title">Monitorowanie</h1>
+
+      <div class="state-card" id="stateCard" data-state="off">
+        <div class="state-head">
+          <span class="state-dot" aria-hidden="true"></span>
+          <div>
+            <p class="state-name" id="stateName" data-i18n="state.off.name">Monitorowanie wstrzymane</p>
+            <p class="state-note" id="stateNote" data-i18n="state.off.note">Uruchom detekcję, aby aplikacja zaczęła analizować ruch i tętno.</p>
+          </div>
+        </div>
+        <div class="state-actions">
+          <button type="button" class="btn btn-primary" id="btnRun" data-i18n="monitor.start">Uruchom monitorowanie</button>
+          <button type="button" class="btn btn-ghost" id="btnConnect" data-i18n="monitor.connect">Połącz czujnik BLE</button>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-label" data-i18n="metric.hr">Tętno</span>
+          <span class="metric-value"><b id="mHr">—</b><small>bpm</small></span>
+          <span class="metric-sub" id="mHrBase">—</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">SpO₂</span>
+          <span class="metric-value"><b id="mSpo2">—</b><small>%</small></span>
+          <span class="metric-sub" id="mSpo2Base">—</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label" data-i18n="metric.amp">Amplituda ruchu</span>
+          <span class="metric-value"><b id="mAmp">—</b><small>m/s²</small></span>
+          <span class="metric-sub" id="mAmpThr">—</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label" data-i18n="metric.freq">Rytm drgań</span>
+          <span class="metric-value"><b id="mFreq">—</b><small>Hz</small></span>
+          <span class="metric-sub" id="mFreqThr">—</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2 data-i18n="chart.ppg">Sygnał PPG</h2>
+          <span class="chip mono" id="ppgChip">—</span>
+        </div>
+        <canvas id="ppgChart" width="600" height="120" role="img" aria-label="Wykres sygnału PPG"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2 data-i18n="chart.motion">Akcelerometr</h2>
+          <span class="chip mono" id="motionChip">—</span>
+        </div>
+        <canvas id="motionChart" width="600" height="120" role="img" aria-label="Wykres amplitudy ruchu"></canvas>
+        <p class="card-note" id="motionNote" data-i18n="chart.motionNote">Czerwona linia to próg amplitudy, przy którym uruchamia się analiza rytmu drgań.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2 data-i18n="fusion.title">Kryteria fuzji</h2></div>
+        <ul class="criteria" id="criteria">
+          <li data-key="motion"><span class="crit-mark" aria-hidden="true"></span><span class="crit-name" data-i18n="fusion.motion">Rytmiczne drgania w paśmie napadowym</span><span class="crit-val mono" id="critMotion">—</span></li>
+          <li data-key="hr"><span class="crit-mark" aria-hidden="true"></span><span class="crit-name" data-i18n="fusion.hr">Wzrost tętna względem linii bazowej</span><span class="crit-val mono" id="critHr">—</span></li>
+          <li data-key="spo2"><span class="crit-mark" aria-hidden="true"></span><span class="crit-name" data-i18n="fusion.spo2">Spadek SpO₂ względem linii bazowej</span><span class="crit-val mono" id="critSpo2">—</span></li>
+        </ul>
+        <p class="card-note" id="fusionNote" data-i18n="fusion.note">Alarm wymaga kryterium ruchowego i co najmniej jednego biometrycznego — to odróżnia napad od wysiłku fizycznego.</p>
+      </div>
+
+      <div class="card demo">
+        <div class="card-head">
+          <h2 data-i18n="demo.title">Tryb demonstracyjny</h2>
+          <span class="chip mono" data-i18n="demo.chip">bez sprzętu</span>
+        </div>
+        <p class="card-note" data-i18n="demo.note">Wstrzykuje sygnał do tego samego toru analizy, którym płyną dane z czujników — automat detekcji działa na nim bez żadnych ułatwień.</p>
+        <div class="demo-actions">
+          <button type="button" class="btn btn-ghost" id="btnSimSeizure" data-i18n="demo.seizure">Symuluj napad</button>
+          <button type="button" class="btn btn-ghost" id="btnSimActivity" data-i18n="demo.activity">Symuluj bieg</button>
+          <button type="button" class="btn btn-ghost" id="btnSimStop" data-i18n="demo.stop">Przerwij</button>
+        </div>
+      </div>
+
+      <button type="button" class="sos" id="btnSos">
+        <span class="sos-label" id="sosLabel">SOS</span>
+        <span class="sos-note mono" id="sosNote" data-i18n="sos.note">przytrzymaj 1 s</span>
+      </button>
+    </section>
+
+    <!-- ============================= HISTORIA ============================= -->
+    <section class="view" id="view-history" hidden aria-labelledby="historyTitle">
+      <div class="view-head">
+        <h1 id="historyTitle" data-i18n="history.title">Historia zdarzeń</h1>
+        <span class="mono" id="historyCount">0</span>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="btn btn-ghost" id="btnExportCsv" data-i18n="history.csv">Eksport CSV</button>
+        <button type="button" class="btn btn-ghost" id="btnExportPdf" data-i18n="history.pdf">Raport PDF</button>
+        <button type="button" class="btn btn-ghost danger" id="btnClearHistory" data-i18n="history.clear">Wyczyść</button>
+      </div>
+      <ul class="events" id="eventList"></ul>
+      <p class="empty" id="historyEmpty" data-i18n="history.empty">Brak zapisanych zdarzeń. Każde wykrycie, anulowanie i odrzucenie trafi tutaj razem z przebiegiem sygnału.</p>
+    </section>
+
+    <!-- ============================= KONTAKTY ============================= -->
+    <section class="view" id="view-contacts" hidden aria-labelledby="contactsTitle">
+      <div class="view-head">
+        <h1 id="contactsTitle" data-i18n="contacts.title">Kontakty alarmowe</h1>
+        <span class="mono" id="contactsCount">0</span>
+      </div>
+      <p class="view-lead" data-i18n="contacts.lead">Osoby powiadamiane po potwierdzeniu napadu. Aplikacja przygotowuje treść wiadomości z czasem zdarzenia i parametrami — wysyłkę potwierdzasz w telefonie.</p>
+
+      <ul class="contacts" id="contactList"></ul>
+      <p class="empty" id="contactsEmpty" data-i18n="contacts.empty">Nie dodano jeszcze żadnego kontaktu.</p>
+
+      <form class="form card" id="contactForm">
+        <h2 data-i18n="contacts.add">Dodaj kontakt</h2>
+        <div class="field">
+          <label for="cName" data-i18n="contacts.name">Imię i nazwisko</label>
+          <input type="text" id="cName" name="name" required maxlength="60" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="cRelation" data-i18n="contacts.relation">Relacja</label>
+          <input type="text" id="cRelation" name="relation" maxlength="40" placeholder="np. matka, opiekun">
+        </div>
+        <div class="field">
+          <label for="cPhone" data-i18n="contacts.phone">Telefon</label>
+          <input type="tel" id="cPhone" name="phone" required maxlength="24" autocomplete="tel" placeholder="+48 600 000 000">
+        </div>
+        <label class="check"><input type="checkbox" id="cNotify" checked><span data-i18n="contacts.notify">Powiadamiaj przy alarmie</span></label>
+        <button type="submit" class="btn btn-primary" id="contactSubmit" data-i18n="contacts.save">Zapisz kontakt</button>
+        <button type="button" class="btn btn-ghost" id="contactCancel" hidden data-i18n="contacts.cancelEdit">Anuluj edycję</button>
+      </form>
+    </section>
+
+    <!-- ============================ USTAWIENIA ============================ -->
+    <section class="view" id="view-settings" hidden aria-labelledby="settingsTitle">
+      <div class="view-head">
+        <h1 id="settingsTitle" data-i18n="settings.title">Ustawienia</h1>
+        <span class="mono" id="appVersion">v—</span>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2 data-i18n="settings.sources">Źródła danych</h2></div>
+        <label class="check"><input type="checkbox" id="setMotion"><span data-i18n="settings.useMotion">Używaj akcelerometru urządzenia</span></label>
+        <p class="card-note" id="motionSupport" data-i18n="settings.motionNote">Na telefonie aplikacja analizuje realny sygnał ruchu. Na komputerze bez akcelerometru automatycznie działa symulator.</p>
+        <button type="button" class="btn btn-ghost" id="btnMotionPerm" data-i18n="settings.motionPerm">Poproś o dostęp do czujnika ruchu</button>
+        <hr>
+        <p class="card-note" id="bleSupport"></p>
+        <button type="button" class="btn btn-ghost" id="btnBle" data-i18n="settings.ble">Połącz pulsometr / pulsoksymetr BLE</button>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2 data-i18n="settings.thresholds">Progi detekcji</h2></div>
+        <div class="range">
+          <label for="setAmp"><span data-i18n="settings.amp">Minimalna amplituda drgań</span><b class="mono"><span id="valAmp">—</span> m/s²</b></label>
+          <input type="range" id="setAmp" min="0.5" max="8" step="0.1">
+        </div>
+        <div class="range">
+          <label for="setFreqMin"><span data-i18n="settings.freqMin">Dolna granica pasma</span><b class="mono"><span id="valFreqMin">—</span> Hz</b></label>
+          <input type="range" id="setFreqMin" min="1" max="5" step="0.1">
+        </div>
+        <div class="range">
+          <label for="setFreqMax"><span data-i18n="settings.freqMax">Górna granica pasma</span><b class="mono"><span id="valFreqMax">—</span> Hz</b></label>
+          <input type="range" id="setFreqMax" min="3" max="10" step="0.1">
+        </div>
+        <div class="range">
+          <label for="setHold"><span data-i18n="settings.hold">Czas utrzymania wzorca (SUSPECT)</span><b class="mono"><span id="valHold">—</span> s</b></label>
+          <input type="range" id="setHold" min="1" max="10" step="1">
+        </div>
+        <div class="range">
+          <label for="setWindow"><span data-i18n="settings.window">Okno potwierdzenia</span><b class="mono"><span id="valWindow">—</span> s</b></label>
+          <input type="range" id="setWindow" min="5" max="60" step="1">
+        </div>
+        <div class="range">
+          <label for="setHr"><span data-i18n="settings.hr">Wzrost tętna ponad linię bazową</span><b class="mono">+<span id="valHr">—</span> %</b></label>
+          <input type="range" id="setHr" min="10" max="80" step="1">
+        </div>
+        <div class="range">
+          <label for="setSpo2"><span data-i18n="settings.spo2">Spadek SpO₂ poniżej linii bazowej</span><b class="mono">−<span id="valSpo2">—</span> pp</b></label>
+          <input type="range" id="setSpo2" min="1" max="10" step="1">
+        </div>
+        <label class="check"><input type="checkbox" id="setBoth"><span data-i18n="settings.both">Wymagaj obu kryteriów biometrycznych naraz</span></label>
+        <button type="button" class="btn btn-ghost" id="btnResetThresholds" data-i18n="settings.reset">Przywróć wartości domyślne</button>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2 data-i18n="settings.baseline">Linia bazowa</h2></div>
+        <p class="card-note" data-i18n="settings.baselineNote">Aktualizowana automatycznie w stanie spoczynku; wartości można też ustawić ręcznie.</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="setBaseHr" data-i18n="settings.baseHr">Tętno spoczynkowe (bpm)</label>
+            <input type="number" id="setBaseHr" min="35" max="120" step="1">
+          </div>
+          <div class="field">
+            <label for="setBaseSpo2" data-i18n="settings.baseSpo2">SpO₂ spoczynkowe (%)</label>
+            <input type="number" id="setBaseSpo2" min="88" max="100" step="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2 data-i18n="settings.alarm">Alarm</h2></div>
+        <label class="check"><input type="checkbox" id="setSound"><span data-i18n="settings.sound">Sygnał dźwiękowy</span></label>
+        <label class="check"><input type="checkbox" id="setVibrate"><span data-i18n="settings.vibrate">Wibracja</span></label>
+        <label class="check"><input type="checkbox" id="setNotify"><span data-i18n="settings.notif">Powiadomienia systemowe</span></label>
+        <label class="check"><input type="checkbox" id="setGeo"><span data-i18n="settings.geo">Dołącz lokalizację do wiadomości</span></label>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2 data-i18n="settings.data">Dane</h2></div>
+        <p class="card-note" id="storageInfo">—</p>
+        <div class="demo-actions">
+          <button type="button" class="btn btn-ghost" id="btnExportJson" data-i18n="settings.exportJson">Eksport JSON</button>
+          <button type="button" class="btn btn-ghost danger" id="btnWipe" data-i18n="settings.wipe">Usuń wszystkie dane</button>
+        </div>
+        <hr>
+        <div class="lang-row">
+          <span data-i18n="settings.lang">Język</span>
+          <div class="lang-switch mono">
+            <button type="button" id="langPl" data-lang="pl">PL</button>
+            <span aria-hidden="true">/</span>
+            <button type="button" id="langEn" data-lang="en">EN</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="disclaimer" data-i18n="settings.disclaimer">Prototyp badawczy na poziomie TRL 2→3. Nie jest wyrobem medycznym, nie zastępuje opieki lekarskiej i nie może być jedynym zabezpieczeniem osoby z padaczką. Progi detekcji wymagają kalibracji na danych rzeczywistych.</p>
+    </section>
+
+  </main>
+
+  <nav class="tabbar" id="tabbar">
+    <button type="button" class="tab" data-view="monitor" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-7 4 14L16 12h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-i18n="tab.monitor">Monitoring</span>
+    </button>
+    <button type="button" class="tab" data-view="history">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span data-i18n="tab.history">Historia</span>
+    </button>
+    <button type="button" class="tab" data-view="contacts">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span data-i18n="tab.contacts">Kontakty</span>
+    </button>
+    <button type="button" class="tab" data-view="settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2 5.6 5.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span data-i18n="tab.settings">Ustawienia</span>
+    </button>
+  </nav>
+
+  <!-- ============================== ALARM ============================== -->
+  <div class="overlay" id="alarmOverlay" hidden role="alertdialog" aria-labelledby="alarmTitle" aria-modal="true">
+    <div class="overlay-inner">
+      <p class="alarm-state mono" id="alarmState">—</p>
+      <h2 id="alarmTitle">—</h2>
+      <div class="alarm-count" id="alarmCountWrap"><b id="alarmCount">—</b><small id="alarmCountNote" data-i18n="alarm.countNote">s do powiadomienia</small></div>
+      <ul class="alarm-triggers" id="alarmTriggers"></ul>
+      <div class="alarm-contacts" id="alarmContacts" hidden></div>
+      <p class="alarm-note" id="alarmNote">—</p>
+      <div class="alarm-actions">
+        <button type="button" class="btn btn-light" id="btnAlarmCancel" data-i18n="alarm.cancel">To fałszywy alarm — anuluj</button>
+        <button type="button" class="btn btn-ghost" id="btnAlarmClose" hidden data-i18n="alarm.close">Zamknij</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================== SZCZEGÓŁ ZDARZENIA =========================== -->
+  <div class="overlay sheet" id="eventSheet" hidden role="dialog" aria-labelledby="sheetTitle" aria-modal="true">
+    <div class="overlay-inner">
+      <button type="button" class="sheet-close" id="sheetClose" aria-label="Zamknij">✕</button>
+      <p class="mono sheet-when" id="sheetWhen">—</p>
+      <h2 id="sheetTitle">—</h2>
+      <dl class="sheet-facts" id="sheetFacts"></dl>
+      <div class="card">
+        <div class="card-head"><h3 data-i18n="sheet.window">Zapis zdarzenia (−30 s / +60 s)</h3></div>
+        <canvas id="sheetChart" width="600" height="150" role="img"></canvas>
+        <p class="card-note"><span class="key key-acc"></span><span data-i18n="sheet.legendAcc">amplituda ruchu</span> · <span class="key key-hr"></span><span data-i18n="sheet.legendHr">tętno</span> · <span class="key key-spo2"></span>SpO₂</p>
+      </div>
+      <div class="demo-actions">
+        <button type="button" class="btn btn-ghost" id="btnSheetCsv" data-i18n="sheet.csv">Eksport przebiegu CSV</button>
+        <button type="button" class="btn btn-ghost danger" id="btnSheetDelete" data-i18n="sheet.delete">Usuń zdarzenie</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <div class="print-only" id="printReport"></div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
