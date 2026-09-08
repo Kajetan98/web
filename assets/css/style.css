@@ -272,6 +272,85 @@ button{ font-family: inherit; }
 .note-band p{ margin: 0; font-size: 0.9rem; }
 
 /* ==========================================================================
+   Project detail — one block per project, for a short portfolio where each
+   entry carries its own brand, specification and materials.
+   ========================================================================== */
+.project-detail{ padding: 76px 0; border-top: 1px solid var(--border); }
+.project-detail:first-of-type{ border-top: none; padding-top: 24px; }
+
+.project-detail-head{
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap; margin-bottom: 32px;
+}
+.project-logo{ height: 42px; width: auto; }
+.project-wordmark{
+  font-size: 1.9rem; font-weight: 700; letter-spacing: 0.08em;
+  line-height: 1; color: var(--navy);
+}
+.project-detail h2{ font-size: clamp(1.6rem, 3.2vw, 2.4rem); max-width: 20ch; }
+.project-detail .lead{
+  font-size: 1.12rem; line-height: 1.6; color: var(--navy);
+  max-width: 60ch; margin-bottom: 40px;
+}
+
+.project-cols{
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 56px; align-items: start;
+}
+.project-cols h3{
+  font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--red);
+  margin-bottom: 16px;
+}
+.project-cols p{ font-size: 0.98rem; line-height: 1.7; max-width: 58ch; }
+
+.project-facts{ margin: 0; display: flex; flex-direction: column; }
+.project-facts > div{
+  display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 20px; padding: 14px 0; border-top: 1px solid var(--border);
+}
+.project-facts > div:last-child{ border-bottom: 1px solid var(--border); }
+.project-facts dt{
+  font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted); margin: 0;
+}
+.project-facts dd{ margin: 0; font-size: 0.92rem; font-weight: 600; }
+
+.project-media{ margin: 48px 0 0; }
+.project-media img{
+  width: 100%; max-width: 520px; height: auto;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--cream-2);
+}
+.project-media figcaption{
+  margin-top: 12px; font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted);
+}
+
+.doc-link{
+  display: inline-flex; align-items: center; gap: 12px; margin-top: 36px;
+  padding: 16px 22px; border: 1px solid var(--border); border-radius: var(--radius);
+  transition: border-color .2s ease, background .2s ease;
+}
+.doc-link:hover{ border-color: var(--red); background: rgba(211,34,30,0.03); }
+.doc-link svg{ width: 20px; height: 20px; color: var(--red); flex: none; }
+.doc-link .doc-name{ font-weight: 600; font-size: 0.95rem; display: block; }
+.doc-link .doc-meta{
+  font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+
+/* A slot waiting for artwork reads as intentional, not as a broken image. */
+.asset-slot{
+  display: flex; align-items: center; justify-content: center;
+  min-height: 150px; padding: 24px;
+  border: 1px dashed var(--border); border-radius: var(--radius);
+  font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted); text-align: center;
+  max-width: 520px;
+}
+
+/* ==========================================================================
    Long-form prose (article body, about narrative)
    ========================================================================== */
 .prose{ max-width: 65ch; }
@@ -601,6 +680,7 @@ a.post-row:hover h3{ color: var(--red); }
 @media (max-width: 980px){
   .project-row{ grid-template-columns: 48px minmax(0, 1fr) auto; }
   .project-meta{ grid-column: 2 / 3; flex-direction: row; flex-wrap: wrap; gap: 10px 28px; }
+  .project-cols{ grid-template-columns: 1fr; gap: 40px; }
   .principle, .team-row{ grid-template-columns: 48px minmax(0, 1fr); }
   .principle p, .team-row p{ grid-column: 2 / 3; }
   .team-row .team-avatar{ width: 48px; height: 48px; font-size: 0.85rem; }
@@ -620,6 +700,8 @@ a.post-row:hover h3{ color: var(--red); }
   .project-row{ grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
   .project-meta{ grid-column: auto; }
   .project-status{ justify-self: start; }
+  .project-detail{ padding: 56px 0; }
+  .project-facts > div{ grid-template-columns: 1fr; gap: 4px; }
   .principle, .team-row{ grid-template-columns: 1fr; gap: 12px; padding: 26px 0; }
   .principle p, .team-row p{ grid-column: auto; }
   .post-row{ grid-template-columns: 1fr; gap: 10px; padding: 24px 0; }

@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projekty — SPACER</title>
-<meta name="description" content="Projekty SPACER: monitoring biometryczny, telemedycyna i badania fizjologii człowieka w środowiskach ekstremalnych.">
+<meta name="description" content="Projekty SPACER: AURORA — wielomodalna diagnostyka hemodynamiki mózgu, oraz EPI — wearable do wykrywania napadów padaczkowych.">
 <meta name="theme-color" content="#1b212f">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SPACER">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:title" content="Projekty — SPACER">
-<meta property="og:description" content="Monitoring biometryczny, telemedycyna i badania fizjologii człowieka w środowiskach ekstremalnych.">
+<meta property="og:description" content="AURORA — wielomodalna diagnostyka hemodynamiki mózgu. EPI — wearable do wykrywania napadów padaczkowych.">
 <meta property="og:image" content="assets/img/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Projekty — SPACER">
-<meta name="twitter:description" content="Monitoring biometryczny, telemedycyna i badania fizjologii człowieka w środowiskach ekstremalnych.">
+<meta name="twitter:description" content="AURORA — wielomodalna diagnostyka hemodynamiki mózgu. EPI — wearable do wykrywania napadów padaczkowych.">
 <meta name="twitter:image" content="assets/img/og-image.png">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="assets/img/favicon-16.png" sizes="16x16" type="image/png">
@@ -84,80 +84,159 @@
 
   <section class="section">
     <div class="container">
-      <ol class="project-list">
 
-        <li class="project-row">
-          <span class="project-num">01</span>
-          <div class="project-main">
-            <h3>Monitoring załogi w habitacie analogowym</h3>
-            <p>
-              Ciągły pomiar parametrów życiowych czteroosobowej załogi podczas symulowanej misji
-              w izolacji. Zbieramy dane bazowe potrzebne do kalibracji progów alertowych.
-            </p>
-          </div>
-          <div class="project-meta">
-            <div><span class="m-label">Środowisko</span><span class="m-value">Habitat analogowy</span></div>
-            <div><span class="m-label">Zakres</span><span class="m-value">Biosensory + analiza</span></div>
-          </div>
-          <span class="project-status status-active">W toku</span>
-        </li>
+      <!-- AURORA -->
+      <article class="project-detail" id="aurora">
+        <div class="project-detail-head">
+          <span class="project-wordmark">AURORA</span>
+          <span class="project-status status-active">Gotowy do walidacji</span>
+        </div>
 
-        <li class="project-row">
-          <span class="project-num">02</span>
-          <div class="project-main">
-            <h3>Walidacja czujników w mikrograwitacji</h3>
-            <p>
-              Testy dokładności pomiaru saturacji i tętna w warunkach zmiennej grawitacji.
-              Celem jest korekta odczytów, które na Ziemi zakładają stały rozkład płynów w ciele.
-            </p>
-          </div>
-          <div class="project-meta">
-            <div><span class="m-label">Środowisko</span><span class="m-value">Lot paraboliczny</span></div>
-            <div><span class="m-label">Zakres</span><span class="m-value">Walidacja sprzętu</span></div>
-          </div>
-          <span class="project-status status-active">W toku</span>
-        </li>
-
-        <li class="project-row">
-          <span class="project-num">03</span>
-          <div class="project-main">
-            <h3>Konsola telemedyczna dla stacji polarnej</h3>
-            <p>
-              Wdrożenie pulpitu konsultacyjnego działającego przy przerywanej łączności satelitarnej,
-              z buforowaniem danych i kolejkowaniem konsultacji.
-            </p>
-          </div>
-          <div class="project-meta">
-            <div><span class="m-label">Środowisko</span><span class="m-value">Stacja polarna</span></div>
-            <div><span class="m-label">Zakres</span><span class="m-value">Telemedycyna</span></div>
-          </div>
-          <span class="project-status status-done">Zakończony</span>
-        </li>
-
-        <li class="project-row">
-          <span class="project-num">04</span>
-          <div class="project-main">
-            <h3>Dozymetria indywidualna dla długich misji</h3>
-            <p>
-              Powiązanie ekspozycji na promieniowanie z indywidualnym profilem zdrowotnym członka
-              załogi, żeby limity dawek były ustalane per osoba, a nie per misja.
-            </p>
-          </div>
-          <div class="project-meta">
-            <div><span class="m-label">Środowisko</span><span class="m-value">Misja orbitalna</span></div>
-            <div><span class="m-label">Zakres</span><span class="m-value">Badania</span></div>
-          </div>
-          <span class="project-status status-concept">Koncepcja</span>
-        </li>
-
-      </ol>
-
-      <div class="note-band">
-        <p>
-          Powyższe wpisy to przykładowa struktura strony projektów — nazwy, opisy i statusy
-          są do zastąpienia rzeczywistymi danymi SPACER.
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Projekt / 01 — Diagnostyka</span></div>
+        <h2>Hemodynamika mózgu mierzona bez szpitalnej aparatury.</h2>
+        <p class="lead">
+          AURORA to autonomiczny, wielomodalny system diagnostyczny do bezinwazyjnego
+          monitorowania przesunięć płynów ustrojowych w kierunku głowy oraz oceny
+          hemodynamiki mózgowej.
         </p>
-      </div>
+
+        <div class="project-cols">
+          <div>
+            <h3>Jak to działa</h3>
+            <p>
+              Urządzenie łączy w jednym ekosystemie miniaturowy ultrasonograf z mechanicznym
+              pozycjonowaniem sondy, moduł NIRS, impedancję kardiograficzną (ICG) oraz
+              inteligentne pończochy uciskowe (GCG). Zamiast kilku osobnych,
+              wielkogabarytowych aparatów pracuje jeden zestaw, w którym dane ze wszystkich
+              modalności są synchronizowane z dokładnością submilisekundową i analizowane
+              przez algorytmy sztucznej inteligencji.
+            </p>
+            <p>
+              System działa w pełni autonomicznie, a czas montażu skrócono do trzech minut —
+              co jest warunkiem użycia zarówno na pokładzie, jak i w warunkach ratunkowych,
+              gdzie nie ma czasu na kalibrację sprzętu.
+            </p>
+
+            <h3 style="margin-top: 36px;">Zastosowania</h3>
+            <ul class="feature-list">
+              <li>Medycyna kosmiczna — badanie syndromu SANS u astronautów</li>
+              <li>Medycyna ratunkowa — wczesna diagnostyka udarów</li>
+              <li>Diagnostyka kliniczna urazów mózgu</li>
+            </ul>
+          </div>
+
+          <dl class="project-facts">
+            <div>
+              <dt>Modalności</dt>
+              <dd>USG z pozycjonowaniem sondy, NIRS, ICG, GCG</dd>
+            </div>
+            <div>
+              <dt>Synchronizacja</dt>
+              <dd>Submilisekundowa, wspierana przez AI</dd>
+            </div>
+            <div>
+              <dt>Czas montażu</dt>
+              <dd>3 minuty</dd>
+            </div>
+            <div>
+              <dt>Autonomia</dt>
+              <dd>Pełna — bez zewnętrznej aparatury</dd>
+            </div>
+            <div>
+              <dt>Następny etap</dt>
+              <dd>Walidacja w mikrograwitacji podczas lotów parabolicznych</dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- EPI -->
+      <article class="project-detail" id="epi">
+        <div class="project-detail-head">
+          <span class="project-wordmark">EPI</span>
+          <span class="project-status status-active">W rozwoju</span>
+        </div>
+
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Projekt / 02 — Wearable</span></div>
+        <h2>Napad padaczkowy wykryty, zanim ktokolwiek zdąży zareagować.</h2>
+        <p class="lead">
+          EPI to zintegrowane urządzenie medyczne typu wearable, zaprojektowane do wczesnego
+          wykrywania i monitorowania napadów padaczkowych.
+        </p>
+
+        <div class="project-cols">
+          <div>
+            <h3>Fuzja danych zamiast pojedynczego czujnika</h3>
+            <p>
+              System łączy sensory kinematyczne z optycznym pomiarem tętna oraz saturacji
+              krwi (SpO₂). Jednoczesna analiza gwałtownych zmian pulsu, spadków saturacji
+              i charakterystycznych drżeń ciała pozwala rozpoznać napady toniczno-kloniczne
+              oraz ogniskowe, minimalizując fałszywe alarmy — najczęstszy problem urządzeń
+              opartych na jednym typie czujnika.
+            </p>
+
+            <h3 style="margin-top: 36px;">Konstrukcja i bezpieczeństwo</h3>
+            <ul class="feature-list">
+              <li>Całkowicie zamknięta, odporna na wstrząsy obudowa — bezpieczna w trakcie napadu</li>
+              <li>Ładowanie indukcyjne Qi, zgodne ze standardową ładowarką do smartwatcha</li>
+              <li>Fizyczny przycisk SOS do manualnego wezwania pomocy w momencie poczucia aury</li>
+              <li>Możliwość odwołania fałszywego alarmu przed wysłaniem powiadomień</li>
+            </ul>
+
+            <h3 style="margin-top: 36px;">Aplikacja mobilna</h3>
+            <p>
+              Integralną częścią systemu jest dedykowana aplikacja: monitoruje stan pacjenta
+              w czasie rzeczywistym, automatycznie rejestruje szczegółowe parametry
+              biomedyczne z przebiegu każdego ataku do wglądu dla lekarza, a w razie
+              wykrycia zagrożenia natychmiast powiadamia osoby bliskie.
+            </p>
+          </div>
+
+          <dl class="project-facts">
+            <div>
+              <dt>Wykrywane napady</dt>
+              <dd>Toniczno-kloniczne i ogniskowe</dd>
+            </div>
+            <div>
+              <dt>Sensory</dt>
+              <dd>Kinematyczne + tętno + SpO₂</dd>
+            </div>
+            <div>
+              <dt>Zasilanie</dt>
+              <dd>Ładowanie indukcyjne Qi</dd>
+            </div>
+            <div>
+              <dt>Aplikacja</dt>
+              <dd>Bezpłatna, bez subskrypcji</dd>
+            </div>
+            <div>
+              <dt>Gwarancja</dt>
+              <dd>Dożywotnia</dd>
+            </div>
+            <div>
+              <dt>Refundacja</dt>
+              <dd>Planowana przez NFZ</dd>
+            </div>
+          </dl>
+        </div>
+
+        <figure class="project-media">
+          <div class="asset-slot">Miejsce na zdjęcie urządzenia EPI</div>
+          <figcaption>Opaska EPI — prototyp</figcaption>
+        </figure>
+
+        <a class="doc-link" href="assets/docs/epi-prezentacja.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M14 2v6h6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+          <span>
+            <span class="doc-name">Prezentacja projektu EPI</span>
+            <span class="doc-meta">PDF · 10 stron</span>
+          </span>
+        </a>
+      </article>
+
     </div>
   </section>
 

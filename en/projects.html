@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projects — SPACER</title>
-<meta name="description" content="SPACER projects: biometric monitoring, telemedicine and human physiology research in extreme environments.">
+<meta name="description" content="SPACER projects: AURORA — multimodal cerebral haemodynamics diagnostics, and EPI — a wearable for epileptic seizure detection.">
 <meta name="theme-color" content="#1b212f">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SPACER">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="Projects — SPACER">
-<meta property="og:description" content="Biometric monitoring, telemedicine and human physiology research in extreme environments.">
+<meta property="og:description" content="AURORA — multimodal cerebral haemodynamics diagnostics. EPI — a wearable for epileptic seizure detection.">
 <meta property="og:image" content="../assets/img/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Projects — SPACER">
-<meta name="twitter:description" content="Biometric monitoring, telemedicine and human physiology research in extreme environments.">
+<meta name="twitter:description" content="AURORA — multimodal cerebral haemodynamics diagnostics. EPI — a wearable for epileptic seizure detection.">
 <meta name="twitter:image" content="../assets/img/og-image.png">
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16" type="image/png">
@@ -77,87 +77,164 @@
       <h1 class="display-headline">Work that <span class="accent">leaves the</span> laboratory.</h1>
       <p class="section-lead">
         Every project starts from a specific environment and a specific medical risk.
-        Here is what we are working on and where each deployment stands.
+        Here is what we are working on and where each one stands.
       </p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <ol class="project-list">
 
-        <li class="project-row">
-          <span class="project-num">01</span>
-          <div class="project-main">
-            <h3>Crew monitoring in an analogue habitat</h3>
-            <p>
-              Continuous vital-sign measurement for a four-person crew during a simulated mission
-              in isolation. We are collecting the baseline data needed to calibrate alert thresholds.
-            </p>
-          </div>
-          <div class="project-meta">
-            <div><span class="m-label">Environment</span><span class="m-value">Analogue habitat</span></div>
-            <div><span class="m-label">Scope</span><span class="m-value">Biosensors + analysis</span></div>
-          </div>
-          <span class="project-status status-active">In progress</span>
-        </li>
+      <!-- AURORA -->
+      <article class="project-detail" id="aurora">
+        <div class="project-detail-head">
+          <span class="project-wordmark">AURORA</span>
+          <span class="project-status status-active">Ready for validation</span>
+        </div>
 
-        <li class="project-row">
-          <span class="project-num">02</span>
-          <div class="project-main">
-            <h3>Sensor validation in microgravity</h3>
-            <p>
-              Accuracy testing for oxygen saturation and heart rate under variable gravity.
-              The aim is to correct readings that assume a fixed distribution of body fluids.
-            </p>
-          </div>
-          <div class="project-meta">
-            <div><span class="m-label">Environment</span><span class="m-value">Parabolic flight</span></div>
-            <div><span class="m-label">Scope</span><span class="m-value">Hardware validation</span></div>
-          </div>
-          <span class="project-status status-active">In progress</span>
-        </li>
-
-        <li class="project-row">
-          <span class="project-num">03</span>
-          <div class="project-main">
-            <h3>Telemedicine console for a polar station</h3>
-            <p>
-              A consultation console built to work over an intermittent satellite link,
-              with data buffering and queued consultations.
-            </p>
-          </div>
-          <div class="project-meta">
-            <div><span class="m-label">Environment</span><span class="m-value">Polar station</span></div>
-            <div><span class="m-label">Scope</span><span class="m-value">Telemedicine</span></div>
-          </div>
-          <span class="project-status status-done">Completed</span>
-        </li>
-
-        <li class="project-row">
-          <span class="project-num">04</span>
-          <div class="project-main">
-            <h3>Individual dosimetry for long missions</h3>
-            <p>
-              Linking radiation exposure to a crew member's individual health profile, so dose
-              limits are set per person rather than per mission.
-            </p>
-          </div>
-          <div class="project-meta">
-            <div><span class="m-label">Environment</span><span class="m-value">Orbital mission</span></div>
-            <div><span class="m-label">Scope</span><span class="m-value">Research</span></div>
-          </div>
-          <span class="project-status status-concept">Concept</span>
-        </li>
-
-      </ol>
-
-      <div class="note-band">
-        <p>
-          These entries are placeholder structure for the projects page — names, descriptions
-          and statuses are to be replaced with real SPACER data.
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Project / 01 — Diagnostics</span></div>
+        <h2>Cerebral haemodynamics measured without hospital equipment.</h2>
+        <p class="lead">
+          AURORA is an autonomous, multimodal diagnostic system for non-invasive monitoring
+          of body-fluid shifts towards the head and for assessing cerebral haemodynamics.
         </p>
-      </div>
+
+        <div class="project-cols">
+          <div>
+            <h3>How it works</h3>
+            <p>
+              The system combines a miniature ultrasound with mechanical probe positioning,
+              a NIRS module, impedance cardiography (ICG) and smart compression stockings
+              (GCG) into a single ecosystem. Instead of several separate, bulky machines,
+              one set does the work — with data from every modality synchronised to
+              sub-millisecond accuracy and analysed by AI algorithms.
+            </p>
+            <p>
+              It operates fully autonomously and set-up time is down to three minutes, which
+              is what makes it usable both on board and in emergency situations where there
+              is no time to calibrate equipment.
+            </p>
+
+            <h3 style="margin-top: 36px;">Applications</h3>
+            <ul class="feature-list">
+              <li>Space medicine — studying SANS syndrome in astronauts</li>
+              <li>Emergency medicine — early stroke diagnosis</li>
+              <li>Clinical diagnosis of brain injury</li>
+            </ul>
+          </div>
+
+          <dl class="project-facts">
+            <div>
+              <dt>Modalities</dt>
+              <dd>Positioned ultrasound, NIRS, ICG, GCG</dd>
+            </div>
+            <div>
+              <dt>Synchronisation</dt>
+              <dd>Sub-millisecond, AI-supported</dd>
+            </div>
+            <div>
+              <dt>Set-up time</dt>
+              <dd>3 minutes</dd>
+            </div>
+            <div>
+              <dt>Autonomy</dt>
+              <dd>Full — no external equipment</dd>
+            </div>
+            <div>
+              <dt>Next step</dt>
+              <dd>Microgravity validation on parabolic flights</dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- EPI -->
+      <article class="project-detail" id="epi">
+        <div class="project-detail-head">
+          <span class="project-wordmark">EPI</span>
+          <span class="project-status status-active">In development</span>
+        </div>
+
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Project / 02 — Wearable</span></div>
+        <h2>An epileptic seizure detected before anyone can react.</h2>
+        <p class="lead">
+          EPI is an integrated wearable medical device designed for early detection and
+          monitoring of epileptic seizures.
+        </p>
+
+        <div class="project-cols">
+          <div>
+            <h3>Sensor fusion instead of a single signal</h3>
+            <p>
+              The system combines kinematic sensors with optical heart-rate and blood oxygen
+              (SpO₂) measurement. Analysing sudden pulse changes, saturation drops and the
+              characteristic body tremors at the same time lets it identify both tonic-clonic
+              and focal seizures while minimising false alarms — the most common problem with
+              devices that rely on one type of sensor.
+            </p>
+
+            <h3 style="margin-top: 36px;">Build and safety</h3>
+            <ul class="feature-list">
+              <li>Fully sealed, shock-resistant housing — safe to wear through a seizure</li>
+              <li>Qi inductive charging, compatible with a standard smartwatch charger</li>
+              <li>A physical SOS button to call for help manually when an aura is felt</li>
+              <li>The option to cancel a false alarm before any notification goes out</li>
+            </ul>
+
+            <h3 style="margin-top: 36px;">Mobile app</h3>
+            <p>
+              A dedicated app is an integral part of the system: it monitors the patient in
+              real time, automatically records detailed biomedical parameters from every
+              seizure for the treating physician, and immediately notifies the patient's
+              relatives when a risk is detected.
+            </p>
+          </div>
+
+          <dl class="project-facts">
+            <div>
+              <dt>Seizures detected</dt>
+              <dd>Tonic-clonic and focal</dd>
+            </div>
+            <div>
+              <dt>Sensors</dt>
+              <dd>Kinematic + heart rate + SpO₂</dd>
+            </div>
+            <div>
+              <dt>Power</dt>
+              <dd>Qi inductive charging</dd>
+            </div>
+            <div>
+              <dt>App</dt>
+              <dd>Free, no subscription</dd>
+            </div>
+            <div>
+              <dt>Warranty</dt>
+              <dd>Lifetime</dd>
+            </div>
+            <div>
+              <dt>Reimbursement</dt>
+              <dd>Planned via the Polish NFZ</dd>
+            </div>
+          </dl>
+        </div>
+
+        <figure class="project-media">
+          <div class="asset-slot">Slot for the EPI device photo</div>
+          <figcaption>EPI wristband — prototype</figcaption>
+        </figure>
+
+        <a class="doc-link" href="../assets/docs/epi-prezentacja.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M14 2v6h6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+          <span>
+            <span class="doc-name">EPI project presentation</span>
+            <span class="doc-meta">PDF · 10 pages · Polish</span>
+          </span>
+        </a>
+      </article>
+
     </div>
   </section>
 
