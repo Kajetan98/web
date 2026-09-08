@@ -72,6 +72,8 @@
       'demo.activity': 'Symuluj bieg',
       'demo.stop': 'Przerwij',
       'sos.note': 'przytrzymaj 1 s',
+      'notice.noContacts': 'Nie masz jeszcze kontaktów alarmowych — bez nich alarm zostanie tylko zapisany, ale nikt nie dostanie wiadomości.',
+      'notice.addContacts': 'Dodaj kontakt',
       'sos.cancel': 'ANULUJ',
       'sos.cancelNote': 'naciśnij, aby przerwać alarm',
       'state.off.name': 'Monitorowanie wstrzymane',
@@ -256,6 +258,8 @@
       'demo.activity': 'Simulate running',
       'demo.stop': 'Stop signal',
       'sos.note': 'hold for 1 s',
+      'notice.noContacts': 'No emergency contacts yet — without them an alarm is only stored, nobody gets a message.',
+      'notice.addContacts': 'Add a contact',
       'sos.cancel': 'CANCEL',
       'sos.cancelNote': 'press to stop the alarm',
       'state.off.name': 'Monitoring paused',
@@ -473,7 +477,7 @@
     'ppgChart', 'motionChart', 'ppgChip', 'motionChip', 'fusionNote',
     'critMotion', 'critHr', 'critSpo2', 'criteria',
     'btnSimSeizure', 'btnSimActivity', 'btnSimStop',
-    'btnSos', 'sosLabel', 'sosNote',
+    'btnSos', 'sosLabel', 'sosNote', 'noContacts', 'btnGoContacts',
     'eventList', 'historyEmpty', 'historyCount', 'btnExportCsv', 'btnExportPdf', 'btnClearHistory',
     'contactList', 'contactsEmpty', 'contactsCount', 'contactForm', 'cName', 'cRelation', 'cPhone', 'cNotify',
     'contactSubmit', 'contactCancel',
@@ -1119,12 +1123,16 @@
       el.alarmNote.textContent = t('alarm.rejectedNote');
       renderAlarmTriggers();
     }
+
+    const action = mode === 'confirming' ? el.btnAlarmCancel : el.btnAlarmClose;
+    requestAnimationFrame(() => { try { action.focus(); } catch (err) { /* ignore */ } });
   }
 
   function closeAlarmOverlay() {
     el.alarmOverlay.hidden = true;
     stopLocalAlarm();
     if (detector.state === 'alarm') backToIdle();
+    try { el.btnSos.focus(); } catch (err) { /* ignore */ }
   }
 
   function requestGeo() {
@@ -1330,7 +1338,10 @@
     el.sheetFacts.innerHTML = facts
       .map(([k, v]) => `<div><dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd></div>`)
       .join('');
-    requestAnimationFrame(() => drawEventWindow(el.sheetChart, ev.window));
+    requestAnimationFrame(() => {
+      drawEventWindow(el.sheetChart, ev.window);
+      try { el.sheetClose.focus(); } catch (err) { /* ignore */ }
+    });
   }
 
   /* ====================================================================== */
@@ -1341,6 +1352,7 @@
   function renderContacts() {
     el.contactsCount.textContent = String(contacts.length);
     el.contactsEmpty.hidden = contacts.length > 0;
+    el.noContacts.hidden = contacts.some((c) => c.notify);
     el.contactList.innerHTML = contacts.map((c) => `
       <li class="contact">
         <span class="contact-top">
@@ -1710,6 +1722,18 @@
   el.btnSos.addEventListener('pointerdown', pressSos);
   el.btnSos.addEventListener('pointerup', () => releaseSos(false));
   el.btnSos.addEventListener('pointercancel', () => releaseSos(false));
+  // Keyboard users hold the key instead of the button; the click that Enter
+  // and Space would also fire is suppressed so the alarm cannot double-trigger.
+  el.btnSos.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    if (event.repeat || holdTimer) return;
+    pressSos(event);
+  });
+  el.btnSos.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') releaseSos(false);
+  });
+  el.btnSos.addEventListener('blur', () => releaseSos(false));
 
   el.btnAlarmCancel.addEventListener('click', resolveCancelled);
   el.btnAlarmClose.addEventListener('click', closeAlarmOverlay);
@@ -1850,6 +1874,16 @@
     saveSettings();
     applyLanguage(settings.lang);
   }));
+
+  el.btnGoContacts.addEventListener('click', () => showView('contacts'));
+
+  // Escape closes what is safe to close: never the running confirmation, which
+  // has to be answered with cancel or left to expire.
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    if (!el.eventSheet.hidden) { el.eventSheet.hidden = true; return; }
+    if (!el.alarmOverlay.hidden && !el.btnAlarmClose.hidden) closeAlarmOverlay();
+  });
 
   window.addEventListener('hashchange', () => showView(location.hash.slice(1)));
   window.addEventListener('resize', () => { drawPpg(); drawMotion(); });

@@ -212,6 +212,14 @@ hr{ border: 0; border-top: 1px solid var(--line); margin: 4px 0; width: 100%; }
 .demo-actions{ display: flex; flex-wrap: wrap; gap: 8px; }
 .demo-actions .btn{ flex: 1 1 auto; }
 
+/* =============================== Notice ================================ */
+.notice{
+  background: var(--surface); border-left: 2px solid var(--warn); border-radius: var(--radius);
+  padding: 13px 14px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
+}
+.notice[hidden]{ display: none; }
+.notice p{ font-size: 0.8rem; line-height: 1.55; color: var(--muted); }
+
 /* ================================= SOS ================================= */
 .sos{
   margin-top: 6px; padding: 20px; border: 0; border-radius: var(--radius);

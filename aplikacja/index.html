@@ -44,7 +44,7 @@
         <div class="state-head">
           <span class="state-dot" aria-hidden="true"></span>
           <div>
-            <p class="state-name" id="stateName" data-i18n="state.off.name">Monitorowanie wstrzymane</p>
+            <p class="state-name" id="stateName" role="status" aria-live="polite" data-i18n="state.off.name">Monitorowanie wstrzymane</p>
             <p class="state-note" id="stateNote" data-i18n="state.off.note">Uruchom detekcję, aby aplikacja zaczęła analizować ruch i tętno.</p>
           </div>
         </div>
@@ -115,6 +115,11 @@
           <button type="button" class="btn btn-ghost" id="btnSimActivity" data-i18n="demo.activity">Symuluj bieg</button>
           <button type="button" class="btn btn-ghost" id="btnSimStop" data-i18n="demo.stop">Przerwij</button>
         </div>
+      </div>
+
+      <div class="notice" id="noContacts" hidden>
+        <p data-i18n="notice.noContacts">Nie masz jeszcze kontaktów alarmowych — bez nich alarm zostanie tylko zapisany, ale nikt nie dostanie wiadomości.</p>
+        <button type="button" class="btn btn-ghost" id="btnGoContacts" data-i18n="notice.addContacts">Dodaj kontakt</button>
       </div>
 
       <button type="button" class="sos" id="btnSos">
