@@ -3,69 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vitalis Orbital — Medycyna dla eksploracji kosmosu</title>
-<meta name="description" content="Vitalis Orbital tworzy systemy monitoringu zdrowia i telemedycyny dla załóg kosmicznych oraz zastosowań naziemnych w medycynie ekstremalnej.">
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<title>SPACER — Systems for Human Exploration</title>
+<meta name="description" content="SPACER projektuje systemy monitoringu zdrowia i telemedycyny dla misji orbitalnych oraz środowisk ekstremalnych, w których nie ma miejsca na przypadek.">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<div class="starfield" aria-hidden="true"></div>
-
 <a class="skip-link" href="#main">Przejdź do treści</a>
+
+<div class="announce-bar">SPACER / SYSTEMS FOR HUMAN EXPLORATION</div>
 
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <a href="#top" class="logo">
-      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="15" cy="15" r="13" stroke="url(#g1)" stroke-width="1.5"/>
-        <path d="M15 8V22M8 15H22" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"/>
-        <defs>
-          <linearGradient id="g1" x1="2" y1="2" x2="28" y2="28" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#5EEAD4"/>
-            <stop offset="1" stop-color="#818CF8"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <span>Vitalis<em>Orbital</em></span>
+      <span class="lg-1">SPAC</span><span class="lg-2">ER</span>
     </a>
-
-    <nav class="main-nav" id="mainNav">
-      <a href="#misja">Misja</a>
-      <a href="#technologia">Technologia</a>
-      <a href="#proces">Jak to działa</a>
-      <a href="#zespol">Zespół</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
-
-    <div class="header-actions">
-      <a href="#kontakt" class="btn btn-primary btn-sm">Umów rozmowę</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="mainNav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="navOverlay">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+  <button class="nav-close" id="navClose" aria-label="Zamknij menu">✕</button>
+  <div class="container nav-overlay-inner">
+    <a href="#onas">O nas</a>
+    <a href="#technologia">Technologia</a>
+    <a href="#proces">Proces</a>
+    <a href="#zespol">Zespół</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+  <div class="container nav-overlay-foot mono">
+    <span>© <span id="yearNav"></span> SPACER</span>
+    <span>kontakt@spacer.example</span>
+  </div>
+</nav>
 
 <main id="main">
 
   <!-- HERO -->
   <section class="hero" id="top">
     <div class="container hero-inner">
-      <div class="hero-copy reveal">
-        <p class="eyebrow">Medycyna kosmiczna &amp; ekstremalna</p>
-        <h1>Zdrowie załogi tam, gdzie kończy się zasięg pomocy medycznej.</h1>
+      <div class="reveal">
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Spacer / Systems for Human Exploration</span></div>
+        <h1 class="display-headline" style="max-width: 13ch;">Zdrowie załogi <span class="accent">poza zasięgiem</span> pomocy medycznej.</h1>
         <p class="hero-lead">
           Budujemy systemy monitoringu biometrycznego i telemedycyny dla misji orbitalnych,
           stacji badawczych oraz środowisk, w których każda decyzja medyczna musi zapaść
           bez lekarza na miejscu.
         </p>
         <div class="hero-cta">
-          <a href="#kontakt" class="btn btn-primary">Porozmawiajmy o wdrożeniu</a>
-          <a href="#technologia" class="btn btn-ghost">Zobacz platformę ↓</a>
+          <a href="#kontakt" class="btn-block">Umów rozmowę <span class="arrow">↗</span></a>
+          <a href="#technologia" class="btn-text">Zobacz platformę ↓</a>
         </div>
         <div class="hero-tags">
           <span>Telemedycyna offline-first</span>
@@ -74,26 +70,13 @@
         </div>
       </div>
 
-      <div class="hero-visual reveal" aria-hidden="true">
-        <div class="orbit-system">
-          <div class="orbit-ring ring-1"></div>
-          <div class="orbit-ring ring-2"></div>
-          <div class="orbit-ring ring-3"></div>
-          <div class="orbit-core">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-              <path d="M12 21s-7-4.35-9.5-9C.5 8 2 4 6 4c2 0 3.5 1.2 4 2.5C10.5 5.2 12 4 14 4c4 0 5.5 4 3.5 8-2.5 4.65-9.5 9-9.5 9z" fill="url(#heartGrad)"/>
-              <defs>
-                <linearGradient id="heartGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#5EEAD4"/>
-                  <stop offset="1" stop-color="#818CF8"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <div class="orbit-sat sat-1"></div>
-          <div class="orbit-sat sat-2"></div>
-          <div class="orbit-sat sat-3"></div>
-        </div>
+      <div class="hero-visual reveal">
+        <svg class="orbit-deco" viewBox="0 0 400 400" aria-hidden="true">
+          <circle cx="200" cy="200" r="190"/>
+          <circle cx="200" cy="200" r="140"/>
+          <circle cx="200" cy="200" r="90"/>
+        </svg>
+        <img class="hero-icon" src="assets/img/icon-mark.png" alt="Symbol SPACER — rakieta owinięta wężem Eskulapa">
         <div class="vitals-card">
           <div class="vitals-row"><span>Tętno</span><strong>72 <small>bpm</small></strong></div>
           <div class="vitals-row"><span>SpO₂</span><strong>98 <small>%</small></strong></div>
@@ -103,10 +86,10 @@
     </div>
   </section>
 
-  <!-- LOGOS / CONTEXT STRIP -->
+  <!-- CONTEXT STRIP -->
   <section class="context-strip">
     <div class="container">
-      <p>Projektujemy z myślą o środowiskach, w których liczy się każda sekunda i każdy gram sprzętu</p>
+      <p>Projektujemy dla:</p>
       <ul class="context-list">
         <li>Misje orbitalne</li>
         <li>Stacje polarne</li>
@@ -117,20 +100,20 @@
     </div>
   </section>
 
-  <!-- MISJA -->
-  <section class="section" id="misja">
+  <!-- O NAS -->
+  <section class="section" id="onas">
     <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Misja</p>
-        <h2>Opieka medyczna nie powinna kończyć się tam, gdzie kończy się Ziemia.</h2>
+      <div class="reveal">
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">O nas / 01</span></div>
+        <h2 class="display-headline">Technologia <span class="accent">z ludzkim</span> punktem ciężkości.</h2>
         <p class="section-lead">
           Im dalej od szpitala, tym więcej zależy od danych zebranych wcześniej i decyzji podjętych
           na miejscu. Łączymy inżynierię kosmiczną z medycyną ratunkową, żeby ten dystans skrócić.
         </p>
       </div>
 
-      <div class="pillar-grid">
-        <article class="pillar-card reveal">
+      <div class="pillar-grid reveal">
+        <article class="pillar-card">
           <div class="pillar-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg>
           </div>
@@ -138,7 +121,7 @@
           <p>Ciągły pomiar parametrów życiowych i ekspozycji środowiskowej, nawet przy ograniczonej łączności z Ziemią.</p>
         </article>
 
-        <article class="pillar-card reveal">
+        <article class="pillar-card">
           <div class="pillar-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6l1 4h4l-2 6 2 6h-4l-1 4H9l-1-4H4l2-6-2-6h4l1-4Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
           </div>
@@ -146,11 +129,11 @@
           <p>Algorytmy analizują trendy fizjologiczne i sugerują protokoły postępowania, gdy konsultacja z lekarzem jest opóźniona lub niemożliwa.</p>
         </article>
 
-        <article class="pillar-card reveal">
+        <article class="pillar-card">
           <div class="pillar-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="8" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.6"/></svg>
           </div>
-          <h3>Sprzęt zaprojektowany na warunki ekstremalne</h3>
+          <h3>Sprzęt na warunki ekstremalne</h3>
           <p>Urządzenia odporne na mikrograwitację, promieniowanie i wahania temperatury — bez kompromisów w dokładności pomiaru.</p>
         </article>
       </div>
@@ -160,17 +143,17 @@
   <!-- TECHNOLOGIA -->
   <section class="section section-alt" id="technologia">
     <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Technologia</p>
-        <h2>Jedna platforma, trzy warstwy ochrony zdrowia</h2>
+      <div class="reveal">
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Technologia / 02</span></div>
+        <h2 class="display-headline">Jedna platforma, <span class="accent">trzy warstwy</span> ochrony zdrowia.</h2>
         <p class="section-lead">
           Od czujnika na skórze po pulpit lekarza konsultującego z Ziemi — każdy element systemu
           jest projektowany razem, nie doklejany osobno.
         </p>
       </div>
 
-      <div class="feature-grid">
-        <article class="feature-card reveal">
+      <div class="feature-grid reveal">
+        <article class="feature-card">
           <span class="feature-index">01</span>
           <h3>Biosensory noszone</h3>
           <p>Opaska i naklejane czujniki mierzą tętno, saturację, temperaturę i poziom nawodnienia bez ingerencji w ruchy w skafandrze.</p>
@@ -181,7 +164,7 @@
           </ul>
         </article>
 
-        <article class="feature-card reveal">
+        <article class="feature-card">
           <span class="feature-index">02</span>
           <h3>Silnik analizy klinicznej</h3>
           <p>Model wykrywa odchylenia od indywidualnej linii bazowej astronauty i priorytetyzuje alerty według pilności.</p>
@@ -192,14 +175,14 @@
           </ul>
         </article>
 
-        <article class="feature-card reveal">
+        <article class="feature-card">
           <span class="feature-index">03</span>
           <h3>Konsola telemedyczna</h3>
           <p>Zespół medyczny na Ziemi widzi te same dane co system pokładowy, z opóźnieniem transmisji uwzględnionym w interfejsie.</p>
           <ul class="feature-list">
             <li>Transmisja odporna na przerwy łączności</li>
             <li>Widok historii i trendów pacjenta</li>
-            <li>Bezpieczne szyfrowanie danych medycznych</li>
+            <li>Szyfrowanie danych medycznych</li>
           </ul>
         </article>
       </div>
@@ -209,35 +192,35 @@
   <!-- PROCES -->
   <section class="section" id="proces">
     <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Jak to działa</p>
-        <h2>Wdrożenie krok po kroku</h2>
+      <div class="reveal">
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Proces / 03</span></div>
+        <h2 class="display-headline">Wdrożenie, <span class="accent">krok po kroku</span>.</h2>
       </div>
 
-      <ol class="timeline">
-        <li class="timeline-item reveal">
-          <div class="timeline-marker">1</div>
+      <ol class="timeline reveal">
+        <li class="timeline-item">
+          <div class="timeline-marker mono">01</div>
           <div class="timeline-body">
             <h3>Analiza misji i środowiska</h3>
             <p>Określamy warunki pracy — czas trwania misji, dostępność łączności, skład załogi i ryzyka medyczne specyficzne dla środowiska.</p>
           </div>
         </li>
-        <li class="timeline-item reveal">
-          <div class="timeline-marker">2</div>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">02</div>
           <div class="timeline-body">
             <h3>Konfiguracja sprzętu i progów</h3>
             <p>Dobieramy zestaw czujników i ustawiamy indywidualne linie bazowe dla każdego członka załogi.</p>
           </div>
         </li>
-        <li class="timeline-item reveal">
-          <div class="timeline-marker">3</div>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">03</div>
           <div class="timeline-body">
             <h3>Integracja z zespołem medycznym</h3>
             <p>Łączymy system z konsolą naziemną i szkolimy zespół medyczny oraz załogę z obsługi alertów.</p>
           </div>
         </li>
-        <li class="timeline-item reveal">
-          <div class="timeline-marker">4</div>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">04</div>
           <div class="timeline-body">
             <h3>Monitoring i ciągłe doskonalenie</h3>
             <p>Po starcie misji analizujemy dane telemetryczne i aktualizujemy modele wraz z nowymi obserwacjami.</p>
@@ -250,27 +233,27 @@
   <!-- ZESPÓŁ -->
   <section class="section section-alt" id="zespol">
     <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Zespół</p>
-        <h2>Ludzie z medycyny, lotnictwa i inżynierii kosmicznej</h2>
+      <div class="reveal">
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Zespół / 04</span></div>
+        <h2 class="display-headline">Ludzie, którzy <span class="accent">łączą światy</span>.</h2>
         <p class="section-lead">Miejsce na przedstawienie founderów i kluczowych osób — poniżej przykładowy układ do uzupełnienia danymi zespołu.</p>
       </div>
 
-      <div class="team-grid">
-        <article class="team-card reveal">
-          <div class="team-avatar" aria-hidden="true">JK</div>
+      <div class="team-grid reveal">
+        <article class="team-card">
+          <div class="team-avatar mono" aria-hidden="true">JK</div>
           <h3>Jan Kowalski</h3>
           <p class="team-role">CEO &amp; Współzałożyciel</p>
           <p class="team-bio">Tło w medycynie ratunkowej i zarządzaniu produktem medtech.</p>
         </article>
-        <article class="team-card reveal">
-          <div class="team-avatar" aria-hidden="true">AN</div>
+        <article class="team-card">
+          <div class="team-avatar mono" aria-hidden="true">AN</div>
           <h3>Anna Nowak</h3>
           <p class="team-role">CTO &amp; Współzałożycielka</p>
           <p class="team-bio">Doświadczenie w systemach wbudowanych dla sektora kosmicznego.</p>
         </article>
-        <article class="team-card reveal">
-          <div class="team-avatar" aria-hidden="true">MW</div>
+        <article class="team-card">
+          <div class="team-avatar mono" aria-hidden="true">MW</div>
           <h3>Marek Wiśniewski</h3>
           <p class="team-role">Dyrektor Medyczny</p>
           <p class="team-bio">Specjalizacja w medycynie lotniczej i intensywnej terapii.</p>
@@ -279,12 +262,12 @@
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- CTA BAND -->
   <section class="cta-band">
     <div class="container cta-inner reveal">
-      <h2>Planujesz misję, ekspedycję lub wdrożenie w trudnym środowisku?</h2>
-      <p>Porozmawiajmy, zanim zaprojektujesz protokoły medyczne — możemy zaoszczędzić Ci miesiące integracji.</p>
-      <a href="#kontakt" class="btn btn-primary">Umów konsultację</a>
+      <h2 class="display-headline">Najciekawsze <span class="accent">misje</span> zaczynają się od rozmowy.</h2>
+      <p class="section-lead">Szukasz partnera do badań, technologii albo wdrożenia? Jesteśmy gotowi słuchać.</p>
+      <a href="#kontakt" class="btn-block">Skontaktuj się z nami <span class="arrow">↗</span></a>
     </div>
   </section>
 
@@ -292,14 +275,14 @@
   <section class="section" id="kontakt">
     <div class="container kontakt-grid">
       <div class="reveal">
-        <p class="eyebrow">Kontakt</p>
-        <h2>Napisz do nas</h2>
+        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Kontakt / 05</span></div>
+        <h2 class="display-headline">Opowiedz nam <span class="accent">o swojej</span> misji.</h2>
         <p class="section-lead">Odpowiadamy w ciągu 2 dni roboczych. Opisz krótko swoje środowisko misji, a przygotujemy wstępną propozycję konfiguracji.</p>
 
         <div class="contact-info">
           <div>
             <span class="contact-label">E-mail</span>
-            <a href="mailto:kontakt@vitalisorbital.example">kontakt@vitalisorbital.example</a>
+            <a href="mailto:kontakt@spacer.example">kontakt@spacer.example</a>
           </div>
           <div>
             <span class="contact-label">Siedziba</span>
@@ -325,7 +308,7 @@
           <label for="message">Wiadomość</label>
           <textarea id="message" name="message" rows="4" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary btn-full">Wyślij wiadomość</button>
+        <button type="submit" class="btn-block btn-block-full">Wyślij wiadomość <span class="arrow">↗</span></button>
         <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -334,17 +317,21 @@
 </main>
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <a href="#top" class="logo logo-sm">
-      <span>Vitalis<em>Orbital</em></span>
-    </a>
-    <nav class="footer-nav">
-      <a href="#misja">Misja</a>
-      <a href="#technologia">Technologia</a>
-      <a href="#zespol">Zespół</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
-    <p class="footer-copy">© <span id="year"></span> Vitalis Orbital. Wszelkie prawa zastrzeżone.</p>
+  <div class="container">
+    <p class="footer-wordmark" aria-hidden="true">SPACER</p>
+    <p class="footer-tagline">Projektujemy medycynę dla miejsc, w których nie ma miejsca na przypadek.</p>
+    <div class="footer-bottom">
+      <a href="#top" class="logo" style="font-size:1.1rem;">
+        <span style="color:var(--text-on-navy)">SPAC</span><span class="lg-2">ER</span>
+      </a>
+      <nav class="footer-nav">
+        <a href="#onas">O nas</a>
+        <a href="#technologia">Technologia</a>
+        <a href="#zespol">Zespół</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> SPACER. Wszelkie prawa zastrzeżone.</p>
+    </div>
   </div>
 </footer>
 

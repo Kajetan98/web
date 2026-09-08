@@ -1,18 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const header = document.getElementById('siteHeader');
   const navToggle = document.getElementById('navToggle');
-  const mainNav = document.getElementById('mainNav');
+  const navOverlay = document.getElementById('navOverlay');
+  const navClose = document.getElementById('navClose');
   const scrollTopBtn = document.getElementById('scrollTop');
   const yearEl = document.getElementById('year');
+  const yearNavEl = document.getElementById('yearNav');
   const contactForm = document.getElementById('contactForm');
   const formNote = document.getElementById('formNote');
 
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const year = new Date().getFullYear();
+  if (yearEl) yearEl.textContent = year;
+  if (yearNavEl) yearNavEl.textContent = year;
 
-  // Sticky header background on scroll + scroll-to-top visibility
+  // Scroll-to-top visibility
   const onScroll = () => {
-    const scrolled = window.scrollY > 12;
-    header.classList.toggle('scrolled', scrolled);
     scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
   };
   onScroll();
@@ -22,21 +23,35 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // Mobile nav toggle
+  // Full-screen nav overlay toggle
+  const closeNav = () => {
+    navOverlay.classList.remove('open');
+    navOverlay.setAttribute('aria-hidden', 'true');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Otwórz menu');
+    document.body.style.overflow = '';
+  };
+  const openNav = () => {
+    navOverlay.classList.add('open');
+    navOverlay.setAttribute('aria-hidden', 'false');
+    navToggle.setAttribute('aria-expanded', 'true');
+    navToggle.setAttribute('aria-label', 'Zamknij menu');
+    document.body.style.overflow = 'hidden';
+  };
+
   navToggle.addEventListener('click', () => {
-    const isOpen = mainNav.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', String(isOpen));
-    navToggle.setAttribute('aria-label', isOpen ? 'Zamknij menu' : 'Otwórz menu');
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    const isOpen = navOverlay.classList.contains('open');
+    isOpen ? closeNav() : openNav();
   });
 
-  mainNav.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      mainNav.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      navToggle.setAttribute('aria-label', 'Otwórz menu');
-      document.body.style.overflow = '';
-    });
+  navClose.addEventListener('click', closeNav);
+
+  navOverlay.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeNav);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navOverlay.classList.contains('open')) closeNav();
   });
 
   // Scroll reveal animations
