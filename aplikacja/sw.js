@@ -1,16 +1,15 @@
 /**
- * Offline shell for the EPI app. Navigation is network-first and the app's own
- * files are revalidated in the background, so a cached copy is shown at once
- * but a deployed fix reaches returning visitors on their next visit rather
- * than being pinned forever. Bump CACHE to drop everything held by an older
- * version of this worker.
+ * Offline shell for the EPI app.
+ *
+ * Same-origin requests are network-first: a deployed change reaches the
+ * browser on the next load instead of being pinned by the cache, and the
+ * cached copy is what answers when the network is gone. Bump CACHE to discard
+ * everything an older worker stored.
  */
-const CACHE = 'epi-app-v2';
+const CACHE = 'epi-app-v3';
 const SHELL = [
   './',
   './index.html',
-  './app.css',
-  './app.js',
   './manifest.webmanifest',
   '../assets/img/epi-logo.png',
   '../assets/fonts/PlusJakartaSans-latin.woff2',
@@ -38,36 +37,21 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET') return;
-
-  if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE).then((cache) => cache.put('./index.html', copy));
-          return response;
-        })
-        .catch(() => caches.match('./index.html'))
-    );
-    return;
-  }
+  if (new URL(request.url).origin !== self.location.origin) return;
 
   event.respondWith(
-    caches.match(request).then((cached) => {
-      const sameOrigin = new URL(request.url).origin === self.location.origin;
-      const fetched = fetch(request).then((response) => {
-        if (response.ok && sameOrigin) {
+    fetch(request)
+      .then((response) => {
+        if (response.ok) {
           const copy = response.clone();
           caches.open(CACHE).then((cache) => cache.put(request, copy));
         }
         return response;
-      });
-      // Serve the cached copy immediately, refresh it for the next load.
-      if (cached) {
-        event.waitUntil(fetched.catch(() => {}));
-        return cached;
-      }
-      return fetched;
-    })
+      })
+      .catch(() => caches.match(request).then((cached) => {
+        if (cached) return cached;
+        // A navigation that never reached the network still gets the shell.
+        return request.mode === 'navigate' ? caches.match('./index.html') : Response.error();
+      }))
   );
 });

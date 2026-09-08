@@ -12,6 +12,11 @@ tasks.register('copySite', Copy) {
     from("$rootDir/../aplikacja") {
         into 'site/aplikacja'
         exclude 'README.md', 'sw.js'          // no service worker on file://
+        // The cache-busting query only matters to a browser; drop it so the
+        // WebView resolves plain asset paths.
+        filesMatching('index.html') {
+            filter { line -> line.replaceAll(/(app\.(?:css|js))\?v=[^"]*/, '$1') }
+        }
     }
     from("$rootDir/../assets/fonts") { into 'site/assets/fonts' }
     from("$rootDir/../assets/img") {
