@@ -55,6 +55,8 @@
       'monitor.connected': 'Rozłącz czujnik',
       'metric.hr': 'Tętno',
       'metric.amp': 'Amplituda ruchu',
+      'metric.base': 'baza',
+      'metric.threshold': 'próg',
       'metric.freq': 'Rytm drgań',
       'chart.ppg': 'Sygnał PPG',
       'chart.motion': 'Akcelerometr',
@@ -244,6 +246,8 @@
       'monitor.connected': 'Disconnect sensor',
       'metric.hr': 'Heart rate',
       'metric.amp': 'Motion amplitude',
+      'metric.base': 'baseline',
+      'metric.threshold': 'threshold',
       'metric.freq': 'Shaking rhythm',
       'chart.ppg': 'PPG signal',
       'chart.motion': 'Accelerometer',
@@ -1284,9 +1288,9 @@
     el.mSpo2.textContent = detector.running ? Math.round(vitals.spo2) : '—';
     el.mAmp.textContent = detector.running ? analysis.amp.toFixed(1) : '—';
     el.mFreq.textContent = detector.running ? analysis.freq.toFixed(1) : '—';
-    el.mHrBase.textContent = `baza ${Math.round(settings.baselineHr)} bpm`;
-    el.mSpo2Base.textContent = `baza ${Math.round(settings.baselineSpo2)}%`;
-    el.mAmpThr.textContent = `próg ${settings.ampMin.toFixed(1)}`;
+    el.mHrBase.textContent = `${t('metric.base')} ${Math.round(settings.baselineHr)} bpm`;
+    el.mSpo2Base.textContent = `${t('metric.base')} ${Math.round(settings.baselineSpo2)}%`;
+    el.mAmpThr.textContent = `${t('metric.threshold')} ${settings.ampMin.toFixed(1)}`;
     el.mFreqThr.textContent = `${settings.freqMin.toFixed(1)}–${settings.freqMax.toFixed(1)}`;
     el.mHr.parentElement.parentElement.classList.toggle('hot', analysis.hrPass);
     el.mSpo2.parentElement.parentElement.classList.toggle('hot', analysis.spo2Pass);
@@ -1352,6 +1356,13 @@
     }).join('');
   }
 
+  /** Both channels simulated reads better as one word than as a repeated pair. */
+  function eventSource(ev) {
+    const motion = ev.motionSource === 'device' ? t('source.motion') : t('source.sim');
+    const vitals = ev.vitalsSource === 'ble' ? t('source.ble') : t('source.sim');
+    return motion === vitals ? motion : motion + ' + ' + vitals;
+  }
+
   function openEventSheet(id) {
     const ev = events.find((e) => e.id === id);
     if (!ev) return;
@@ -1365,7 +1376,7 @@
       [t('sheet.minSpo2'), Math.round(ev.minSpo2 || 0) + ' %'],
       [t('sheet.freq'), (ev.freq || 0).toFixed(1) + ' Hz'],
       [t('sheet.amp'), (ev.amp || 0).toFixed(1) + ' m/s²'],
-      [t('sheet.source'), (ev.motionSource === 'device' ? t('source.motion') : t('source.sim')) + ' + ' + (ev.vitalsSource === 'ble' ? t('source.ble') : t('source.sim'))],
+      [t('sheet.source'), eventSource(ev)],
       [t('sheet.notified'), (ev.notified && ev.notified.length) ? ev.notified.join(', ') : t('sheet.none')]
     ];
     el.sheetFacts.innerHTML = facts
