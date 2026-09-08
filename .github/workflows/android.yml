@@ -5,6 +5,11 @@ name: Android APK
 # as well as in android/.
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Opublikuj wydanie z tym tagiem (np. v0.1.0). Puste — tylko artefakt przebiegu.'
+        required: false
+        default: ''
   push:
     branches: ['**']
     paths:
@@ -49,9 +54,11 @@ jobs:
           if-no-files-found: error
 
       - name: Publish the APK with the release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.release_tag != ''
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event.inputs.release_tag || github.ref_name }}
+          name: EPI ${{ github.event.inputs.release_tag || github.ref_name }}
           files: ${{ steps.apk.outputs.path }}
           body: |
             Aplikacja EPI — prototyp. APK jest podpisany kluczem debugowym,
