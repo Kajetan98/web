@@ -282,7 +282,10 @@ button{ font-family: inherit; }
   display: flex; align-items: center; justify-content: space-between;
   gap: 24px; flex-wrap: wrap; margin-bottom: 32px;
 }
-.project-logo{ height: 42px; width: auto; }
+/* Sized per mark, not uniformly: AURORA's hairline strokes read smaller than
+   EPI's heavy ones at the same height. */
+.project-logo{ height: 34px; width: auto; }
+.project-logo-aurora{ height: 44px; }
 .project-wordmark{
   font-size: 1.9rem; font-weight: 700; letter-spacing: 0.08em;
   line-height: 1; color: var(--navy);
