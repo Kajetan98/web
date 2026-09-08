@@ -1,8 +1,11 @@
 /**
- * Offline shell for the EPI app. Navigation stays network-first so a deployed
- * update is picked up immediately; static files are served from cache first.
+ * Offline shell for the EPI app. Navigation is network-first and the app's own
+ * files are revalidated in the background, so a cached copy is shown at once
+ * but a deployed fix reaches returning visitors on their next visit rather
+ * than being pinned forever. Bump CACHE to drop everything held by an older
+ * version of this worker.
  */
-const CACHE = 'epi-app-v1';
+const CACHE = 'epi-app-v2';
 const SHELL = [
   './',
   './index.html',
@@ -50,12 +53,21 @@ self.addEventListener('fetch', (event) => {
   }
 
   event.respondWith(
-    caches.match(request).then((cached) => cached || fetch(request).then((response) => {
-      if (response.ok && new URL(request.url).origin === self.location.origin) {
-        const copy = response.clone();
-        caches.open(CACHE).then((cache) => cache.put(request, copy));
+    caches.match(request).then((cached) => {
+      const sameOrigin = new URL(request.url).origin === self.location.origin;
+      const fetched = fetch(request).then((response) => {
+        if (response.ok && sameOrigin) {
+          const copy = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(request, copy));
+        }
+        return response;
+      });
+      // Serve the cached copy immediately, refresh it for the next load.
+      if (cached) {
+        event.waitUntil(fetched.catch(() => {}));
+        return cached;
       }
-      return response;
-    }).catch(() => cached))
+      return fetched;
+    })
   );
 });

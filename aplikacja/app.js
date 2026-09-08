@@ -1567,7 +1567,7 @@
     });
     el.langPl.setAttribute('aria-current', String(lang === 'pl'));
     el.langEn.setAttribute('aria-current', String(lang === 'en'));
-    el.exitLink.href = lang === 'en' ? '../en/projects.html#epi-app' : '../projekty.html#epi-aplikacja';
+    el.exitLink.href = lang === 'en' ? '../en/epi.html#epi-app' : '../epi.html#epi-aplikacja';
     el.btnRun.textContent = detector.running ? t('monitor.stop') : t('monitor.start');
     el.stateName.textContent = t('state.' + detector.state + '.name');
     el.stateNote.textContent = t('state.' + detector.state + '.note');
