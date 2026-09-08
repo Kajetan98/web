@@ -340,6 +340,30 @@ button{ font-family: inherit; }
   text-transform: uppercase; color: var(--text-muted);
 }
 
+/* App showcase — phone-shaped frames for the companion app */
+.app-showcase{ margin-top: 56px; padding-top: 44px; border-top: 1px solid var(--border); }
+.app-showcase > p{ max-width: 58ch; font-size: 0.98rem; line-height: 1.7; }
+.app-showcase-title{
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.35rem;
+  letter-spacing: -0.01em; color: var(--navy); text-transform: none;
+  margin-bottom: 14px; max-width: 24ch;
+}
+.app-shots{
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 220px));
+  gap: 24px; margin-top: 32px;
+}
+.app-shot{ margin: 0; }
+.app-shot img,
+.app-shot .asset-slot{
+  width: 100%; aspect-ratio: 9 / 19.5; min-height: 0;
+  border-radius: 20px; object-fit: cover;
+}
+.app-shot img{ border: 1px solid var(--border); background: var(--cream-2); display: block; }
+.app-shot figcaption{
+  margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.68rem;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted);
+}
+
 /* A slot waiting for artwork reads as intentional, not as a broken image. */
 .asset-slot{
   display: flex; align-items: center; justify-content: center;
