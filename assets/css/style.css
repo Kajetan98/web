@@ -257,6 +257,113 @@ button{ font-family: inherit; }
 .note-band p{ margin: 0; font-size: 0.9rem; }
 
 /* ==========================================================================
+   Long-form prose (article body, about narrative)
+   ========================================================================== */
+.prose{ max-width: 65ch; }
+.prose > p{ font-size: 1.02rem; line-height: 1.75; margin: 0 0 1.4em; }
+.prose > p.lead{
+  font-size: 1.3rem; line-height: 1.55; color: var(--navy); font-weight: 500;
+  margin-bottom: 1.6em;
+}
+.prose h2{ font-size: 1.6rem; margin: 2.2em 0 .6em; }
+.prose h3{ font-size: 1.15rem; margin: 2em 0 .5em; }
+.prose ul{ margin: 0 0 1.6em; display: flex; flex-direction: column; gap: 12px; }
+.prose ul li{
+  font-size: 1rem; line-height: 1.65; color: var(--text-muted);
+  padding-left: 22px; position: relative;
+}
+.prose ul li::before{
+  content: ""; position: absolute; left: 0; top: 10px; width: 7px; height: 7px;
+  background: var(--red);
+}
+.prose blockquote{
+  margin: 2em 0; padding: 4px 0 4px 26px; border-left: 2px solid var(--red);
+}
+.prose blockquote p{
+  font-size: 1.25rem; line-height: 1.5; color: var(--navy); font-weight: 600; margin: 0;
+}
+
+/* ==========================================================================
+   Principles — numbered because the order is the argument, not decoration
+   ========================================================================== */
+.principle-list{ display: flex; flex-direction: column; margin-top: 48px; }
+.principle{
+  display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 32px; padding: 32px 0; border-top: 1px solid var(--border);
+}
+.principle:last-child{ border-bottom: 1px solid var(--border); }
+.principle-num{ font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; color: var(--red); }
+.principle h3{ font-size: 1.2rem; margin: 0; }
+.principle p{ font-size: 0.95rem; margin: 0; }
+
+/* ==========================================================================
+   Team rows (about page) — more room than the homepage strip
+   ========================================================================== */
+.team-rows{ display: flex; flex-direction: column; margin-top: 48px; }
+.team-row{
+  display: grid; grid-template-columns: 72px minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 32px; align-items: start;
+  padding: 32px 0; border-top: 1px solid var(--border);
+}
+.team-rows .team-row:last-child{ border-bottom: 1px solid var(--border); }
+.team-row .team-avatar{ width: 72px; height: 72px; margin: 0; }
+.team-row h3{ font-size: 1.2rem; margin-bottom: 4px; }
+.team-row .team-role{ margin-bottom: 0; }
+.team-row p{ font-size: 0.95rem; margin: 0; }
+
+/* ==========================================================================
+   Journal — a featured entry, then the archive list
+   ========================================================================== */
+.post-featured{
+  padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.post-featured h2{ font-size: clamp(1.7rem, 3.4vw, 2.5rem); margin-bottom: 16px; max-width: 18ch; }
+.post-featured p{ font-size: 1rem; margin-bottom: 24px; max-width: 52ch; }
+
+.post-meta{
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-bottom: 18px;
+  font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.post-meta .cat{ color: var(--red); font-weight: 700; }
+.post-meta .sep{ width: 4px; height: 4px; background: var(--border); border-radius: 50%; }
+
+.post-list{ margin-top: 8px; }
+.post-row{
+  display: grid; grid-template-columns: 150px minmax(0, 1fr) auto;
+  gap: 32px; align-items: baseline;
+  padding: 28px 0; border-bottom: 1px solid var(--border);
+  transition: background .2s ease;
+}
+.post-row:hover{ background: rgba(27,33,47,0.025); }
+.post-row .post-date{
+  font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.post-row h3{ font-size: 1.15rem; margin-bottom: 6px; }
+.post-row p{ font-size: 0.92rem; margin: 0; max-width: 56ch; }
+.post-row .post-cat{
+  font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--red); font-weight: 700; white-space: nowrap;
+}
+a.post-row{ color: inherit; }
+a.post-row h3{ transition: color .2s ease; }
+a.post-row:hover h3{ color: var(--red); }
+
+/* Article */
+.article-head{ padding: 76px 0 44px; }
+.article-head h1{ font-size: clamp(2rem, 4.4vw, 3.1rem); max-width: 20ch; margin-bottom: 24px; }
+.article-body{ padding-bottom: 90px; }
+.back-link{
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 56px;
+  font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--navy);
+  border-bottom: 1px solid var(--border); padding-bottom: 4px;
+  transition: color .2s ease, border-color .2s ease;
+}
+.back-link:hover{ color: var(--red); border-color: var(--red); }
+
+/* ==========================================================================
    Buttons
    ========================================================================== */
 .btn-block{
@@ -479,6 +586,11 @@ button{ font-family: inherit; }
 @media (max-width: 980px){
   .project-row{ grid-template-columns: 48px minmax(0, 1fr) auto; }
   .project-meta{ grid-column: 2 / 3; flex-direction: row; flex-wrap: wrap; gap: 10px 28px; }
+  .principle, .team-row{ grid-template-columns: 48px minmax(0, 1fr); }
+  .principle p, .team-row p{ grid-column: 2 / 3; }
+  .team-row .team-avatar{ width: 48px; height: 48px; font-size: 0.85rem; }
+  .post-row{ grid-template-columns: 120px minmax(0, 1fr); }
+  .post-row .post-cat{ grid-column: 2 / 3; }
 }
 
 @media (max-width: 760px){
@@ -487,6 +599,12 @@ button{ font-family: inherit; }
   .project-row{ grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
   .project-meta{ grid-column: auto; }
   .project-status{ justify-self: start; }
+  .principle, .team-row{ grid-template-columns: 1fr; gap: 12px; padding: 26px 0; }
+  .principle p, .team-row p{ grid-column: auto; }
+  .post-row{ grid-template-columns: 1fr; gap: 10px; padding: 24px 0; }
+  .post-row .post-cat{ grid-column: auto; }
+  .article-head{ padding: 48px 0 32px; }
+  .prose > p.lead{ font-size: 1.15rem; }
   .section{ padding: 72px 0; }
   .cta-band{ padding: 80px 0; }
   .pillar-grid, .feature-grid, .team-grid{ grid-template-columns: 1fr; }

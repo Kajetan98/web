@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O nas — SPACER</title>
+<meta name="description" content="Dlaczego powstał SPACER, jakimi zasadami kierujemy się przy projektowaniu systemów medycznych dla środowisk ekstremalnych i kto za tym stoi.">
+<meta name="theme-color" content="#1b212f">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SPACER">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:title" content="O nas — SPACER">
+<meta property="og:description" content="Dlaczego powstał SPACER i jakimi zasadami kierujemy się przy projektowaniu systemów medycznych dla środowisk ekstremalnych.">
+<meta property="og:image" content="assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="O nas — SPACER">
+<meta name="twitter:description" content="Dlaczego powstał SPACER i jakimi zasadami kierujemy się przy projektowaniu systemów medycznych.">
+<meta name="twitter:image" content="assets/img/og-image.png">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Przejdź do treści</a>
+
+<div class="announce-bar">SPACER / SYSTEMS FOR HUMAN EXPLORATION</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/img/logo-dark.png" alt="SPACER — strona główna" width="723" height="121">
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="navOverlay">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+  <button class="nav-close" id="navClose" aria-label="Zamknij menu">✕</button>
+  <div class="container nav-overlay-inner">
+    <a href="o-nas.html" aria-current="page">O nas</a>
+    <a href="index.html#technologia">Technologia</a>
+    <a href="projekty.html">Projekty</a>
+    <a href="dziennik.html">Dziennik</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+  <div class="container nav-overlay-foot mono">
+    <span>© <span id="yearNav"></span> SPACER</span>
+    <span>kontakt@spacer.example</span>
+  </div>
+</nav>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">O nas / 01</span></div>
+      <h1 class="display-headline">Technologia <span class="accent">z ludzkim</span> punktem ciężkości.</h1>
+      <p class="section-lead">
+        Nie budujemy sprzętu, który ma imponować parametrami. Budujemy taki, któremu można
+        zaufać, kiedy najbliższy szpital jest poza zasięgiem.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Dlaczego powstaliśmy</span></div>
+      <div class="prose">
+        <p class="lead">
+          Medycyna ostatniego stulecia została zaprojektowana wokół założenia, że pacjent
+          i lekarz są w tym samym miejscu. Eksploracja to założenie łamie.
+        </p>
+        <p>
+          Na orbicie, stacji polarnej czy w ekspedycji głębinowej konsultacja może być opóźniona
+          o minuty albo niemożliwa przez wiele godzin. Sprzęt medyczny, który świetnie działa
+          na oddziale, w takich warunkach traci swoje podstawy: stabilne zasilanie, kalibrację
+          pod ziemską grawitację, ciągłą łączność i lekarza, który patrzy na ekran.
+        </p>
+        <p>
+          SPACER powstał, żeby wypełnić tę lukę od strony inżynierskiej i klinicznej naraz.
+          Projektujemy systemy, które zbierają wiarygodne dane wtedy, gdy nikt ich nie nadzoruje,
+          i podają je człowiekowi w formie, na podstawie której da się podjąć decyzję —
+          także wtedy, gdy tym człowiekiem jest członek załogi bez wykształcenia medycznego.
+        </p>
+        <blockquote>
+          <p>Dobre urządzenie medyczne w terenie to takie, które mówi wprost, czego nie wie.</p>
+        </blockquote>
+        <p>
+          Dlatego tyle uwagi poświęcamy temu, jak system zachowuje się w sytuacjach granicznych:
+          przy utracie sygnału z czujnika, przy niepewnym odczycie, przy zerwanej łączności.
+          To one decydują o zaufaniu do sprzętu, a nie dokładność w idealnych warunkach.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Zasady</span></div>
+      <h2 class="display-headline">Cztery reguły, od których <span class="accent">nie odchodzimy</span>.</h2>
+
+      <div class="principle-list">
+        <article class="principle">
+          <span class="principle-num">01</span>
+          <h3>Offline to stan domyślny</h3>
+          <p>Nie traktujemy braku łączności jako awarii. System ma działać w pełni lokalnie i dosyłać dane wtedy, gdy okno transmisyjne się otworzy.</p>
+        </article>
+        <article class="principle">
+          <span class="principle-num">02</span>
+          <h3>Dane wspierają lekarza, nie zastępują go</h3>
+          <p>Algorytm porządkuje obserwacje i wskazuje priorytety. Rozpoznanie i decyzja terapeutyczna pozostają po stronie człowieka.</p>
+        </article>
+        <article class="principle">
+          <span class="principle-num">03</span>
+          <h3>Każdy gram i każdy wat trzeba uzasadnić</h3>
+          <p>W misji budżet masy i energii jest sztywny. Funkcja, która nie zmienia decyzji medycznej, nie zasługuje na miejsce na pokładzie.</p>
+        </article>
+        <article class="principle">
+          <span class="principle-num">04</span>
+          <h3>Każdą decyzję da się odtworzyć</h3>
+          <p>Pełny zapis tego, co system zmierzył i co zarekomendował, zostaje do analizy po misji. Bez tego nie da się niczego poprawić ani rozliczyć.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Czego nie robimy</span></div>
+      <div class="prose">
+        <p>
+          Zakres, którego świadomie nie obejmujemy, mówi o firmie tyle samo co lista kompetencji:
+        </p>
+        <ul>
+          <li>Nie stawiamy diagnoz automatycznie — system opisuje odchylenia, nie nazywa choroby.</li>
+          <li>Nie zbieramy danych „na zapas”. Każdy mierzony parametr musi mieć powód kliniczny.</li>
+          <li>Nie obiecujemy działania poza zakresem, w którym przeprowadziliśmy walidację.</li>
+          <li>Nie zastępujemy procedur ratowniczych organizacji, z którą pracujemy — dopasowujemy się do nich.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Zespół</span></div>
+      <h2 class="display-headline">Ludzie, którzy <span class="accent">łączą światy</span>.</h2>
+      <p class="section-lead">Medycyna ratunkowa, inżynieria systemów pokładowych i praktyka kliniczna przy jednym stole.</p>
+
+      <div class="team-rows">
+        <article class="team-row">
+          <div class="team-avatar mono" aria-hidden="true">JK</div>
+          <div>
+            <h3>Jan Kowalski</h3>
+            <p class="team-role">CEO &amp; Współzałożyciel</p>
+          </div>
+          <p>Odpowiada za kierunek produktu i kontakt z organizacjami misyjnymi. Tło w medycynie ratunkowej i zarządzaniu produktem medtech.</p>
+        </article>
+        <article class="team-row">
+          <div class="team-avatar mono" aria-hidden="true">AN</div>
+          <div>
+            <h3>Anna Nowak</h3>
+            <p class="team-role">CTO &amp; Współzałożycielka</p>
+          </div>
+          <p>Prowadzi architekturę systemu — od firmware’u czujników po transmisję danych. Doświadczenie w systemach wbudowanych dla sektora kosmicznego.</p>
+        </article>
+        <article class="team-row">
+          <div class="team-avatar mono" aria-hidden="true">MW</div>
+          <div>
+            <h3>Marek Wiśniewski</h3>
+            <p class="team-role">Dyrektor Medyczny</p>
+          </div>
+          <p>Nadzoruje protokoły kliniczne i walidację rekomendacji. Specjalizacja w medycynie lotniczej i intensywnej terapii.</p>
+        </article>
+      </div>
+
+      <div class="note-band">
+        <p>
+          Sylwetki zespołu to przykładowa struktura — nazwiska, role i opisy są do zastąpienia
+          rzeczywistymi danymi SPACER.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <h2 class="display-headline">Pracujesz nad czymś, co <span class="accent">wychodzi poza</span> standard?</h2>
+      <p class="section-lead">Najciekawsze rozmowy zaczynają się od nietypowego środowiska i trudnego ograniczenia.</p>
+      <a href="index.html#kontakt" class="btn-block">Skontaktuj się z nami <span class="arrow">↗</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-logo">
+      <img src="assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+    </div>
+    <p class="footer-tagline">Projektujemy medycynę dla miejsc, w których nie ma miejsca na przypadek.</p>
+    <div class="footer-bottom">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+      </a>
+      <nav class="footer-nav">
+        <a href="o-nas.html" aria-current="page">O nas</a>
+        <a href="index.html#technologia">Technologia</a>
+        <a href="projekty.html">Projekty</a>
+        <a href="dziennik.html">Dziennik</a>
+        <a href="index.html#kontakt">Kontakt</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> SPACER. Wszelkie prawa zastrzeżone.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Wróć na górę strony">↑</button>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
