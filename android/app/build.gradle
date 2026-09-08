@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application'
+}
+
+/**
+ * The web app is not duplicated in the Android project — it is copied out of the
+ * repository at build time, keeping one source of truth for the app itself.
+ */
+def siteDir = layout.buildDirectory.dir('generated/site').get().asFile
+
+tasks.register('copySite', Copy) {
+    from("$rootDir/../aplikacja") {
+        into 'site/aplikacja'
+        exclude 'README.md', 'sw.js'          // no service worker on file://
+    }
+    from("$rootDir/../assets/fonts") { into 'site/assets/fonts' }
+    from("$rootDir/../assets/img") {
+        into 'site/assets/img'
+        include 'epi-logo.png', 'apple-touch-icon.png', 'favicon-16.png', 'favicon-32.png', 'Logo_Epi.png'
+    }
+    into siteDir
+}
+
+android {
+    namespace 'pl.spacer.epi'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "pl.spacer.epi"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "0.1.0"
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs += [siteDir]
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+tasks.named('preBuild') { dependsOn 'copySite' }

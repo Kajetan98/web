@@ -1151,10 +1151,22 @@
   /* ====================================================================== */
   /* Charts                                                                 */
   /* ====================================================================== */
+  /**
+   * The CSS height is read once and remembered: assigning canvas.height also
+   * rewrites the height attribute, so reading it back would multiply the
+   * canvas by the pixel ratio on every frame until the page collapses.
+   */
+  function cssHeight(canvas) {
+    if (!canvas.dataset.h) {
+      canvas.dataset.h = String(parseInt(canvas.getAttribute('height'), 10) || 120);
+    }
+    return Number(canvas.dataset.h);
+  }
+
   function fitCanvas(canvas) {
     const dpr = window.devicePixelRatio || 1;
     const width = canvas.clientWidth || 320;
-    const height = parseInt(canvas.getAttribute('height'), 10) || 120;
+    const height = cssHeight(canvas);
     if (canvas.width !== Math.round(width * dpr) || canvas.height !== Math.round(height * dpr)) {
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);

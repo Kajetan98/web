@@ -664,6 +664,7 @@ a.post-row:hover h3{ color: var(--red); }
 }
 .btn-text:hover{ color: var(--red); border-color: var(--red); }
 button.btn-text{ background: none; border: 0; border-bottom: 1px solid var(--navy); cursor: pointer; font-family: inherit; }
+.project-more{ margin-top: 32px; }
 button.btn-text:disabled{ opacity: 0.5; cursor: default; }
 
 /* ==========================================================================

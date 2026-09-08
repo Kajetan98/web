@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPI — detektor napadów padaczkowych | SPACER</title>
+<meta name="description" content="EPI — wearable do wykrywania napadów padaczkowych: fuzja danych z IMU i PPG, aplikacja monitorująca w przeglądarce oraz wersja na Androida.">
+<meta name="theme-color" content="#1b212f">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SPACER">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:title" content="EPI — detektor napadów padaczkowych">
+<meta property="og:description" content="Wearable do wykrywania napadów padaczkowych i aplikacja monitorująca — prototyp SPACER.">
+<meta property="og:image" content="assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EPI — detektor napadów padaczkowych">
+<meta name="twitter:description" content="Wearable do wykrywania napadów padaczkowych i aplikacja monitorująca — prototyp SPACER.">
+<meta name="twitter:image" content="assets/img/og-image.png">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="alternate" hreflang="pl" href="epi.html">
+<link rel="alternate" hreflang="en" href="en/epi.html">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Przejdź do treści</a>
+
+<div class="announce-bar">SPACER / SYSTEMS FOR HUMAN EXPLORATION</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/img/logo-dark.png" alt="SPACER — strona główna" width="723" height="121">
+    </a>
+    <div class="header-actions">
+      <div class="lang-switch mono">
+        <a href="epi.html" aria-current="true">PL</a>
+        <span class="divider" aria-hidden="true">/</span>
+        <a href="en/epi.html" hreflang="en" lang="en">EN</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" data-label-open="Otwórz menu" data-label-close="Zamknij menu" aria-expanded="false" aria-controls="navOverlay">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+  <button class="nav-close" id="navClose" aria-label="Zamknij menu">✕</button>
+  <div class="container nav-overlay-inner">
+    <a href="o-nas.html">O nas</a>
+    <a href="index.html#technologia">Technologia</a>
+    <a href="projekty.html">Projekty</a>
+    <a href="epi.html" aria-current="page">EPI</a>
+    <a href="dziennik.html">Dziennik</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+  <div class="container nav-overlay-foot mono">
+    <span>© <span id="yearNav"></span> SPACER</span>
+    <span>kontakt@spacer.example</span>
+    <span class="lang-switch">
+      <a href="epi.html" aria-current="true">PL</a>
+      <span class="divider" aria-hidden="true">/</span>
+      <a href="en/epi.html" hreflang="en" lang="en">EN</a>
+    </span>
+  </div>
+</nav>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="project-detail-head">
+        <img class="project-logo" src="assets/img/epi-logo.png" alt="EPI" width="532" height="216">
+        <span class="project-status status-active">W rozwoju</span>
+      </div>
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Wearable / Detekcja napadów</span></div>
+      <h1 class="display-headline">Napad padaczkowy wykryty, <span class="accent">zanim ktokolwiek</span> zdąży zareagować.</h1>
+      <p class="section-lead">
+        EPI to noszone urządzenie, które łączy pomiar ruchu z pomiarem tętna i saturacji,
+        żeby rozpoznać napad toniczno-kloniczny i powiadomić bliskich — razem z aplikacją,
+        która zapisuje przebieg każdego zdarzenia do wglądu dla lekarza.
+      </p>
+      <div class="hero-cta">
+        <a href="aplikacja/index.html?lang=pl" class="btn-block">Otwórz aplikację <span class="arrow">↗</span></a>
+        <a href="#pobierz" class="btn-text">Pobierz na Androida ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="project-cols">
+        <div>
+          <div class="eyebrow-row"><span class="dash"></span><span class="mono">Zasada działania / 01</span></div>
+          <h2>Fuzja danych zamiast pojedynczego czujnika</h2>
+          <p>
+            Urządzenia oparte na jednym typie czujnika mylą napad z gwałtowną aktywnością
+            ruchową. EPI analizuje równolegle dwa tory: kinematyczny (akcelerometr
+            i żyroskop) oraz biometryczny (fotopletyzmografia — tętno i SpO₂). Alarm wymaga
+            potwierdzenia z obu torów naraz, co ogranicza liczbę fałszywych alarmów.
+          </p>
+          <p>
+            Kryterium ruchowe to rytmiczne drgania w paśmie charakterystycznym dla napadu
+            toniczno-klonicznego. Kryterium biometryczne to spadek saturacji albo wzrost
+            tętna na tyle gwałtowny, że nie da się go wytłumaczyć wysiłkiem fizycznym.
+          </p>
+
+          <h3 style="margin-top: 36px;">Konstrukcja i bezpieczeństwo</h3>
+          <ul class="feature-list">
+            <li>Całkowicie zamknięta, odporna na wstrząsy obudowa — bezpieczna w trakcie napadu</li>
+            <li>Ładowanie indukcyjne Qi, bez złączy narażonych na uszkodzenie</li>
+            <li>Fizyczny przycisk SOS do ręcznego wezwania pomocy w momencie aury</li>
+            <li>Okno anulowania przed wysłaniem powiadomień do bliskich</li>
+            <li>Alarm lokalny: wibracja oraz sygnał dźwiękowy</li>
+          </ul>
+        </div>
+
+        <dl class="project-facts">
+          <div>
+            <dt>Wykrywane napady</dt>
+            <dd>Toniczno-kloniczne i ogniskowe</dd>
+          </div>
+          <div>
+            <dt>Sensory</dt>
+            <dd>IMU 6-osiowy + PPG (tętno, SpO₂)</dd>
+          </div>
+          <div>
+            <dt>Łączność</dt>
+            <dd>BLE do aplikacji mobilnej</dd>
+          </div>
+          <div>
+            <dt>Zasilanie</dt>
+            <dd>Ogniwo LiPo, ładowanie indukcyjne Qi</dd>
+          </div>
+          <div>
+            <dt>Zapis zdarzenia</dt>
+            <dd>Okno −30 s / +60 s wokół napadu</dd>
+          </div>
+          <div>
+            <dt>Etap</dt>
+            <dd>Prototyp inżynierski, TRL 2→3</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="algorytm">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Algorytm / 02</span></div>
+      <h2 class="display-headline">Pięć stanów, <span class="accent">jedna decyzja</span>.</h2>
+      <p class="section-lead">
+        Detekcja działa jako automat stanów. Każde przejście wymaga spełnionego warunku
+        w oknie czasowym — dopiero ostatnie z nich uruchamia powiadomienie.
+      </p>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <div class="timeline-marker mono">01</div>
+          <div class="timeline-body">
+            <h3>IDLE</h3>
+            <p>Ciągła analiza ruchu przy niskim poborze energii, PPG w trybie oszczędnym. Aplikacja aktualizuje linię bazową tętna i saturacji w spoczynku.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">02</div>
+          <div class="timeline-body">
+            <h3>SUSPECT</h3>
+            <p>Amplituda drgań przekracza próg, a ich częstotliwość mieści się w paśmie napadowym. PPG przechodzi na pełną częstotliwość próbkowania.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">03</div>
+          <div class="timeline-body">
+            <h3>CONFIRMING</h3>
+            <p>Okno potwierdzenia z odliczaniem. Sprawdzane są kryteria biometryczne, a użytkownik może anulować alarm przyciskiem SOS.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">04</div>
+          <div class="timeline-body">
+            <h3>ALARM</h3>
+            <p>Kryteria spełnione: alarm lokalny, powiadomienie kontaktów i zapis przebiegu zdarzenia razem ze znacznikiem czasu.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">05</div>
+          <div class="timeline-body">
+            <h3>ANULOWANO / ODRZUCONO</h3>
+            <p>Alarm przerwany przez użytkownika albo odrzucony przez fuzję danych. Zdarzenie trafia do historii jako materiał do kalibracji progów.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <figure class="project-media">
+        <img src="assets/img/epi-device.jpg" alt="Opaska EPI — biała opaska z modułem głównym, przyciskiem SOS i czujnikiem optycznym od spodu" width="966" height="869" loading="lazy">
+        <figcaption>Opaska EPI — prototyp</figcaption>
+      </figure>
+
+        <!-- EPI-APP:START -->
+        <div class="app-showcase" id="epi-aplikacja">
+          <div class="eyebrow-row"><span class="dash"></span><span class="mono">Aplikacja EPI</span></div>
+          <h3 class="app-showcase-title">Podgląd na żywo, okno anulowania i historia napadów</h3>
+          <p>Prototyp aplikacji towarzyszącej opasce, zbudowany na podstawie koncepcji systemu: usługa BLE przekazuje stan urządzenia, tętno, SpO₂ i poziom baterii, a każde zdarzenie zapisuje się lokalnie razem z przebiegiem sygnału w oknie od 30 sekund przed napadem do 60 sekund po nim.</p>
+
+          <div class="app-shots">
+            <figure class="app-shot">
+              <div class="phone">
+        <div class="phone-screen">
+          <div class="app-top">
+            <span class="conn">Połączono</span>
+            <span>Bateria 78%</span>
+          </div>
+          <div class="app-body">
+            <div class="app-state"><span class="pulse"></span>Monitorowanie aktywne</div>
+            <p class="app-state-note">Stan IDLE — czujnik ruchu wybudza pomiar PPG.</p>
+            <div class="app-metrics">
+              <div class="app-metric">
+                <span class="label">Tętno</span>
+                <span class="value">72 <small>bpm</small></span>
+              </div>
+              <div class="app-metric">
+                <span class="label">SpO₂</span>
+                <span class="value">98 <small>%</small></span>
+              </div>
+            </div>
+            <div class="app-trace">
+              <span class="label">Sygnał PPG — ostatnie 30 s</span>
+              <svg viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,26 L6,24 L9,10 L12,30 L15,25 L22,26 L28,24 L31,11 L34,31 L37,25 L44,26 L50,24 L53,12 L56,30 L59,25 L66,26 L72,24 L75,10 L78,31 L81,25 L88,26 L94,24 L97,12 L100,30 L103,25 L110,26 L116,25 L120,26" fill="none" stroke="#4fd18b" stroke-width="1.4"
+                      stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="app-rows">
+            <div class="app-row"><span>Jakość sygnału</span><strong>Dobra</strong></div>
+            <div class="app-row"><span>Ostatnia synchronizacja</span><strong>przed chwilą</strong></div>
+            <div class="app-row"><span>Linia bazowa</span><strong>64 bpm / 97%</strong></div>
+            </div>
+          </div>
+          <div class="app-nav">
+          <span class="on">Monitoring</span>
+          <span>Historia</span>
+          <span>Kontakty</span>
+          </div>
+        </div>
+              </div>
+              <figcaption>Monitorowanie</figcaption>
+            </figure>
+            <figure class="app-shot">
+              <div class="phone">
+        <div class="phone-screen is-alarm" id="epiAlarmScreen" data-state-confirming="Potwierdzanie napadu" data-title-confirming="Wykryto wzorzec napadu toniczno-klonicznego" data-notify="Po upływie czasu powiadomimy: Anna K., Marek W. oraz zapiszemy przebieg zdarzenia." data-state-sent="Powiadomienia wysłane" data-title-sent="Kontakty alarmowe zostały powiadomione" data-note-sent="Przebieg zdarzenia zapisany w historii (−30 s / +60 s)." data-state-cancelled="Alarm anulowany" data-title-cancelled="Zdarzenie zapisane jako fałszywy alarm" data-note-cancelled="Zapis posłuży do kalibracji progów detekcji." data-restart="Uruchom ponownie">
+          <div class="app-top">
+            <span class="conn">Połączono</span>
+            <span>Bateria 78%</span>
+          </div>
+          <div class="app-body">
+            <div class="app-alarm">
+              <div class="app-state" style="color: var(--red);"><span class="pulse"></span><span id="epiAlarmState">Potwierdzanie napadu</span></div>
+              <p class="app-alarm-title" id="epiAlarmTitle">Wykryto wzorzec napadu toniczno-klonicznego</p>
+              <div class="app-countdown" id="epiCountdownWrap">
+                <span id="epiCountdown">15</span><small>s do powiadomienia</small>
+              </div>
+              <div class="app-triggers" id="epiTriggers">
+                <div class="app-trigger"><span>Drgania rytmiczne</span><em>3,4 Hz</em></div>
+                <div class="app-trigger"><span>Tętno</span><em>148 bpm ↑</em></div>
+                <div class="app-trigger"><span>SpO₂</span><em>91% ↓</em></div>
+              </div>
+              <div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px;">
+                <button type="button" class="app-cancel" id="epiCancel">To fałszywy alarm — anuluj</button>
+                <p class="app-notify" id="epiNotify">Po upływie czasu powiadomimy: Anna K., Marek W. oraz zapiszemy przebieg zdarzenia.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+              </div>
+              <figcaption>Okno potwierdzenia</figcaption>
+            </figure>
+            <figure class="app-shot">
+              <div class="phone">
+        <div class="phone-screen">
+          <div class="app-top">
+            <span class="conn">Połączono</span>
+            <span>Bateria 78%</span>
+          </div>
+          <div class="app-body">
+            <div class="app-state" style="color: var(--app-text);">Historia zdarzeń</div>
+            <div class="app-events">
+              <div class="app-event">
+                <div class="app-event-top">
+                  <span class="when">12.02.2026 · 03:14</span>
+                  <span class="tag tag-sent">Wysłano</span>
+                </div>
+                <p class="kind">Napad toniczno-kloniczny<span class="dur">1 min 42 s</span></p>
+              </div>
+              <div class="app-event">
+                <div class="app-event-top">
+                  <span class="when">28.01.2026 · 19:02</span>
+                  <span class="tag tag-sent">Wysłano</span>
+                </div>
+                <p class="kind">Napad ogniskowy<span class="dur">38 s</span></p>
+              </div>
+              <div class="app-event">
+                <div class="app-event-top">
+                  <span class="when">21.01.2026 · 08:47</span>
+                  <span class="tag tag-cancelled">Fałszywy</span>
+                </div>
+                <p class="kind">Anulowane przez użytkownika<span class="dur">—</span></p>
+              </div>
+            </div>
+            <div class="app-export">
+              <span>Eksport PDF</span>
+              <span>Eksport CSV</span>
+            </div>
+          </div>
+          <div class="app-nav">
+          <span>Monitoring</span>
+          <span class="on">Historia</span>
+          <span>Kontakty</span>
+          </div>
+        </div>
+              </div>
+              <figcaption>Historia zdarzeń</figcaption>
+            </figure>
+          </div>
+
+          <p>Poza makietą powstała działająca wersja aplikacji: uruchamia automat detekcji w przeglądarce, analizuje sygnał z akcelerometru telefonu, zapisuje zdarzenia z przebiegiem sygnału i prowadzi listę kontaktów alarmowych. Można ją też połączyć z pulsometrem BLE i zainstalować na telefonie jako aplikację.</p>
+
+          <div class="app-demo">
+            <a class="btn-block" href="aplikacja/index.html?lang=pl">Otwórz aplikację EPI <span class="arrow">↗</span></a>
+            <button type="button" class="btn-text" id="epiReplay">Odtwórz wykrycie napadu na makiecie</button>
+          </div>
+
+          <div class="note-band">
+            <p>Prototyp interfejsu — dane są przykładowe. Progi detekcji wymagają kalibracji na danych rzeczywistych; urządzenie jest na etapie koncepcji inżynierskiej (TRL 2→3) i nie stanowi wyrobu medycznego.</p>
+          </div>
+        </div>
+        <!-- EPI-APP:END -->
+    </div>
+  </section>
+
+  <section class="section section-alt" id="pobierz">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Pobieranie / 03</span></div>
+      <h2 class="display-headline">Trzy sposoby, żeby <span class="accent">uruchomić aplikację</span>.</h2>
+      <p class="section-lead">
+        Ta sama aplikacja działa w przeglądarce, jako instalowana aplikacja na telefonie
+        oraz jako plik APK na Androida. Dane pozostają na urządzeniu — nie ma serwera,
+        na który cokolwiek jest wysyłane.
+      </p>
+
+      <div class="pillar-grid">
+        <article class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="4" width="19" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 21h8M12 18v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>W przeglądarce</h3>
+          <p>Nic nie trzeba instalować. Działa na komputerze i na telefonie, z symulatorem sygnału w trybie demonstracyjnym.</p>
+          <p><a href="aplikacja/index.html?lang=pl" class="btn-text">Otwórz aplikację →</a></p>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="6" y="2.5" width="12" height="19" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 5.5h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Instalacja na telefonie</h3>
+          <p>Otwórz aplikację w przeglądarce telefonu i wybierz „Dodaj do ekranu głównego". Uruchamia się wtedy pełnoekranowo i działa bez internetu.</p>
+          <p class="mono" style="font-size: 0.72rem;">Chrome: menu ⋮ → Dodaj do ekranu głównego<br>Safari: Udostępnij → Do ekranu początkowego</p>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v11m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>APK na Androida</h3>
+          <p>Osobna aplikacja pakująca całość offline — po instalacji nie potrzebuje ani internetu, ani serwera. Kod źródłowy w katalogu <span class="mono">android/</span>, plik APK powstaje z workflow „Android APK" i trafia do wydań repozytorium.</p>
+          <p><a href="https://github.com/Kajetan98/web/releases/latest" class="btn-text" rel="noopener">Wydania na GitHubie →</a></p>
+        </article>
+      </div>
+
+      <div class="note-band">
+        <p>Instalacja pliku APK spoza sklepu Play wymaga zgody „Zainstaluj nieznane aplikacje" dla przeglądarki albo menedżera plików. W wersji APK nie działa łączenie z czujnikiem BLE — Android udostępnia Web Bluetooth wyłącznie w przeglądarce Chrome, więc do pomiaru z zewnętrznego pulsometru użyj wersji przeglądarkowej.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="note-band">
+        <p>EPI jest prototypem badawczym na poziomie TRL 2→3. Nie jest wyrobem medycznym, nie przeszedł walidacji klinicznej i nie może być jedynym zabezpieczeniem osoby z padaczką. Progi detekcji wymagają kalibracji na danych rzeczywistych, najlepiej we współpracy z neurologiem.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <h2 class="display-headline">Chcesz <span class="accent">przetestować</span> EPI?</h2>
+      <p class="section-lead">Szukamy ośrodków i osób, które pomogą zebrać dane referencyjne do kalibracji progów.</p>
+      <a href="index.html#kontakt" class="btn-block">Skontaktuj się z nami <span class="arrow">↗</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-logo">
+      <img src="assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+    </div>
+    <p class="footer-tagline">Projektujemy medycynę dla miejsc, w których nie ma miejsca na przypadek.</p>
+    <div class="footer-bottom">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+      </a>
+      <nav class="footer-nav">
+        <a href="o-nas.html">O nas</a>
+        <a href="index.html#technologia">Technologia</a>
+        <a href="projekty.html">Projekty</a>
+        <a href="epi.html" aria-current="page">EPI</a>
+        <a href="dziennik.html">Dziennik</a>
+        <a href="index.html#kontakt">Kontakt</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> SPACER. Wszelkie prawa zastrzeżone.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Wróć na górę strony">↑</button>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/epi-app.js"></script>
+</body>
+</html>

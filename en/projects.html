@@ -55,7 +55,7 @@
     <a href="about.html">About</a>
     <a href="index.html#technologia">Technology</a>
     <a href="projects.html" aria-current="page">Projects</a>
-    <a href="../aplikacja/?lang=en">EPI app</a>
+    <a href="epi.html">EPI</a>
     <a href="journal.html">Journal</a>
     <a href="index.html#kontakt">Contact</a>
   </div>
@@ -224,144 +224,9 @@
           <figcaption>EPI wristband — prototype</figcaption>
         </figure>
 
-        <!-- EPI-APP:START -->
-        <div class="app-showcase" id="epi-app">
-          <div class="eyebrow-row"><span class="dash"></span><span class="mono">EPI app</span></div>
-          <h3 class="app-showcase-title">Live view, the cancellation window and seizure history</h3>
-          <p>A prototype of the companion app, built from the system concept: a BLE service carries device state, heart rate, SpO₂ and battery level, and every event is stored locally together with the signal trace from 30 seconds before the seizure to 60 seconds after it.</p>
-
-          <div class="app-shots">
-            <figure class="app-shot">
-              <div class="phone">
-        <div class="phone-screen">
-          <div class="app-top">
-            <span class="conn">Connected</span>
-            <span>Battery 78%</span>
-          </div>
-          <div class="app-body">
-            <div class="app-state"><span class="pulse"></span>Monitoring active</div>
-            <p class="app-state-note">IDLE state — the motion sensor wakes the PPG measurement.</p>
-            <div class="app-metrics">
-              <div class="app-metric">
-                <span class="label">Heart rate</span>
-                <span class="value">72 <small>bpm</small></span>
-              </div>
-              <div class="app-metric">
-                <span class="label">SpO₂</span>
-                <span class="value">98 <small>%</small></span>
-              </div>
-            </div>
-            <div class="app-trace">
-              <span class="label">PPG signal — last 30 s</span>
-              <svg viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,26 L6,24 L9,10 L12,30 L15,25 L22,26 L28,24 L31,11 L34,31 L37,25 L44,26 L50,24 L53,12 L56,30 L59,25 L66,26 L72,24 L75,10 L78,31 L81,25 L88,26 L94,24 L97,12 L100,30 L103,25 L110,26 L116,25 L120,26" fill="none" stroke="#4fd18b" stroke-width="1.4"
-                      stroke-linejoin="round" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="app-rows">
-            <div class="app-row"><span>Signal quality</span><strong>Good</strong></div>
-            <div class="app-row"><span>Last sync</span><strong>just now</strong></div>
-            <div class="app-row"><span>Baseline</span><strong>64 bpm / 97%</strong></div>
-            </div>
-          </div>
-          <div class="app-nav">
-          <span class="on">Monitoring</span>
-          <span>History</span>
-          <span>Contacts</span>
-          </div>
-        </div>
-              </div>
-              <figcaption>Monitoring</figcaption>
-            </figure>
-            <figure class="app-shot">
-              <div class="phone">
-        <div class="phone-screen is-alarm" id="epiAlarmScreen" data-state-confirming="Confirming seizure" data-title-confirming="Tonic-clonic seizure pattern detected" data-notify="When the timer ends we notify Anna K. and Marek W., and store the event trace." data-state-sent="Alerts sent" data-title-sent="Emergency contacts have been notified" data-note-sent="Event trace saved to history (−30 s / +60 s)." data-state-cancelled="Alarm cancelled" data-title-cancelled="Event logged as a false alarm" data-note-cancelled="The record feeds back into detection threshold calibration." data-restart="Run again">
-          <div class="app-top">
-            <span class="conn">Connected</span>
-            <span>Battery 78%</span>
-          </div>
-          <div class="app-body">
-            <div class="app-alarm">
-              <div class="app-state" style="color: var(--red);"><span class="pulse"></span><span id="epiAlarmState">Confirming seizure</span></div>
-              <p class="app-alarm-title" id="epiAlarmTitle">Tonic-clonic seizure pattern detected</p>
-              <div class="app-countdown" id="epiCountdownWrap">
-                <span id="epiCountdown">15</span><small>s until alert is sent</small>
-              </div>
-              <div class="app-triggers" id="epiTriggers">
-                <div class="app-trigger"><span>Rhythmic shaking</span><em>3.4 Hz</em></div>
-                <div class="app-trigger"><span>Heart rate</span><em>148 bpm ↑</em></div>
-                <div class="app-trigger"><span>SpO₂</span><em>91% ↓</em></div>
-              </div>
-              <div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px;">
-                <button type="button" class="app-cancel" id="epiCancel">False alarm — cancel</button>
-                <p class="app-notify" id="epiNotify">When the timer ends we notify Anna K. and Marek W., and store the event trace.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-              </div>
-              <figcaption>Confirmation window</figcaption>
-            </figure>
-            <figure class="app-shot">
-              <div class="phone">
-        <div class="phone-screen">
-          <div class="app-top">
-            <span class="conn">Connected</span>
-            <span>Battery 78%</span>
-          </div>
-          <div class="app-body">
-            <div class="app-state" style="color: var(--app-text);">Event history</div>
-            <div class="app-events">
-              <div class="app-event">
-                <div class="app-event-top">
-                  <span class="when">12 Feb 2026 · 03:14</span>
-                  <span class="tag tag-sent">Sent</span>
-                </div>
-                <p class="kind">Tonic-clonic seizure<span class="dur">1 min 42 s</span></p>
-              </div>
-              <div class="app-event">
-                <div class="app-event-top">
-                  <span class="when">28 Jan 2026 · 19:02</span>
-                  <span class="tag tag-sent">Sent</span>
-                </div>
-                <p class="kind">Focal seizure<span class="dur">38 s</span></p>
-              </div>
-              <div class="app-event">
-                <div class="app-event-top">
-                  <span class="when">21 Jan 2026 · 08:47</span>
-                  <span class="tag tag-cancelled">False</span>
-                </div>
-                <p class="kind">Cancelled by user<span class="dur">—</span></p>
-              </div>
-            </div>
-            <div class="app-export">
-              <span>Export PDF</span>
-              <span>Export CSV</span>
-            </div>
-          </div>
-          <div class="app-nav">
-          <span>Monitoring</span>
-          <span class="on">History</span>
-          <span>Contacts</span>
-          </div>
-        </div>
-              </div>
-              <figcaption>Event history</figcaption>
-            </figure>
-          </div>
-
-          <p>Beyond the mockup there is a working build: it runs the detection state machine in the browser, analyses the phone's accelerometer signal, stores events together with their signal trace and keeps a list of emergency contacts. It also pairs with a BLE heart-rate sensor and installs on a phone as an app.</p>
-
-          <div class="app-demo">
-            <a class="btn-block" href="../aplikacja/?lang=en">Open the EPI app <span class="arrow">↗</span></a>
-            <button type="button" class="btn-text" id="epiReplay">Play seizure detection on the mockup</button>
-          </div>
-
-          <div class="note-band">
-            <p>Interface prototype — the data shown is illustrative. Detection thresholds require calibration on real data; the device is at engineering concept stage (TRL 2→3) and is not a medical device.</p>
-          </div>
-        </div>
-        <!-- EPI-APP:END -->
+        <p class="project-more">
+          <a href="epi.html" class="btn-text">The full EPI project page, app and downloads →</a>
+        </p>
 
       </article>
 
@@ -392,7 +257,7 @@
         <a href="about.html">About</a>
         <a href="index.html#technologia">Technology</a>
         <a href="projects.html" aria-current="page">Projects</a>
-        <a href="../aplikacja/?lang=en">EPI app</a>
+        <a href="epi.html">EPI</a>
         <a href="journal.html">Journal</a>
         <a href="index.html#kontakt">Contact</a>
       </nav>
@@ -404,6 +269,5 @@
 <button class="scroll-top" id="scrollTop" aria-label="Back to top">↑</button>
 
 <script src="../assets/js/main.js"></script>
-<script src="../assets/js/epi-app.js"></script>
 </body>
 </html>

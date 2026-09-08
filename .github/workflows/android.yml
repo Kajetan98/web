@@ -1,0 +1,58 @@
+name: Android APK
+
+# Builds the EPI app as an installable APK. The web app is copied into the
+# Android project at build time, so this workflow tracks changes in aplikacja/
+# as well as in android/.
+on:
+  workflow_dispatch:
+  push:
+    branches: ['**']
+    paths:
+      - 'android/**'
+      - 'aplikacja/**'
+      - '.github/workflows/android.yml'
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Build debug APK
+        working-directory: android
+        run: ./gradlew --no-daemon assembleDebug
+
+      - name: Name the artifact
+        id: apk
+        run: |
+          src=android/app/build/outputs/apk/debug/app-debug.apk
+          out="epi-${GITHUB_REF_NAME//\//-}-${GITHUB_SHA::7}.apk"
+          cp "$src" "$out"
+          echo "path=$out" >> "$GITHUB_OUTPUT"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: epi-apk
+          path: ${{ steps.apk.outputs.path }}
+          if-no-files-found: error
+
+      - name: Publish the APK with the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.apk.outputs.path }}
+          body: |
+            Aplikacja EPI — prototyp. APK jest podpisany kluczem debugowym,
+            instalacja wymaga zgody „Zainstaluj nieznane aplikacje".
