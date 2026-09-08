@@ -148,6 +148,9 @@
       'settings.storage': 'Zdarzenia: {events} · kontakty: {contacts} · zajęte miejsce: {size} kB',
       'alarm.countNote': 's do powiadomienia',
       'alarm.cancel': 'To fałszywy alarm — anuluj',
+      'alarm.cancelShort': 'Anuluj',
+      'alarm.minimize': 'Zwiń — odliczanie zostaje',
+      'alarm.show': 'Pokaż',
       'alarm.close': 'Zamknij',
       'alarm.confirming': 'Potwierdzanie napadu',
       'alarm.confirmingTitle': 'Wykryto wzorzec napadu toniczno-klonicznego',
@@ -334,6 +337,9 @@
       'settings.storage': 'Events: {events} · contacts: {contacts} · storage used: {size} kB',
       'alarm.countNote': 's until notification',
       'alarm.cancel': 'False alarm — cancel',
+      'alarm.cancelShort': 'Cancel',
+      'alarm.minimize': 'Minimise — the countdown continues',
+      'alarm.show': 'Show',
       'alarm.close': 'Close',
       'alarm.confirming': 'Confirming seizure',
       'alarm.confirmingTitle': 'Tonic-clonic seizure pattern detected',
@@ -482,7 +488,8 @@
     'contactList', 'contactsEmpty', 'contactsCount', 'contactForm', 'cName', 'cRelation', 'cPhone', 'cNotify',
     'contactSubmit', 'contactCancel',
     'alarmOverlay', 'alarmState', 'alarmTitle', 'alarmCount', 'alarmCountWrap', 'alarmTriggers',
-    'alarmContacts', 'alarmNote', 'btnAlarmCancel', 'btnAlarmClose',
+    'alarmContacts', 'alarmNote', 'btnAlarmCancel', 'btnAlarmClose', 'btnAlarmMinimize',
+    'alarmBar', 'alarmBarState', 'alarmBarCount', 'btnBarShow', 'btnBarCancel',
     'eventSheet', 'sheetClose', 'sheetWhen', 'sheetTitle', 'sheetFacts', 'sheetChart',
     'btnSheetCsv', 'btnSheetDelete',
     'toasts', 'tabbar', 'printReport', 'appVersion', 'storageInfo',
@@ -840,8 +847,9 @@
       }
       if (detector.state === 'idle') learnBaseline();
     } else if (detector.state === 'confirming') {
-      const left = Math.ceil((detector.confirmUntil - t0) / 1000);
-      el.alarmCount.textContent = Math.max(0, left);
+      const left = Math.max(0, Math.ceil((detector.confirmUntil - t0) / 1000));
+      el.alarmCount.textContent = left;
+      el.alarmBarCount.textContent = left + ' s';
       renderAlarmTriggers();
       if (!analysis.motionPass) {
         if (!detector.patternLost) detector.patternLost = t0;
@@ -1091,9 +1099,19 @@
       </div>`).join('');
   }
 
+  /** Minimising keeps the countdown running and cancellable from the top bar. */
+  function minimizeAlarm() {
+    el.alarmOverlay.hidden = true;
+    el.alarmBar.hidden = false;
+    el.alarmBarState.textContent = t('alarm.confirming');
+    try { el.btnBarCancel.focus(); } catch (err) { /* ignore */ }
+  }
+
   function openAlarmOverlay(mode) {
+    el.alarmBar.hidden = true;
     el.alarmOverlay.hidden = false;
     el.alarmOverlay.classList.toggle('is-resolved', mode !== 'confirming');
+    el.btnAlarmMinimize.hidden = mode !== 'confirming';
     el.alarmContacts.hidden = true;
     el.btnAlarmCancel.hidden = mode !== 'confirming';
     el.btnAlarmClose.hidden = mode === 'confirming';
@@ -1103,9 +1121,11 @@
       el.alarmState.textContent = t('alarm.confirming');
       el.alarmTitle.textContent = t('alarm.confirmingTitle');
       el.alarmNote.textContent = t('alarm.confirmingNote');
-      el.alarmCount.textContent = settings.window;
+      el.alarmCount.textContent = detector.confirmUntil
+        ? Math.max(0, Math.ceil((detector.confirmUntil - now()) / 1000))
+        : settings.window;
       renderAlarmTriggers();
-      if (settings.geo) requestGeo();
+      if (settings.geo && !geoUrl) requestGeo();
     } else if (mode === 'sent') {
       el.alarmState.textContent = t('alarm.sent');
       el.alarmTitle.textContent = t('alarm.sentTitle');
@@ -1130,6 +1150,7 @@
 
   function closeAlarmOverlay() {
     el.alarmOverlay.hidden = true;
+    el.alarmBar.hidden = true;
     stopLocalAlarm();
     if (detector.state === 'alarm') backToIdle();
     try { el.btnSos.focus(); } catch (err) { /* ignore */ }
@@ -1749,6 +1770,9 @@
 
   el.btnAlarmCancel.addEventListener('click', resolveCancelled);
   el.btnAlarmClose.addEventListener('click', closeAlarmOverlay);
+  el.btnAlarmMinimize.addEventListener('click', minimizeAlarm);
+  el.btnBarCancel.addEventListener('click', resolveCancelled);
+  el.btnBarShow.addEventListener('click', () => openAlarmOverlay('confirming'));
 
   el.tabbar.addEventListener('click', (event) => {
     const tab = event.target.closest('.tab');
@@ -1894,7 +1918,11 @@
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
     if (!el.eventSheet.hidden) { el.eventSheet.hidden = true; return; }
-    if (!el.alarmOverlay.hidden && !el.btnAlarmClose.hidden) closeAlarmOverlay();
+    if (el.alarmOverlay.hidden) return;
+    // A running confirmation is minimised rather than dismissed: the countdown
+    // has to be answered, but it must never trap the rest of the app.
+    if (detector.state === 'confirming') minimizeAlarm();
+    else closeAlarmOverlay();
   });
 
   window.addEventListener('hashchange', () => showView(location.hash.slice(1)));

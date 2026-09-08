@@ -34,6 +34,14 @@
     </div>
   </header>
 
+  <div class="alarm-bar" id="alarmBar" hidden>
+    <span class="alarm-bar-text"><b id="alarmBarState">—</b><span class="mono" id="alarmBarCount">—</span></span>
+    <span class="alarm-bar-actions">
+      <button type="button" class="mini" id="btnBarShow" data-i18n="alarm.show">Pokaż</button>
+      <button type="button" class="mini light" id="btnBarCancel" data-i18n="alarm.cancelShort">Anuluj</button>
+    </span>
+  </div>
+
   <main class="app-main" id="appMain">
 
     <!-- ============================ MONITORING ============================ -->
@@ -301,6 +309,7 @@
       <p class="alarm-note" id="alarmNote">—</p>
       <div class="alarm-actions">
         <button type="button" class="btn btn-light" id="btnAlarmCancel" data-i18n="alarm.cancel">To fałszywy alarm — anuluj</button>
+        <button type="button" class="btn btn-ghost" id="btnAlarmMinimize" data-i18n="alarm.minimize">Zwiń — odliczanie zostaje</button>
         <button type="button" class="btn btn-ghost" id="btnAlarmClose" hidden data-i18n="alarm.close">Zamknij</button>
       </div>
     </div>
