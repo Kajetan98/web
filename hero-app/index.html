@@ -209,6 +209,10 @@ footer .wrap{display:flex;gap:1.2rem;justify-content:space-between;align-items:c
 .logo-meditag{background-image:var(--logo-meditag);height:15px;aspect-ratio:523 / 80}
 .logo-spacer{background-image:var(--logo-spacer);height:22px;aspect-ratio:375 / 72}
 .band .logo-meditag{opacity:.8}
+/* Znak SPACER w stopce wraca na stronę zespołu. Adres jest bezwzględny, bo ten
+   sam plik chodzi na stronie SPACER, na serwerze HERO i jako Artifact. */
+.spacer-link{display:inline-block;line-height:0;transition:opacity .2s ease}
+.spacer-link:hover{opacity:.7}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
 </head>
@@ -239,7 +243,10 @@ footer .wrap{display:flex;gap:1.2rem;justify-content:space-between;align-items:c
 <footer>
   <div class="wrap">
     <div>
-      <span class="logo logo-spacer" role="img" aria-label="SPACER"></span>
+      <a class="spacer-link" href="https://kajetan98.github.io/web/">
+        <span class="logo logo-spacer" aria-hidden="true"></span>
+        <span class="sr">SPACER — przejdź na stronę zespołu</span>
+      </a>
       <p class="tiny muted" style="margin-top:.35rem">Zespół projektu HERO i MediTag</p>
     </div>
     <p class="tiny muted" style="max-width:46ch">HERO — Health Emergency Read Out. Prototyp interfejsu MediTag. Nie jest wyrobem medycznym i nie zastępuje wywiadu ratowniczego.</p>
