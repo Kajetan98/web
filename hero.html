@@ -120,7 +120,9 @@
           <p>
             Każdy wpis niesie informację o źródle. Wpisy pacjenta i wpisy lekarza wyglądają
             inaczej, bo w praktyce znaczą co innego: „pacjent tak twierdzi" to inna przesłanka
-            niż „lekarz to potwierdził". Ratownik dostaje obie, oznaczone.
+            niż „lekarz to potwierdził". Przy wpisie lekarskim widać dodatkowo, który lekarz go
+            podpisał i z jakim numerem PWZ — podpis nadaje serwer przy zapisie, więc nie da się
+            go podrobić z poziomu przeglądarki ani zdjąć po fakcie.
           </p>
         </div>
 
@@ -139,7 +141,7 @@
           </div>
           <div>
             <dt>Role</dt>
-            <dd>Pacjent, lekarz, ratownik</dd>
+            <dd>Pacjent, lekarz z kontem PWZ, ratownik</dd>
           </div>
           <div>
             <dt>Audyt</dt>
@@ -178,8 +180,8 @@
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 4.5v15M4.5 12h15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="2.5" y="2.5" width="19" height="19" rx="4" stroke="currentColor" stroke-width="1.6"/></svg>
           </div>
           <h3>Lekarz</h3>
-          <p>Otwiera kartę kodem pacjenta i uzupełnia rozpoznania, leki oraz alergie. Jego wpisy zostają oznaczone jako zweryfikowane, a wejście trafia do historii.</p>
-          <p class="mono" style="font-size: 0.72rem;">Identyfikator opaski + kod pacjenta</p>
+          <p>Zakłada konto z numerem prawa wykonywania zawodu, otwiera kartę kodem pacjenta i uzupełnia rozpoznania, leki oraz alergie. Każdy jego wpis niesie nazwisko i numer PWZ, a wejście trafia do historii.</p>
+          <p class="mono" style="font-size: 0.72rem;">Konto z numerem PWZ + identyfikator opaski + kod pacjenta</p>
         </article>
 
         <article class="pillar-card">
