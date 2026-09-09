@@ -56,6 +56,7 @@
     <a href="index.html#technologia">Technology</a>
     <a href="projects.html" aria-current="page">Projects</a>
     <a href="epi.html">EPI</a>
+    <a href="hero.html">HERO</a>
     <a href="journal.html">Journal</a>
     <a href="index.html#kontakt">Contact</a>
   </div>
@@ -87,14 +88,20 @@
     <div class="container">
 
       <!-- AURORA -->
-      <article class="project-detail" id="aurora">
-        <div class="project-detail-head">
-          <img class="project-logo project-logo-aurora" src="../assets/img/aurora-logo.png" alt="AURORA" width="1866" height="477">
-          <span class="project-status status-active">Ready for validation</span>
-        </div>
+      <div class="project-accordion">
 
-        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Project / 01 — Diagnostics</span></div>
-        <h2>Cerebral haemodynamics measured without hospital equipment.</h2>
+      <details class="project-item" id="aurora" open>
+        <summary class="project-summary">
+          <img class="project-logo project-logo-aurora" src="../assets/img/aurora-logo.png" alt="AURORA" width="1866" height="477">
+          <span class="project-summary-text">
+            <span class="mono project-summary-index">Project / 01 — Diagnostics</span>
+            <span class="project-summary-title">Cerebral haemodynamics measured without hospital equipment.</span>
+          </span>
+          <span class="project-status status-active">Ready for validation</span>
+          <span class="acc-mark" aria-hidden="true"></span>
+        </summary>
+
+        <div class="project-body">
         <p class="lead">
           AURORA is an autonomous, multimodal diagnostic system for non-invasive monitoring
           of body-fluid shifts towards the head and for assessing cerebral haemodynamics.
@@ -147,17 +154,22 @@
             </div>
           </dl>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- EPI -->
-      <article class="project-detail" id="epi">
-        <div class="project-detail-head">
+      <details class="project-item" id="epi">
+        <summary class="project-summary">
           <img class="project-logo" src="../assets/img/epi-logo.png" alt="EPI" width="532" height="216">
+          <span class="project-summary-text">
+            <span class="mono project-summary-index">Project / 02 — Wearable</span>
+            <span class="project-summary-title">An epileptic seizure detected before anyone can react.</span>
+          </span>
           <span class="project-status status-active">In development</span>
-        </div>
+          <span class="acc-mark" aria-hidden="true"></span>
+        </summary>
 
-        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Project / 02 — Wearable</span></div>
-        <h2>An epileptic seizure detected before anyone can react.</h2>
+        <div class="project-body">
         <p class="lead">
           EPI is an integrated wearable medical device designed for early detection and
           monitoring of epileptic seizures.
@@ -228,7 +240,89 @@
           <a href="epi.html" class="btn-text">The full EPI project page, app and downloads →</a>
         </p>
 
-      </article>
+        </div>
+      </details>
+
+      <details class="project-item" id="meditag">
+        <summary class="project-summary">
+          <img class="project-logo project-logo-meditag" src="../assets/img/meditag-logo.png" alt="MediTag" width="1438" height="220">
+          <span class="project-summary-text">
+            <span class="mono project-summary-index">Project / 03 — Wearable</span>
+            <span class="project-summary-title">A patient record a paramedic opens with a single tap.</span>
+          </span>
+          <span class="project-status status-concept">Prototype</span>
+          <span class="acc-mark" aria-hidden="true"></span>
+        </summary>
+
+        <div class="project-body">
+        <p class="lead">
+          MediTag is a waterproof NFC band carrying a patient's emergency record. HERO is the
+          platform where the patient and their doctor keep that record, and where a paramedic
+          reads the critical set without logging in — including when the patient is unconscious.
+        </p>
+
+        <div class="project-cols">
+          <div>
+            <h3>Three roles</h3>
+            <p>
+              The patient creates the record and sets a PIN. A doctor opens it with the patient's
+              code and fills in diagnoses, medication and allergies — those entries are marked as
+              doctor-verified, so a paramedic can tell a patient's own note from a clinical one.
+              The emergency read-out needs only the band identifier: the PIN guards editing, not rescue.
+            </p>
+
+            <h3 style="margin-top: 36px;">What the paramedic sees</h3>
+            <p>
+              The screen follows the first minutes of an incident: allergies with anaphylaxis flagged
+              separately, current medication with anticoagulants highlighted, active conditions,
+              implants and devices, and the emergency contact last. Every opening of the record is
+              written to a history the patient can see.
+            </p>
+
+            <h3 style="margin-top: 36px;">Where the data sits</h3>
+            <ul class="feature-list">
+              <li>The NFC tag holds only the record's address, no medical data</li>
+              <li>The PIN never leaves the browser — only its digest reaches the server</li>
+              <li>The public set carries neither the PIN nor the read history</li>
+              <li>The patient deletes the record and its whole history with one button</li>
+            </ul>
+          </div>
+
+          <dl class="project-facts">
+            <div>
+              <dt>Carrier</dt>
+              <dd>NFC band, read by phone with no app to install</dd>
+            </div>
+            <div>
+              <dt>Record</dt>
+              <dd>Allergies, medication, conditions, blood group, implants, contacts</dd>
+            </div>
+            <div>
+              <dt>Roles</dt>
+              <dd>Patient, doctor, paramedic</dd>
+            </div>
+            <div>
+              <dt>Audit</dt>
+              <dd>Every read-out logged in the record's history</dd>
+            </div>
+            <div>
+              <dt>Source code</dt>
+              <dd>Open, MIT licence</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Prototype; not a medical device</dd>
+            </div>
+          </dl>
+        </div>
+
+        <p class="project-more">
+          <a href="hero.html" class="btn-text">Full HERO project page and working prototype →</a>
+        </p>
+        </div>
+      </details>
+
+      </div>
 
     </div>
   </section>
@@ -258,6 +352,7 @@
         <a href="index.html#technologia">Technology</a>
         <a href="projects.html" aria-current="page">Projects</a>
         <a href="epi.html">EPI</a>
+        <a href="hero.html">HERO</a>
         <a href="journal.html">Journal</a>
         <a href="index.html#kontakt">Contact</a>
       </nav>

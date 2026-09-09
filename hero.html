@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HERO — karta ratunkowa MediTag | SPACER</title>
+<meta name="description" content="HERO — platforma karty ratunkowej dla opaski MediTag NFC: pacjent i lekarz prowadzą wpisy, ratownik odczytuje zestaw krytyczny bez logowania.">
+<meta name="theme-color" content="#1b212f">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SPACER">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:title" content="HERO — karta ratunkowa MediTag">
+<meta property="og:description" content="Opaska MediTag NFC i platforma HERO: dane ratunkowe pacjenta dostępne po jednym zbliżeniu telefonu.">
+<meta property="og:image" content="assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HERO — karta ratunkowa MediTag">
+<meta name="twitter:description" content="Opaska MediTag NFC i platforma HERO: dane ratunkowe pacjenta dostępne po jednym zbliżeniu telefonu.">
+<meta name="twitter:image" content="assets/img/og-image.png">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="alternate" hreflang="pl" href="hero.html">
+<link rel="alternate" hreflang="en" href="en/hero.html">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Przejdź do treści</a>
+
+<div class="announce-bar">SPACER / SYSTEMS FOR HUMAN EXPLORATION</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/img/logo-dark.png" alt="SPACER — strona główna" width="723" height="121">
+    </a>
+    <div class="header-actions">
+      <div class="lang-switch mono">
+        <a href="hero.html" aria-current="true">PL</a>
+        <span class="divider" aria-hidden="true">/</span>
+        <a href="en/hero.html" hreflang="en" lang="en">EN</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" data-label-open="Otwórz menu" data-label-close="Zamknij menu" aria-expanded="false" aria-controls="navOverlay">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+  <button class="nav-close" id="navClose" aria-label="Zamknij menu">✕</button>
+  <div class="container nav-overlay-inner">
+    <a href="o-nas.html">O nas</a>
+    <a href="index.html#technologia">Technologia</a>
+    <a href="projekty.html">Projekty</a>
+    <a href="epi.html">EPI</a>
+    <a href="hero.html" aria-current="page">HERO</a>
+    <a href="dziennik.html">Dziennik</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+  <div class="container nav-overlay-foot mono">
+    <span>© <span id="yearNav"></span> SPACER</span>
+    <span>kontakt@spacer.example</span>
+    <span class="lang-switch">
+      <a href="hero.html" aria-current="true">PL</a>
+      <span class="divider" aria-hidden="true">/</span>
+      <a href="en/hero.html" hreflang="en" lang="en">EN</a>
+    </span>
+  </div>
+</nav>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="project-detail-head">
+        <img class="project-logo" src="assets/img/hero-logo.png" alt="HERO" width="659" height="220">
+        <span class="project-status status-concept">Prototyp</span>
+      </div>
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Wearable / Karta ratunkowa</span></div>
+      <h1 class="display-headline">Karta pacjenta, którą ratownik otwiera <span class="accent">jednym zbliżeniem</span>.</h1>
+      <p class="section-lead">
+        MediTag to wodoodporna opaska NFC. HERO — Health Emergency Read Out — to platforma,
+        w której pacjent i lekarz prowadzą jedną kartę: alergie, przyjmowane leki, choroby
+        przewlekłe, grupę krwi, wszczepy i kontakty alarmowe. Odczyt ratunkowy działa bez
+        logowania, także wtedy, gdy pacjent jest nieprzytomny.
+      </p>
+      <div class="hero-cta">
+        <a href="hero-app/index.html" class="btn-block">Otwórz prototyp <span class="arrow">↗</span></a>
+        <a href="https://github.com/Kajetan98/MediTagHero" class="btn-text" rel="noopener">Kod źródłowy na GitHubie →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="project-cols">
+        <div>
+          <div class="eyebrow-row"><span class="dash"></span><span class="mono">Zasada działania / 01</span></div>
+          <h2>Opaska nosi adres, nie dane</h2>
+          <p>
+            W pamięci taga NFC nie ma żadnej informacji medycznej — jest w niej wyłącznie adres
+            karty. Zgubiona opaska nie jest więc wyciekiem dokumentacji, tylko zgubionym
+            identyfikatorem, który da się unieważnić po stronie platformy.
+          </p>
+          <p>
+            Ratownik nie instaluje aplikacji i nie zakłada konta. Zbliżenie telefonu otwiera
+            stronę karty, na której zestaw krytyczny jest ułożony w kolejności istotnej na
+            miejscu zdarzenia, a nie w kolejności wypełniania formularza.
+          </p>
+
+          <h3 style="margin-top: 36px;">Skąd wiadomo, komu wierzyć</h3>
+          <p>
+            Każdy wpis niesie informację o źródle. Wpisy pacjenta i wpisy lekarza wyglądają
+            inaczej, bo w praktyce znaczą co innego: „pacjent tak twierdzi" to inna przesłanka
+            niż „lekarz to potwierdził". Ratownik dostaje obie, oznaczone.
+          </p>
+        </div>
+
+        <dl class="project-facts">
+          <div>
+            <dt>Nośnik</dt>
+            <dd>Opaska NFC, wodoodporna</dd>
+          </div>
+          <div>
+            <dt>Odczyt</dt>
+            <dd>Telefon z NFC, bez aplikacji i bez logowania</dd>
+          </div>
+          <div>
+            <dt>Zakres karty</dt>
+            <dd>Alergie, leki, choroby, grupa krwi, wszczepy, kontakty</dd>
+          </div>
+          <div>
+            <dt>Role</dt>
+            <dd>Pacjent, lekarz, ratownik</dd>
+          </div>
+          <div>
+            <dt>Audyt</dt>
+            <dd>Każde otwarcie karty zapisane w historii</dd>
+          </div>
+          <div>
+            <dt>Kod źródłowy</dt>
+            <dd>Otwarty, licencja MIT</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="role">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Role / 02</span></div>
+      <h2 class="display-headline">Jedna karta, <span class="accent">trzy różne</span> zakresy dostępu.</h2>
+      <p class="section-lead">
+        Kto co widzi i czym się uwierzytelnia. PIN chroni edycję karty, nie chroni ratunku —
+        to rozróżnienie decyduje o całej konstrukcji uprawnień.
+      </p>
+
+      <div class="pillar-grid">
+        <article class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20.5c0-3.6 3.4-6 7.5-6s7.5 2.4 7.5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Pacjent</h3>
+          <p>Zakłada kartę, ustawia PIN, prowadzi wszystkie sekcje i widzi historię odczytów. Kartę razem z historią kasuje jednym przyciskiem.</p>
+          <p class="mono" style="font-size: 0.72rem;">Identyfikator opaski + PIN</p>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 4.5v15M4.5 12h15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="2.5" y="2.5" width="19" height="19" rx="4" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <h3>Lekarz</h3>
+          <p>Otwiera kartę kodem pacjenta i uzupełnia rozpoznania, leki oraz alergie. Jego wpisy zostają oznaczone jako zweryfikowane, a wejście trafia do historii.</p>
+          <p class="mono" style="font-size: 0.72rem;">Identyfikator opaski + kod pacjenta</p>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6.5 4.5a11 11 0 0 0 0 15M11 7.6a6 6 0 0 0 0 8.8M15.4 10.2a2.6 2.6 0 0 0 0 3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Ratownik</h3>
+          <p>Zbliża telefon i dostaje zestaw krytyczny — bez PIN-u, bez konta, bez instalacji. Odczyt zostaje zapisany razem z opisem czytnika.</p>
+          <p class="mono" style="font-size: 0.72rem;">Sam identyfikator opaski</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="odczyt">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Odczyt ratunkowy / 03</span></div>
+      <h2 class="display-headline">Kolejność ułożona pod <span class="accent">pierwsze minuty</span>.</h2>
+      <p class="section-lead">
+        Ekran ratownika nie jest spisem treści karty. To lista decyzji ustawiona tak, jak
+        zapadają na miejscu zdarzenia.
+      </p>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <div class="timeline-marker mono">01</div>
+          <div class="timeline-body">
+            <h3>Alergie i anafilaksja</h3>
+            <p>Na samej górze, z osobnym oznaczeniem reakcji anafilaktycznych. To informacja, która najszybciej zmienia decyzję o podaniu leku.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">02</div>
+          <div class="timeline-body">
+            <h3>Leki, z wyróżnionym antykoagulantem</h3>
+            <p>Leki przeciwkrzepliwe i przeciwpłytkowe są oznaczone osobno, bo zmieniają postępowanie przy urazie i krwawieniu.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">03</div>
+          <div class="timeline-body">
+            <h3>Choroby aktywne</h3>
+            <p>Rozpoznania z kodem ICD-10 i statusem. Choroby przebyte nie zaśmiecają ekranu ratunkowego, ale zostają w karcie pacjenta.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">04</div>
+          <div class="timeline-body">
+            <h3>Wszczepy i uwagi dla zespołu</h3>
+            <p>Stymulator, pompa, zastawka, trudny dostęp dożylny, zgłoszone oświadczenie DNR, zgoda na pobranie narządów.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">05</div>
+          <div class="timeline-body">
+            <h3>Kontakt alarmowy i ślad odczytu</h3>
+            <p>Numer kontaktu pierwszego wyboru gotowy do wybrania oraz zapis w historii karty: kiedy i kto ją otworzył.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="dane">
+    <div class="container">
+      <div class="project-cols">
+        <div>
+          <div class="eyebrow-row"><span class="dash"></span><span class="mono">Dane / 04</span></div>
+          <h2>Gdzie leżą dane i czego nie ma na serwerze</h2>
+          <p>
+            PIN nie opuszcza przeglądarki. Klient liczy z niego skrót i dopiero on trafia na
+            serwer, gdzie przechodzi jeszcze raz przez funkcję scrypt z losową solą. Wyciek bazy
+            nie ujawnia więc ani PIN-u, ani wartości, którą wysyła przeglądarka.
+          </p>
+          <p>
+            Zestaw jawny, ten sam, który widzi ratownik, nie zawiera PIN-u ani historii odczytów.
+            Historia jest dostępna dopiero po podaniu PIN-u i widzi ją pacjent oraz lekarz z dostępem.
+          </p>
+          <p>
+            Bez uruchomionego serwera aplikacja działa w całości w przeglądarce i zapisuje karty
+            w jej pamięci lokalnej. W tym trybie chodzi prototyp podlinkowany wyżej.
+          </p>
+        </div>
+
+        <div>
+          <h3>Co zostało świadomie poza zakresem</h3>
+          <ul class="feature-list">
+            <li>Odczyt ratunkowy jest jawny dla każdego, kto zna identyfikator opaski — w produkcji identyfikator musi być długi i losowy</li>
+            <li>Nie ma kont lekarzy ani weryfikacji numeru PWZ; lekarz wchodzi kodem pacjenta</li>
+            <li>Nie ma limitu prób PIN-u ani warstwy TLS po stronie serwera</li>
+            <li>Dane o zdrowiu to szczególna kategoria danych osobowych — przed wdrożeniem potrzebna jest ocena skutków i szyfrowanie bazy w spoczynku</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-band">
+        <p>HERO jest prototypem. Nie jest wyrobem medycznym, nie przeszedł walidacji klinicznej i nie zastępuje wywiadu ratowniczego ani dokumentacji medycznej. Prototyp na tej stronie zapisuje dane wyłącznie w pamięci przeglądarki — nie wprowadzaj do niego prawdziwych danych pacjenta.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <h2 class="display-headline">Chcesz <span class="accent">przetestować</span> HERO?</h2>
+      <p class="section-lead">Prototyp jest otwarty, a kod publiczny. Napisz, w jakim zespole miałby być używany.</p>
+      <a href="index.html#kontakt" class="btn-block">Skontaktuj się z nami <span class="arrow">↗</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-logo">
+      <img src="assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+    </div>
+    <p class="footer-tagline">Projektujemy medycynę dla miejsc, w których nie ma miejsca na przypadek.</p>
+    <div class="footer-bottom">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+      </a>
+      <nav class="footer-nav">
+        <a href="o-nas.html">O nas</a>
+        <a href="index.html#technologia">Technologia</a>
+        <a href="projekty.html">Projekty</a>
+        <a href="epi.html">EPI</a>
+        <a href="hero.html" aria-current="page">HERO</a>
+        <a href="dziennik.html">Dziennik</a>
+        <a href="index.html#kontakt">Kontakt</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> SPACER. Wszelkie prawa zastrzeżone.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Wróć na górę strony">↑</button>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

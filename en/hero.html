@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HERO — MediTag emergency record | SPACER</title>
+<meta name="description" content="HERO — the emergency-record platform for the MediTag NFC band: patient and doctor keep the record, a paramedic reads the critical set without logging in.">
+<meta name="theme-color" content="#1b212f">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SPACER">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="HERO — MediTag emergency record">
+<meta property="og:description" content="The MediTag NFC band and the HERO platform: a patient's emergency data, one tap away.">
+<meta property="og:image" content="../assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HERO — MediTag emergency record">
+<meta name="twitter:description" content="The MediTag NFC band and the HERO platform: a patient's emergency data, one tap away.">
+<meta name="twitter:image" content="../assets/img/og-image.png">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="alternate" hreflang="pl" href="../hero.html">
+<link rel="alternate" hreflang="en" href="hero.html">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="announce-bar">SPACER / SYSTEMS FOR HUMAN EXPLORATION</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="../assets/img/logo-dark.png" alt="SPACER — home" width="723" height="121">
+    </a>
+    <div class="header-actions">
+      <div class="lang-switch mono">
+        <a href="../hero.html" hreflang="pl" lang="pl">PL</a>
+        <span class="divider" aria-hidden="true">/</span>
+        <a href="hero.html" aria-current="true">EN</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" data-label-open="Open menu" data-label-close="Close menu" aria-expanded="false" aria-controls="navOverlay">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+  <button class="nav-close" id="navClose" aria-label="Close menu">✕</button>
+  <div class="container nav-overlay-inner">
+    <a href="about.html">About</a>
+    <a href="index.html#technologia">Technology</a>
+    <a href="projects.html">Projects</a>
+    <a href="epi.html">EPI</a>
+    <a href="hero.html" aria-current="page">HERO</a>
+    <a href="journal.html">Journal</a>
+    <a href="index.html#kontakt">Contact</a>
+  </div>
+  <div class="container nav-overlay-foot mono">
+    <span>© <span id="yearNav"></span> SPACER</span>
+    <span>kontakt@spacer.example</span>
+    <span class="lang-switch">
+      <a href="../hero.html" hreflang="pl" lang="pl">PL</a>
+      <span class="divider" aria-hidden="true">/</span>
+      <a href="hero.html" aria-current="true">EN</a>
+    </span>
+  </div>
+</nav>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="project-detail-head">
+        <img class="project-logo" src="../assets/img/hero-logo.png" alt="HERO" width="659" height="220">
+        <span class="project-status status-concept">Prototype</span>
+      </div>
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Wearable / Emergency record</span></div>
+      <h1 class="display-headline">A patient record a paramedic opens with <span class="accent">a single tap</span>.</h1>
+      <p class="section-lead">
+        MediTag is a waterproof NFC band. HERO — Health Emergency Read Out — is the platform
+        where a patient and their doctor keep one record: allergies, current medication, chronic
+        conditions, blood group, implants and emergency contacts. The emergency read-out needs
+        no login, including when the patient is unconscious.
+      </p>
+      <div class="hero-cta">
+        <a href="../hero-app/index.html" class="btn-block">Open the prototype <span class="arrow">↗</span></a>
+        <a href="https://github.com/Kajetan98/MediTagHero" class="btn-text" rel="noopener">Source code on GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="project-cols">
+        <div>
+          <div class="eyebrow-row"><span class="dash"></span><span class="mono">How it works / 01</span></div>
+          <h2>The band carries an address, not data</h2>
+          <p>
+            The NFC tag holds no medical information at all — only the address of the record.
+            A lost band is therefore not a leaked medical file but a lost identifier, one the
+            platform can revoke.
+          </p>
+          <p>
+            The paramedic installs nothing and signs in nowhere. Tapping the phone opens the
+            record, where the critical set is ordered by what matters at the scene rather than
+            by the order the form was filled in.
+          </p>
+
+          <h3 style="margin-top: 36px;">Knowing whose word it is</h3>
+          <p>
+            Every entry carries its source. A patient's entry and a doctor's entry look different
+            because they mean different things: "the patient says so" is not the same premise as
+            "a doctor confirmed it". The paramedic gets both, labelled.
+          </p>
+        </div>
+
+        <dl class="project-facts">
+          <div>
+            <dt>Carrier</dt>
+            <dd>Waterproof NFC band</dd>
+          </div>
+          <div>
+            <dt>Read-out</dt>
+            <dd>NFC phone, no app and no login</dd>
+          </div>
+          <div>
+            <dt>Record</dt>
+            <dd>Allergies, medication, conditions, blood group, implants, contacts</dd>
+          </div>
+          <div>
+            <dt>Roles</dt>
+            <dd>Patient, doctor, paramedic</dd>
+          </div>
+          <div>
+            <dt>Audit</dt>
+            <dd>Every opening written to the record's history</dd>
+          </div>
+          <div>
+            <dt>Source code</dt>
+            <dd>Open, MIT licence</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="roles">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Roles / 02</span></div>
+      <h2 class="display-headline">One record, <span class="accent">three different</span> levels of access.</h2>
+      <p class="section-lead">
+        Who sees what, and what they authenticate with. The PIN guards editing, not rescue —
+        that distinction shapes the whole permission model.
+      </p>
+
+      <div class="pillar-grid">
+        <article class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20.5c0-3.6 3.4-6 7.5-6s7.5 2.4 7.5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Patient</h3>
+          <p>Creates the record, sets the PIN, keeps every section and sees the read history. Deletes the record and its history with one button.</p>
+          <p class="mono" style="font-size: 0.72rem;">Band identifier + PIN</p>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 4.5v15M4.5 12h15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="2.5" y="2.5" width="19" height="19" rx="4" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <h3>Doctor</h3>
+          <p>Opens the record with the patient's code and fills in diagnoses, medication and allergies. Those entries are marked as verified, and the visit is logged.</p>
+          <p class="mono" style="font-size: 0.72rem;">Band identifier + patient's code</p>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6.5 4.5a11 11 0 0 0 0 15M11 7.6a6 6 0 0 0 0 8.8M15.4 10.2a2.6 2.6 0 0 0 0 3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Paramedic</h3>
+          <p>Taps the phone and gets the critical set — no PIN, no account, no install. The read-out is logged together with the reader's description.</p>
+          <p class="mono" style="font-size: 0.72rem;">Band identifier alone</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="readout">
+    <div class="container">
+      <div class="eyebrow-row"><span class="dash"></span><span class="mono">Emergency read-out / 03</span></div>
+      <h2 class="display-headline">Ordered for the <span class="accent">first few minutes</span>.</h2>
+      <p class="section-lead">
+        The paramedic's screen is not a table of contents. It is a list of decisions, in the
+        order they are taken at the scene.
+      </p>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <div class="timeline-marker mono">01</div>
+          <div class="timeline-body">
+            <h3>Allergies and anaphylaxis</h3>
+            <p>Right at the top, with anaphylactic reactions flagged separately. This is what changes a decision to give a drug fastest.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">02</div>
+          <div class="timeline-body">
+            <h3>Medication, anticoagulants highlighted</h3>
+            <p>Anticoagulant and antiplatelet drugs are marked separately, because they change how trauma and bleeding are handled.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">03</div>
+          <div class="timeline-body">
+            <h3>Active conditions</h3>
+            <p>Diagnoses with an ICD-10 code and a status. Past conditions stay in the patient's record but do not clutter the emergency screen.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">04</div>
+          <div class="timeline-body">
+            <h3>Implants and notes for the crew</h3>
+            <p>Pacemaker, pump, mechanical valve, difficult IV access, a declared DNR, consent to organ donation.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-marker mono">05</div>
+          <div class="timeline-body">
+            <h3>Emergency contact and the audit trail</h3>
+            <p>The first-choice contact number ready to dial, and an entry in the record's history: when it was opened and by whom.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="data">
+    <div class="container">
+      <div class="project-cols">
+        <div>
+          <div class="eyebrow-row"><span class="dash"></span><span class="mono">Data / 04</span></div>
+          <h2>Where the data sits, and what the server never holds</h2>
+          <p>
+            The PIN never leaves the browser. The client derives a digest from it, and only that
+            reaches the server, where it goes through scrypt with a random salt. A database leak
+            therefore reveals neither the PIN nor the value the browser sends.
+          </p>
+          <p>
+            The public set — the same one the paramedic sees — carries neither the PIN nor the
+            read history. The history opens only against the PIN, for the patient and for a
+            doctor with access.
+          </p>
+          <p>
+            With no server running, the application works entirely in the browser and keeps
+            records in its local storage. That is the mode the prototype linked above runs in.
+          </p>
+        </div>
+
+        <div>
+          <h3>Deliberately out of scope</h3>
+          <ul class="feature-list">
+            <li>The emergency read-out is open to anyone who knows the band identifier — in production that identifier must be long and random</li>
+            <li>There are no doctor accounts and no medical-licence verification; a doctor enters with the patient's code</li>
+            <li>There is no PIN attempt limit and no TLS layer on the server itself</li>
+            <li>Health data is a special category of personal data — a deployment needs an impact assessment and encryption at rest</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-band">
+        <p>HERO is a prototype. It is not a medical device, it has not been clinically validated, and it replaces neither the emergency interview nor medical records. The prototype on this site stores data only in the browser — do not enter real patient data into it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <h2 class="display-headline">Want to <span class="accent">try</span> HERO?</h2>
+      <p class="section-lead">The prototype is open and the code is public. Tell us which team would be using it.</p>
+      <a href="index.html#kontakt" class="btn-block">Get in touch <span class="arrow">↗</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-logo">
+      <img src="../assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+    </div>
+    <p class="footer-tagline">We design medicine for places where nothing can be left to chance.</p>
+    <div class="footer-bottom">
+      <a href="index.html" class="logo">
+        <img src="../assets/img/logo-light.png" alt="SPACER" width="723" height="121">
+      </a>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="index.html#technologia">Technology</a>
+        <a href="projects.html">Projects</a>
+        <a href="epi.html">EPI</a>
+        <a href="hero.html" aria-current="page">HERO</a>
+        <a href="journal.html">Journal</a>
+        <a href="index.html#kontakt">Contact</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> SPACER. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Back to top">↑</button>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

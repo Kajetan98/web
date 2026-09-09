@@ -56,6 +56,7 @@
     <a href="index.html#technologia">Technologia</a>
     <a href="projekty.html" aria-current="page">Projekty</a>
     <a href="epi.html">EPI</a>
+    <a href="hero.html">HERO</a>
     <a href="dziennik.html">Dziennik</a>
     <a href="index.html#kontakt">Kontakt</a>
   </div>
@@ -86,15 +87,21 @@
   <section class="section">
     <div class="container">
 
-      <!-- AURORA -->
-      <article class="project-detail" id="aurora">
-        <div class="project-detail-head">
-          <img class="project-logo project-logo-aurora" src="assets/img/aurora-logo.png" alt="AURORA" width="1866" height="477">
-          <span class="project-status status-active">Gotowy do walidacji</span>
-        </div>
+      <div class="project-accordion">
 
-        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Projekt / 01 — Diagnostyka</span></div>
-        <h2>Hemodynamika mózgu mierzona bez szpitalnej aparatury.</h2>
+      <!-- AURORA -->
+      <details class="project-item" id="aurora" open>
+        <summary class="project-summary">
+          <img class="project-logo project-logo-aurora" src="assets/img/aurora-logo.png" alt="AURORA" width="1866" height="477">
+          <span class="project-summary-text">
+            <span class="mono project-summary-index">Projekt / 01 — Diagnostyka</span>
+            <span class="project-summary-title">Hemodynamika mózgu mierzona bez szpitalnej aparatury.</span>
+          </span>
+          <span class="project-status status-active">Gotowy do walidacji</span>
+          <span class="acc-mark" aria-hidden="true"></span>
+        </summary>
+
+        <div class="project-body">
         <p class="lead">
           AURORA to autonomiczny, wielomodalny system diagnostyczny do bezinwazyjnego
           monitorowania przesunięć płynów ustrojowych w kierunku głowy oraz oceny
@@ -149,17 +156,22 @@
             </div>
           </dl>
         </div>
-      </article>
+        </div>
+      </details>
 
       <!-- EPI -->
-      <article class="project-detail" id="epi">
-        <div class="project-detail-head">
+      <details class="project-item" id="epi">
+        <summary class="project-summary">
           <img class="project-logo" src="assets/img/epi-logo.png" alt="EPI" width="532" height="216">
+          <span class="project-summary-text">
+            <span class="mono project-summary-index">Projekt / 02 — Wearable</span>
+            <span class="project-summary-title">Napad padaczkowy wykryty, zanim ktokolwiek zdąży zareagować.</span>
+          </span>
           <span class="project-status status-active">W rozwoju</span>
-        </div>
+          <span class="acc-mark" aria-hidden="true"></span>
+        </summary>
 
-        <div class="eyebrow-row"><span class="dash"></span><span class="mono">Projekt / 02 — Wearable</span></div>
-        <h2>Napad padaczkowy wykryty, zanim ktokolwiek zdąży zareagować.</h2>
+        <div class="project-body">
         <p class="lead">
           EPI to zintegrowane urządzenie medyczne typu wearable, zaprojektowane do wczesnego
           wykrywania i monitorowania napadów padaczkowych.
@@ -230,7 +242,90 @@
           <a href="epi.html" class="btn-text">Pełna strona projektu EPI, aplikacja i pobieranie →</a>
         </p>
 
-      </article>
+        </div>
+      </details>
+
+      <!-- MEDITAG / HERO -->
+      <details class="project-item" id="meditag">
+        <summary class="project-summary">
+          <img class="project-logo project-logo-meditag" src="assets/img/meditag-logo.png" alt="MediTag" width="1438" height="220">
+          <span class="project-summary-text">
+            <span class="mono project-summary-index">Projekt / 03 — Wearable</span>
+            <span class="project-summary-title">Karta pacjenta, którą ratownik otwiera jednym zbliżeniem.</span>
+          </span>
+          <span class="project-status status-concept">Prototyp</span>
+          <span class="acc-mark" aria-hidden="true"></span>
+        </summary>
+
+        <div class="project-body">
+        <p class="lead">
+          MediTag to wodoodporna opaska NFC z kartą ratunkową pacjenta. HERO to platforma,
+          w której pacjent i lekarz prowadzą tę kartę, a ratownik odczytuje z niej zestaw
+          krytyczny bez logowania — także wtedy, gdy pacjent jest nieprzytomny.
+        </p>
+
+        <div class="project-cols">
+          <div>
+            <h3>Podział ról</h3>
+            <p>
+              Pacjent zakłada kartę i ustawia PIN. Lekarz otwiera ją kodem pacjenta i uzupełnia
+              rozpoznania, leki oraz alergie — jego wpisy zostają oznaczone jako zweryfikowane,
+              więc ratownik widzi różnicę między deklaracją pacjenta a potwierdzeniem lekarza.
+              Odczyt ratunkowy wymaga samego identyfikatora opaski: PIN chroni edycję, nie ratunek.
+            </p>
+
+            <h3 style="margin-top: 36px;">Co widzi ratownik</h3>
+            <p>
+              Kolejność ekranu jest podporządkowana pierwszym minutom zdarzenia: alergie z osobno
+              oznaczoną anafilaksją, przyjmowane leki z wyróżnionymi antykoagulantami, choroby
+              aktywne, wszczepy i urządzenia, na końcu kontakt alarmowy. Każde otwarcie karty
+              zostaje zapisane w historii widocznej dla pacjenta.
+            </p>
+
+            <h3 style="margin-top: 36px;">Gdzie leżą dane</h3>
+            <ul class="feature-list">
+              <li>Tag NFC przechowuje wyłącznie adres karty, żadnych danych medycznych</li>
+              <li>PIN nie opuszcza przeglądarki — na serwer trafia wyłącznie jego skrót</li>
+              <li>Zestaw jawny dla ratownika nie zawiera PIN-u ani historii odczytów</li>
+              <li>Pacjent kasuje kartę razem z całą historią jednym przyciskiem</li>
+            </ul>
+          </div>
+
+          <dl class="project-facts">
+            <div>
+              <dt>Nośnik</dt>
+              <dd>Opaska NFC, odczyt telefonem bez instalowania aplikacji</dd>
+            </div>
+            <div>
+              <dt>Zakres karty</dt>
+              <dd>Alergie, leki, choroby, grupa krwi, wszczepy, kontakty alarmowe</dd>
+            </div>
+            <div>
+              <dt>Role</dt>
+              <dd>Pacjent, lekarz, ratownik</dd>
+            </div>
+            <div>
+              <dt>Audyt</dt>
+              <dd>Każdy odczyt zapisany w historii karty</dd>
+            </div>
+            <div>
+              <dt>Kod źródłowy</dt>
+              <dd>Otwarty, licencja MIT</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Prototyp; nie jest wyrobem medycznym</dd>
+            </div>
+          </dl>
+        </div>
+
+        <p class="project-more">
+          <a href="hero.html" class="btn-text">Pełna strona projektu HERO i działający prototyp →</a>
+        </p>
+        </div>
+      </details>
+
+      </div>
 
     </div>
   </section>
@@ -260,6 +355,7 @@
         <a href="index.html#technologia">Technologia</a>
         <a href="projekty.html" aria-current="page">Projekty</a>
         <a href="epi.html">EPI</a>
+        <a href="hero.html">HERO</a>
         <a href="dziennik.html">Dziennik</a>
         <a href="index.html#kontakt">Kontakt</a>
       </nav>
