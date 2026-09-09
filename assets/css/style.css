@@ -195,6 +195,51 @@ button{ font-family: inherit; }
   content: "—"; margin-right: 14px; color: var(--red);
 }
 .footer-nav a[aria-current="page"]{ color: var(--red); }
+
+/* Projekty rozwijają się na najechanie myszą; na dotyku, gdzie najechania nie
+   ma, podpozycje są widoczne od razu. Klawiaturą: focus na „Projekty" otwiera
+   listę, focus-within trzyma ją otwartą na czas przechodzenia po podpozycjach. */
+.nav-group{ display: flex; flex-direction: column; }
+.nav-group > a{ display: inline-flex; align-items: center; gap: 16px; }
+.nav-group > a::after{
+  content: ""; width: 12px; height: 12px; flex: 0 0 12px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translate(-2px, -2px); opacity: 0.5;
+  transition: transform .25s var(--ease), opacity .2s ease;
+}
+.nav-group:hover > a::after,
+.nav-group:focus-within > a::after{ transform: rotate(-135deg) translate(-3px, -3px); opacity: 1; }
+
+.nav-sub{
+  display: flex; flex-direction: column; gap: 10px;
+  margin-left: 4px; padding-left: 22px; border-left: 1px solid var(--border-on-navy);
+  max-height: 0; opacity: 0; visibility: hidden; overflow: hidden;
+  transition: max-height .3s var(--ease), opacity .25s ease, visibility .25s ease,
+              margin-top .3s var(--ease), padding-top .3s var(--ease);
+}
+.nav-overlay .nav-sub a{
+  font-size: clamp(1.05rem, 2.2vw, 1.5rem); font-weight: 600;
+  color: var(--text-on-navy-muted); letter-spacing: 0.02em;
+}
+.nav-overlay .nav-sub a:hover{ color: var(--red); }
+.nav-overlay .nav-sub a[aria-current="page"]{ color: var(--red); }
+.nav-group:hover .nav-sub,
+.nav-group > a:focus + .nav-sub,
+.nav-group:focus-within .nav-sub{
+  max-height: 300px; opacity: 1; visibility: visible;
+  margin-top: 18px; padding-top: 2px;
+}
+@media (hover: none){
+  .nav-sub{ max-height: none; opacity: 1; visibility: visible; margin-top: 16px; }
+  .nav-group > a::after{ transform: rotate(-135deg) translate(-3px, -3px); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce){
+  .nav-sub, .nav-group > a::after{ transition: none; }
+}
+/* Rozwinięta lista bywa wyższa niż ekran telefonu — „safe" nie pozwala uciąć
+   góry menu, gdy treść przerasta kontener. */
+.nav-overlay-inner{ overflow-y: auto; justify-content: safe center; }
+
 .nav-overlay-foot{
   width: 100%;
   display: flex; justify-content: space-between; align-items: center;
