@@ -120,7 +120,9 @@
           <p>
             Every entry carries its source. A patient's entry and a doctor's entry look different
             because they mean different things: "the patient says so" is not the same premise as
-            "a doctor confirmed it". The paramedic gets both, labelled.
+            "a doctor confirmed it". A doctor's entry also shows which doctor signed it and under
+            which licence number — the server stamps that signature on save, so it cannot be forged
+            from the browser or stripped afterwards.
           </p>
         </div>
 
@@ -139,7 +141,7 @@
           </div>
           <div>
             <dt>Roles</dt>
-            <dd>Patient, doctor, paramedic</dd>
+            <dd>Patient, doctor with a licence account, paramedic</dd>
           </div>
           <div>
             <dt>Audit</dt>
@@ -178,8 +180,8 @@
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 4.5v15M4.5 12h15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="2.5" y="2.5" width="19" height="19" rx="4" stroke="currentColor" stroke-width="1.6"/></svg>
           </div>
           <h3>Doctor</h3>
-          <p>Opens the record with the patient's code and fills in diagnoses, medication and allergies. Those entries are marked as verified, and the visit is logged.</p>
-          <p class="mono" style="font-size: 0.72rem;">Band identifier + patient's code</p>
+          <p>Registers an account with their medical licence number, opens the record with the patient's code and fills in diagnoses, medication and allergies. Every entry carries their name and licence number, and the visit is logged.</p>
+          <p class="mono" style="font-size: 0.72rem;">Licence account + band identifier + patient's code</p>
         </article>
 
         <article class="pillar-card">
