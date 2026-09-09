@@ -874,7 +874,10 @@ async function renderCardView(){
   +   '<label class="f">Powtórz PIN<input type="password" name="pin2" inputmode="numeric" required></label>'
   +   '<button class="btn btn-primary" type="submit">Utwórz kartę</button><p id="newErr" class="tiny" style="color:var(--crit)"></p></form></div></div>'
   + '</div>'
-  + '<div class="notice"><span>Prototyp: dane tej karty zostają w pamięci tej przeglądarki i nie są wysyłane na serwer. Nie wprowadzaj danych, których nie chcesz tu zostawić. Kartę można usunąć jednym przyciskiem.</span></div>'
+  + '<div class="notice"><span>Prototyp: ' + (API
+      ? 'karta zapisuje się w bazie serwera HERO, a jej zestaw krytyczny odczyta każdy, kto zna identyfikator opaski. Nie wprowadzaj danych, których nie chcesz tam zostawić.'
+      : 'dane tej karty zostają w pamięci tej przeglądarki i nie są wysyłane na serwer. Nie wprowadzaj danych, których nie chcesz tu zostawić.')
+    + ' Kartę można usunąć jednym przyciskiem.</span></div>'
   + '</div>';
 
   document.getElementById("fOpen").addEventListener("submit", async e => {
