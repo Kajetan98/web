@@ -2,7 +2,8 @@
 
 Aplikacja towarzysząca opasce EPI, zbudowana na podstawie dokumentu koncepcyjnego
 „Elektroniczny Detektor Napadów Padaczkowych" (wersja 0.1). Działa jako statyczna
-strona — bez backendu, bez kont użytkowników, bez wysyłania danych na zewnątrz.
+strona — bez backendu. Konta i dane zostają w przeglądarce, nic nie jest
+wysyłane na zewnątrz.
 
 ## Uruchomienie
 
@@ -25,11 +26,11 @@ albo `localhost`.
 
 | Plik | Zawartość |
 | --- | --- |
-| `index.html` | Szkielet interfejsu: cztery widoki, overlay alarmu i szczegółów zdarzenia |
-| `app.js` | Całość logiki: źródła sygnału, analiza, automat detekcji, magazyn danych, i18n |
+| `index.html` | Szkielet interfejsu: ekran logowania i rejestracji, cztery widoki, overlay alarmu i szczegółów zdarzenia |
+| `app.js` | Całość logiki: źródła sygnału, analiza, automat detekcji, konta, magazyn danych, i18n |
 | `app.css` | Style aplikacji (paleta zgodna ze stroną główną) |
 | `manifest.webmanifest` | Instalacja jako aplikacja na telefonie |
-| `sw.js` | Cache powłoki aplikacji; nawigacja network-first, pliki statyczne cache-first |
+| `sw.js` | Cache powłoki aplikacji; pliki z tej domeny network-first, cache jako zapas offline |
 
 ## Tor sygnału
 
