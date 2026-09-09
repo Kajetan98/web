@@ -330,6 +330,74 @@ button{ font-family: inherit; }
   letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted);
 }
 
+/* ==========================================================================
+   Project accordion — the portfolio list collapses to one row per project so
+   three entries stay scannable; each row opens into the full project detail.
+   ========================================================================== */
+.project-accordion{ border-bottom: 1px solid var(--border); }
+.project-item{ border-top: 1px solid var(--border); scroll-margin-top: 92px; }
+
+.project-summary{
+  display: grid; align-items: center; gap: 20px 28px;
+  grid-template-columns: 190px minmax(0, 1fr) auto 22px;
+  padding: 28px 0; cursor: pointer;
+  list-style: none;
+  transition: opacity .2s ease;
+}
+.project-summary::-webkit-details-marker{ display: none; }
+.project-summary:hover{ opacity: 0.72; }
+.project-summary:focus-visible{ outline: 2px solid var(--red); outline-offset: 4px; }
+
+/* Marks are sized per logo, not uniformly — stroke weight differs between them. */
+.project-summary .project-logo{ height: 26px; }
+.project-summary .project-logo-aurora{ height: 32px; }
+.project-summary .project-logo-meditag{ height: 21px; }
+
+.project-summary-text{ display: flex; flex-direction: column; gap: 6px; }
+.project-summary-index{
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.project-summary-title{
+  font-weight: 700; font-size: 1.06rem; line-height: 1.3;
+  letter-spacing: -0.01em; max-width: 34ch;
+}
+
+.acc-mark{
+  position: relative; width: 22px; height: 22px; justify-self: end;
+  border: 1px solid var(--border); border-radius: 50%;
+}
+.acc-mark::before, .acc-mark::after{
+  content: ""; position: absolute; background: var(--navy);
+  transition: transform .25s var(--ease);
+}
+.acc-mark::before{ left: 5px; right: 5px; top: 50%; height: 1.5px; margin-top: -0.75px; }
+.acc-mark::after{ top: 5px; bottom: 5px; left: 50%; width: 1.5px; margin-left: -0.75px; }
+.project-item[open] .acc-mark{ border-color: var(--red); }
+.project-item[open] .acc-mark::before{ background: var(--red); }
+.project-item[open] .acc-mark::after{ transform: scaleY(0); }
+
+.project-body{ padding: 4px 0 60px; }
+.project-body .lead{
+  font-size: 1.12rem; line-height: 1.6; color: var(--navy);
+  max-width: 60ch; margin: 0 0 40px;
+}
+
+@media (max-width: 980px){
+  .project-summary{ grid-template-columns: 150px minmax(0, 1fr) 22px; }
+  .project-summary .project-status{ grid-column: 2 / 3; justify-self: start; }
+}
+@media (max-width: 620px){
+  .project-summary{ grid-template-columns: minmax(0, 1fr) 22px; gap: 14px 20px; padding: 24px 0; }
+  .project-summary .project-logo{ grid-column: 1 / 2; }
+  .project-summary-text, .project-summary .project-status{ grid-column: 1 / 2; }
+  .acc-mark{ grid-row: 1; grid-column: 2 / 3; align-self: start; }
+  .project-body{ padding-bottom: 44px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .acc-mark::before, .acc-mark::after{ transition: none; }
+}
+
 .doc-link{
   display: inline-flex; align-items: center; gap: 12px; margin-top: 36px;
   padding: 16px 22px; border: 1px solid var(--border); border-radius: var(--radius);
