@@ -280,6 +280,16 @@ const nowISO = () => new Date().toISOString();
 const fmtDT = iso => { try { return new Date(iso).toLocaleString("pl-PL", {dateStyle:"short", timeStyle:"short"}); } catch(e){ return iso || "—"; } };
 const fmtD = d => d ? d.split("-").reverse().join(".") : "—";
 const age = d => { if(!d) return null; const b = new Date(d), n = new Date(); let a = n.getFullYear()-b.getFullYear(); const m = n.getMonth()-b.getMonth(); if(m<0||(m===0&&n.getDate()<b.getDate())) a--; return a>=0&&a<130 ? a : null; };
+function formErr(id, text){ const el = document.getElementById(id); if(el) el.textContent = text || ""; }
+
+/* Komunikat błędu znika, gdy tylko ktoś zacznie poprawiać formularz. Czyszczenie przy wysłaniu
+   nie wystarcza: gdy pole nie przejdzie walidacji przeglądarki, obsługa wysłania w ogóle nie
+   rusza i pod formularzem zostaje nieaktualna treść. */
+document.addEventListener("input", e => {
+  const form = e.target && e.target.closest && e.target.closest("form");
+  const err = form && form.querySelector("[id$='Err']");
+  if(err) err.textContent = "";
+});
 function toast(msg){ const t=document.createElement("div"); t.className="toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2200); }
 
 /* ---------------- storage ---------------- */
@@ -884,12 +894,12 @@ async function renderCardView(){
     e.preventDefault(); const f = e.target;
     const tag = f.tag.value.trim().toUpperCase();
     const r = await store.verify(tag, f.pin.value);
-    if(!r.ok){ document.getElementById("openErr").textContent = r.reason === "pin" ? "Nieprawidłowy PIN." : "Nie ma karty o tym identyfikatorze."; return; }
+    if(!r.ok){ formErr("openErr", r.reason === "pin" ? "Nieprawidłowy PIN." : "Nie ma karty o tym identyfikatorze."); return; }
     CARD = r.card; ROLE = "pacjent"; TAB = "podstawowe"; ses.set({tagId:tag, role:"pacjent", dg:PIN_DG}); renderEditor();
   });
   document.getElementById("fNew").addEventListener("submit", async e => {
     e.preventDefault(); const f = e.target;
-    if(f.pin.value !== f.pin2.value){ document.getElementById("newErr").textContent = "PIN-y się różnią."; return; }
+    if(f.pin.value !== f.pin2.value){ formErr("newErr", "PIN-y się różnią."); return; }
     const tag = genTag(); const c = blankCard(tag);
     c.person.name = f.name.value.trim();
     c.pinHash = await digest(tag, f.pin.value);
@@ -936,15 +946,15 @@ function renderDoctorAuth(){
   document.getElementById("fLogin").addEventListener("submit", async e => {
     e.preventDefault(); const f = e.target;
     const r = await doctors.login({pwz:f.pwz.value, password:f.password.value});
-    if(!r.ok){ document.getElementById("loginErr").textContent = r.error; return; }
+    if(!r.ok){ formErr("loginErr", r.error); return; }
     renderDoctorView();
   });
   document.getElementById("fReg").addEventListener("submit", async e => {
     e.preventDefault(); const f = e.target;
     const r = await doctors.register({pwz:f.pwz.value, name:f.name.value, password:f.password.value});
-    if(!r.ok){ document.getElementById("regErr").textContent = r.error; return; }
+    if(!r.ok){ formErr("regErr", r.error); return; }
     const zal = await doctors.login({pwz:f.pwz.value, password:f.password.value});
-    if(!zal.ok){ document.getElementById("regErr").textContent = zal.error; return; }
+    if(!zal.ok){ formErr("regErr", zal.error); return; }
     toast("Konto założone");
     renderDoctorView();
   });
@@ -977,7 +987,7 @@ async function renderDoctorView(){
     e.preventDefault(); const f = e.target;
     const tag = f.tag.value.trim().toUpperCase();
     const r = await store.verify(tag, f.pin.value);
-    if(!r.ok){ document.getElementById("docErr").textContent = r.reason === "pin" ? "Nieprawidłowy kod dostępu." : "Nie ma karty o tym identyfikatorze."; return; }
+    if(!r.ok){ formErr("docErr", r.reason === "pin" ? "Nieprawidłowy kod dostępu." : "Nie ma karty o tym identyfikatorze."); return; }
     const entry = await store.logRead(tag, DOCTOR.name + ", PWZ " + DOCTOR.pwz, "dostęp lekarza");
     r.card.reads = [entry].concat(r.card.reads || []);
     CARD = r.card; ROLE = "lekarz"; TAB = "podstawowe"; ses.set({tagId:tag, role:"lekarz", dg:PIN_DG});
