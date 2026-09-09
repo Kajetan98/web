@@ -71,7 +71,11 @@
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.9);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+/* Plus Jakarta Sans ma wąską spację, a karta jest gęsta — bez tego wyrazy
+   w wierszach danych zlewają się ze sobą. Tekst techniczny zostaje bez zmian:
+   Space Mono ma spację szeroką, a etykiety wersalikami mają własny odstęp liter. */
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;word-spacing:.04em;-webkit-font-smoothing:antialiased}
+.mono,.code,.eyebrow,th,input.mono,.chip-mode{word-spacing:normal}
 h1,h2,h3,h4{font-family:var(--f-disp);margin:0;letter-spacing:-.015em;text-wrap:balance;line-height:1.15}
 h1{font-size:clamp(2rem,1.3rem + 2.6vw,3.1rem);font-weight:700}
 h2{font-size:clamp(1.35rem,1.1rem + .9vw,1.8rem);font-weight:600}
