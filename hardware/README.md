@@ -98,10 +98,10 @@ i nie pobierają nic, kiedy nie świecą.
 
 | Pin | Funkcja | Uwaga |
 | --- | --- | --- |
-| D0 | przycisk | podciągnięcie do zasilania, wybudzanie z System OFF |
+| D11 | przycisk | podciągnięcie do zasilania, wybudzanie z System OFF |
 | D1 | dioda, kanał czerwony | PWM |
 | D2 | dioda, kanał zielony | PWM |
-| D3 | dioda, kanał niebieski | PWM |
+| D12 | dioda, kanał niebieski | PWM |
 | D4 | SDA | pulsoksymetr 0x57 |
 | D5 | SCL | |
 | D6 | buzzer | przez tranzystor |
