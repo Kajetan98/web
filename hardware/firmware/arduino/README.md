@@ -47,7 +47,7 @@ działa to na granicy i lepiej dać osobny stabilizator.
 | D10 | dioda, kanał zielony | PWM z Timer1 |
 | A0 | napięcie ogniwa | dzielnik 1:2 z dwóch rezystorów 100 kΩ |
 | A1 | wykrycie ładowarki | dzielnik z wyjścia odbiornika Qi, odczyt cyfrowy |
-| A4 / A5 | SDA / SCL | przez konwerter poziomów do IMU i pulsoksymetru |
+| A4 / A5 | SDA / SCL | przez konwerter poziomów do MPU-6050 i pulsoksymetru |
 | 5V | HC-06 VCC | moduł ZS-040 ma własny stabilizator |
 
 Dioda ze wspólną anodą: anoda do 5 V, katody przez rezystory do D9, D10 i D6.
@@ -55,9 +55,28 @@ Rezystory dobrane osobno dla czerwonej (napięcie przewodzenia około 2 V) i dla
 zielonej z niebieską (około 3 V), na prąd 2–3 mA na kanał. Przy diodzie ze
 wspólną katodą wystarczy zmienić `LED_COMMON_ANODE` na 0.
 
-W tej wersji akcelerometr ICG-20660L (SEN0443) jest potrzebny, bo Nano nie ma
-własnego. Program czyta go przez rejestry zgodne z rodziną InvenSense, więc
-zadziała też z MPU-6050. Adres 0x69 przy SDO podciągniętym do zasilania.
+W tej wersji potrzebny jest osobny akcelerometr, bo Nano nie ma własnego.
+Program obsługuje MPU-6050, zwykle na module GY-521. Adres 0x68 przy pinie AD0
+zwartym do masy albo zostawionym luzem, 0x69 przy AD0 na zasilaniu. Rejestry
+należą do wspólnego zestawu rodziny InvenSense, więc ten sam kod obsłuży też
+ICG-20660L (SEN0443), z adresem 0x69 przy SDO podciągniętym do zasilania.
+
+Przy starcie program wypisuje zawartość rejestru WHO_AM_I. MPU-6050 zwraca
+0x68; część tańszych zamienników z tym samym oznaczeniem zwraca 0x70, 0x72 albo
+0x98 i działa tak samo. Odczyt 0x00 albo 0xFF znaczy, że czujnik nie odpowiada:
+zwykle to zamienione SDA ze SCL, brak zasilania albo zły adres.
+
+Czujnik jest ustawiany na zakres ±4 g i filtr dolnoprzepustowy 10 Hz. Filtr nie
+jest ozdobą: program odczytuje czujnik 25 razy na sekundę, więc bez ograniczenia
+pasma wszystko powyżej 12,5 Hz złożyłoby się na niższe częstotliwości i trafiło
+prosto w zakres 2,5–5,5 Hz, którego szuka detektor. Drgania od silnika
+wibracyjnego są dokładnie takim sygnałem.
+
+Moduł GY-521 ma własny stabilizator 3,3 V i podciąga linie I2C do 3,3 V.
+Biblioteka Wire włącza przy starcie podciągnięcia wewnętrzne ATmegi, czyli do
+5 V, więc program je wyłącza zaraz po `Wire.begin()`. Przy montażu na stałe i
+tak należy dać konwerter poziomów, bo bez niego wejścia czujnika pracują poza
+zakresem podanym w karcie katalogowej.
 
 Zasilanie: ogniwo Li-Pol daje 3,7 V, a Nano potrzebuje 5 V, więc między nimi
 musi być przetwornica podwyższająca. Napięcie 5 V podaje się na pin 5V, nie na
@@ -140,8 +159,8 @@ i 2 kB pamięci RAM. Zmierzone zużycie po konsolidacji:
 
 | Wariant | Program | Dane statyczne |
 | --- | --- | --- |
-| UART sprzętowy, buzzer z generatorem | 18808 B (57 %) | 1235 B (60 %) |
-| SoftwareSerial, buzzer sterowany tone() | 21002 B (64 %) | 1298 B (63 %) |
+| UART sprzętowy, buzzer z generatorem | 18840 B (57 %) | 1235 B (60 %) |
+| SoftwareSerial, buzzer sterowany tone() | 21034 B (64 %) | 1298 B (63 %) |
 
 Sam kontekst urządzenia to 469 bajtów, resztę zajmują bufory Serial, Wire
 i zmienne rdzenia Arduino. Na stos zostaje około 800 bajtów, więc dołożenie
@@ -173,7 +192,6 @@ Szkic kompiluje się i konsoliduje dla ATmega328P przeciwko rdzeniowi
 ArduinoCore-avr, w obu wariantach opcji z tabeli wyżej; stąd pochodzą liczby
 zużycia pamięci. Logika przechodzi testy porównawcze z wersją na nRF54L15.
 
-Nie sprawdzone na sprzęcie, bo wymaga płytki: odczyt akcelerometru (rejestry
-rodziny InvenSense, program wypisuje przy starcie zawartość WHO_AM_I do
-weryfikacji), obsługa pulsoksymetru przez bibliotekę DFRobot, komendy AT modułu
-HC-06 oraz dobór rezystorów diody.
+Nie sprawdzone na sprzęcie, bo wymaga płytki: odczyt MPU-6050 (program wypisuje
+przy starcie zawartość WHO_AM_I do weryfikacji), obsługa pulsoksymetru przez
+bibliotekę DFRobot, komendy AT modułu HC-06 oraz dobór rezystorów diody.

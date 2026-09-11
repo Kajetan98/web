@@ -13,7 +13,7 @@ i nie zastępuje opieki lekarskiej.
 | Pytanie | Rozstrzygnięcie | Powód |
 | --- | --- | --- |
 | ESP32 czy XIAO nRF54L15 Sense? | nRF54L15 | brief wymienia obie płytki; aplikacja łączy się przez BLE, więc Wi-Fi z ESP32 nie jest do niczego potrzebne, a pobór prądu w uśpieniu jest o dwa rzędy wielkości wyższy |
-| IMU ICG-20660L (SEN0443) | pomiń w wersji na nRF54L15 | wersja Sense ma na płytce LSM6DS3TR-C, ten sam typ czujnika; w wariancie na Arduino Nano ten moduł jest potrzebny |
+| IMU: ICG-20660L (SEN0443) czy MPU-6050? | przy nRF54L15 żaden, przy Arduino Nano MPU-6050 | wersja Sense ma na płytce LSM6DS3TR-C; Nano nie ma własnego czujnika, a MPU-6050 jest tańszy i szerzej opisany, przy tym samym zestawie rejestrów |
 | XIAO Logger HAT | kup, ale do stanowiska pomiarowego | RTC i karta microSD są potrzebne do zbierania zbioru uczącego, czujniki środowiskowe nie wnoszą nic do detekcji napadu |
 | OpenLog (ATmega328 + microSD) | pomiń | dubluje funkcję Logger HAT-a, a nie ma RTC ani dzielnika napięcia |
 | Buzzer 5 V 12 mm THT | zamień na przetwornik 3 V sterowany PWM | 5 V wymaga osobnej szyny, ma jeden stały ton, 12 mm to dużo jak na opaskę |
@@ -44,7 +44,8 @@ potwierdzenia, ale wymaga własnego zbioru danych i podnosi ryzyko prywatności.
 | Część | Symbol | Werdykt | Uwaga |
 | --- | --- | --- | --- |
 | XIAO nRF54L15 Sense | 101991422 | podstawa pre-prototypu | IMU i mikrofon na płytce |
-| Fermion ICG-20660L | SEN0443 | pomiń przy nRF54L15, potrzebny przy Arduino Nano | dubluje LSM6DS3TR-C tylko na płytce Sense |
+| MPU-6050 (moduł GY-521) | — | potrzebny przy Arduino Nano | adres 0x68, zakres ±4 g, filtr 10 Hz |
+| Fermion ICG-20660L | SEN0443 | pomiń | dubluje LSM6DS3TR-C na płytce Sense, a przy Nano zastępuje go MPU-6050 |
 | Fermion MAX30102 V2.0 | SEN0344 | kup, z zastrzeżeniami | 3,3 V, I2C 0x57, poniżej 15 mA, 18 × 22 mm |
 | Akumulator Li-Pol 980 mAh 1S | Akyga | do stanowiska, nie do opaski | 50 × 34 × 6 mm, trzy przewody |
 | XIAO Logger HAT | 114993446 | tylko do zbierania danych | SHT40, BH1750, PCF8563, microSD do 32 GB, dzielnik napięcia baterii |
@@ -358,7 +359,7 @@ Porównanie obu wersji:
 | Praca z aplikacją EPI | tak | nie |
 | Pobór prądu w spoczynku | około 1,2 mA | 50–70 mA |
 | Czas pracy z ogniwa 980 mAh | kilka do kilkunastu dni | kilkanaście godzin |
-| Akcelerometr | na płytce | osobny moduł, SEN0443 |
+| Akcelerometr | na płytce | osobny moduł, MPU-6050 |
 | Napięcie logiki | 3,3 V, zgodne z czujnikami | 5 V, potrzebny konwerter poziomów |
 | Pamięć RAM | 256 kB | 2 kB, zajęte w 60 % |
 | Zastosowanie | urządzenie noszone | stanowisko testowe, pokaz działania |
@@ -413,12 +414,17 @@ jest niepoparta i nie powinna pojawiać się w opisie projektu.
    w drganiach, kryterium biometryczne trzeba oprzeć na tętnie i perfuzji.
 5. Wpływ pracy silnika i buzzera na akcelerometr i PPG; wielkość okna wyciszenia
    detektora w trakcie alarmu.
-6. Głośność buzzera w zamkniętej obudowie z otworem akustycznym.
-7. Zachowanie przycisku pod membraną, po kilku tysiącach naciśnięć.
-8. Krzywa rozładowania konkretnego ogniwa, do zastąpienia tablicy w
+6. Ograniczenie pasma akcelerometru poniżej połowy częstotliwości próbkowania.
+   Bez niego drgania o wyższej częstotliwości składają się na pasmo napadowe
+   i wyglądają jak napad. W wersji na Arduino Nano jest na to filtr 10 Hz przy
+   próbkowaniu 25 Hz; w wersji na nRF54L15 trzeba ustawić odpowiednik
+   w konfiguracji LSM6DS3TR-C.
+7. Głośność buzzera w zamkniętej obudowie z otworem akustycznym.
+8. Zachowanie przycisku pod membraną, po kilku tysiącach naciśnięć.
+9. Krzywa rozładowania konkretnego ogniwa, do zastąpienia tablicy w
    `epi_battery.c`.
-9. Temperatura obudowy w trakcie ładowania indukcyjnego, przy ogniwie i przy
-   skórze.
+10. Temperatura obudowy w trakcie ładowania indukcyjnego, przy ogniwie i przy
+    skórze.
 
 ## Źródła
 

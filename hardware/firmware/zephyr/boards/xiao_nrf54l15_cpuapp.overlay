@@ -57,6 +57,18 @@
         reg = <0x57>;
         status = "okay";
     };
+
+    /* Wersja Sense ma akcelerometr na płytce, więc zewnętrzny nie jest
+     * potrzebny. Gdyby oba warianty sprzętu miały używać tego samego czujnika
+     * co wersja na Arduino Nano, wystarczy odkomentować ten węzeł, przestawić
+     * alias epi-imu na &mpu6050 i włączyć CONFIG_MPU6050 w prj.conf.
+     *
+     * mpu6050: mpu6050@68 {
+     *     compatible = "invensense,mpu6050";
+     *     reg = <0x68>;
+     *     status = "okay";
+     * };
+     */
 };
 
 &pwm20 {

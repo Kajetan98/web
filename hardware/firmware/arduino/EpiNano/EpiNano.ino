@@ -64,15 +64,19 @@ const uint8_t PIN_BT_TX = 12;  /* do RXD modułu przez dzielnik 1k/2k */
 SoftwareSerial BT(PIN_BT_RX, PIN_BT_TX);
 #endif
 
-/* --- akcelerometr ICG-20660L ------------------------------------------ */
-/* Rejestry zgodne z rodziną InvenSense (ten sam układ co MPU-6050), więc ten
- * sam kod obsłuży zamiennik. Adres 0x69 przy SDO podciągniętym do zasilania,
- * 0x68 przy SDO do masy. Program wypisuje przy starcie zawartość WHO_AM_I —
- * jeżeli odczyt to 0x00 albo 0xFF, czujnik nie odpowiada. */
-#define IMU_ADDR        0x69
-#define IMU_PWR_MGMT_1  0x6B
+/* --- akcelerometr MPU-6050 --------------------------------------------- */
+/* Adres 0x68 przy AD0 zwartym do masy (tak jest na module GY-521, kiedy pin
+ * AD0 zostaje niepodłączony) albo 0x69 przy AD0 na zasilaniu. Rejestry należą
+ * do wspólnego zestawu rodziny InvenSense, więc ten sam kod obsłuży też
+ * ICG-20660L. Program wypisuje przy starcie zawartość WHO_AM_I: MPU-6050
+ * zwraca 0x68, część tańszych zamienników 0x70, 0x72 albo 0x98. Odczyt 0x00
+ * lub 0xFF oznacza, że czujnik nie odpowiada. */
+#define IMU_ADDR        0x68
+#define IMU_SMPLRT_DIV  0x19
+#define IMU_CONFIG      0x1A
 #define IMU_ACCEL_CONF  0x1C
 #define IMU_ACCEL_XOUT  0x3B
+#define IMU_PWR_MGMT_1  0x6B
 #define IMU_WHO_AM_I    0x75
 /* Zakres +-4 g: 8192 LSB na g. */
 #define IMU_LSB_PER_G   8192.0f
@@ -135,6 +139,14 @@ static bool imuBegin()
     delay(50);
     imuWrite8(IMU_PWR_MGMT_1, 0x01);   /* zegar z żyroskopu, wyjście z uśpienia */
     delay(10);
+    /* Filtr dolnoprzepustowy na 10 Hz. Próbkujemy z częstotliwością 25 Hz,
+     * więc bez niego wszystko powyżej 12,5 Hz złożyłoby się na pasmo napadowe:
+     * drgania od silnika wibracyjnego i od otoczenia trafiłyby prosto w zakres
+     * 2,5–5,5 Hz, którego szuka detektor. */
+    imuWrite8(IMU_CONFIG, 0x05);
+    /* Wewnętrzna częstotliwość próbkowania 1000/(1+19) = 50 Hz, czyli dwa razy
+     * więcej, niż odczytuje program. */
+    imuWrite8(IMU_SMPLRT_DIV, 19);
     imuWrite8(IMU_ACCEL_CONF, 0x08);   /* +-4 g */
     who = imuRead8(IMU_WHO_AM_I);
     BT.print(F("BOOT,WHO_AM_I,0x"));
@@ -433,7 +445,14 @@ void setup()
     buzzerSet(false);
 
     BT.begin(9600);   /* domyślna prędkość HC-06 */
+
     Wire.begin();
+    /* Biblioteka Wire włącza podciągnięcia wewnętrzne ATmegi, czyli do 5 V,
+     * a moduły czujników pracują na 3,3 V. Zapis stanu niskiego na wejściu
+     * wyłącza te podciągnięcia; linie podciągają wtedy rezystory na modułach.
+     * Nie zastępuje to konwertera poziomów przy montażu na stałe. */
+    digitalWrite(SDA, LOW);
+    digitalWrite(SCL, LOW);
 
     epi_cfg cfg;
     epi_cfg_defaults(&cfg);
