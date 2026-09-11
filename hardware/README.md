@@ -13,11 +13,12 @@ i nie zastępuje opieki lekarskiej.
 | Pytanie | Rozstrzygnięcie | Powód |
 | --- | --- | --- |
 | ESP32 czy XIAO nRF54L15 Sense? | nRF54L15 | brief wymienia obie płytki; aplikacja łączy się przez BLE, więc Wi-Fi z ESP32 nie jest do niczego potrzebne, a pobór prądu w uśpieniu jest o dwa rzędy wielkości wyższy |
-| IMU ICG-20660L (SEN0443) | pomiń | wersja Sense ma na płytce LSM6DS3TR-C, ten sam typ czujnika |
+| IMU ICG-20660L (SEN0443) | pomiń w wersji na nRF54L15 | wersja Sense ma na płytce LSM6DS3TR-C, ten sam typ czujnika; w wariancie na Arduino Nano ten moduł jest potrzebny |
 | XIAO Logger HAT | kup, ale do stanowiska pomiarowego | RTC i karta microSD są potrzebne do zbierania zbioru uczącego, czujniki środowiskowe nie wnoszą nic do detekcji napadu |
 | OpenLog (ATmega328 + microSD) | pomiń | dubluje funkcję Logger HAT-a, a nie ma RTC ani dzielnika napięcia |
 | Buzzer 5 V 12 mm THT | zamień na przetwornik 3 V sterowany PWM | 5 V wymaga osobnej szyny, ma jeden stały ton, 12 mm to dużo jak na opaskę |
 | C czy MicroPython? | C na Zephyrze (nRF Connect SDK) na urządzeniu, Python na komputerze do analizy i uczenia | powody w rozdziale o firmwarze |
+| Moduł HC-06 | działa, ale nie z aplikacją | HC-06 to Bluetooth Classic (SPP), a aplikacja używa Web Bluetooth, czyli wyłącznie BLE; szczegóły w rozdziale o wariancie na Arduino Nano |
 | Uproszczony model AI/ML | trzy etapy: reguła, klasyfikator liniowy z cech, ewentualnie mała sieć | rozdział o modelu |
 
 ## Platforma
@@ -43,7 +44,7 @@ potwierdzenia, ale wymaga własnego zbioru danych i podnosi ryzyko prywatności.
 | Część | Symbol | Werdykt | Uwaga |
 | --- | --- | --- | --- |
 | XIAO nRF54L15 Sense | 101991422 | podstawa pre-prototypu | IMU i mikrofon na płytce |
-| Fermion ICG-20660L | SEN0443 | pomiń | dubluje LSM6DS3TR-C |
+| Fermion ICG-20660L | SEN0443 | pomiń przy nRF54L15, potrzebny przy Arduino Nano | dubluje LSM6DS3TR-C tylko na płytce Sense |
 | Fermion MAX30102 V2.0 | SEN0344 | kup, z zastrzeżeniami | 3,3 V, I2C 0x57, poniżej 15 mA, 18 × 22 mm |
 | Akumulator Li-Pol 980 mAh 1S | Akyga | do stanowiska, nie do opaski | 50 × 34 × 6 mm, trzy przewody |
 | XIAO Logger HAT | 114993446 | tylko do zbierania danych | SHT40, BH1750, PCF8563, microSD do 32 GB, dzielnik napięcia baterii |
@@ -52,6 +53,7 @@ potwierdzenia, ale wymaga własnego zbioru danych i podnosi ryzyko prywatności.
 | Tact switch 6 × 6 mm | 381 | kup | wymaga membrany w szczelnej obudowie |
 | OpenLog ATmega328 | — | pomiń | funkcja pokryta przez Logger HAT |
 | Odbiornik Qi 5 V | do wyboru | kup razem z układem ładowania | patrz rozdział o zasilaniu |
+| Moduł Bluetooth HC-06 ZS-040 | — | tylko do wariantu na Arduino Nano | Bluetooth Classic SPP, nie łączy się z aplikacją |
 | Dioda RGB wspólna anoda | do wyboru | kup, 3 × PWM | nie WS2812B |
 
 Kilka pozycji wymaga komentarza.
@@ -311,8 +313,9 @@ Układ katalogu:
 | Ścieżka | Zawartość |
 | --- | --- |
 | `firmware/lib/` | logika bez zależności od sprzętu: dioda, bateria, przycisk, detektor |
-| `firmware/tests/` | testy tej logiki, uruchamiane na komputerze (`make test`) |
-| `firmware/zephyr/` | integracja: devicetree, konfiguracja, obsługa czujników, BLE |
+| `firmware/tests/` | testy tej logiki oraz porównanie obu wersji, uruchamiane na komputerze (`make test`) |
+| `firmware/zephyr/` | integracja z nRF54L15: devicetree, konfiguracja, czujniki, BLE |
+| `firmware/arduino/` | szkic na Arduino Nano z modułem HC-06 |
 
 Podział jest celowy. `lib/` kompiluje się zwykłym `cc`, więc zachowanie diody,
 progi baterii, gesty przycisku i cały automat detekcji można sprawdzić bez
@@ -326,6 +329,39 @@ stany, te same cechy sygnału i te same progi domyślne (amplituda 2,5 m/s², pa
 nachyleniu co najmniej 1,2 bpm/s, spadek SpO₂ o 4 punkty, wyciszenie 45 s).
 Dzięki temu urządzenie i aplikacja rozstrzygają tak samo, a rozbieżność
 w testach oznacza błąd, a nie różnicę implementacji.
+
+## Wariant na Arduino Nano
+
+Poza wersją docelową w katalogu `firmware/arduino/` leży kompletny szkic na
+Arduino Nano z modułem Bluetooth HC-06. Powstał jako układ do testów na stole:
+te same progi, ta sama dioda i ten sam przycisk, ale bez BLE i bez trybów
+oszczędzania energii.
+
+Jedna rzecz jest w nim rozstrzygnięta z góry i nie da się jej obejść w kodzie.
+HC-06 rozmawia profilem portu szeregowego (SPP) przez Bluetooth Classic,
+a aplikacja EPI łączy się przez Web Bluetooth, który obsługuje wyłącznie BLE
+z profilem GATT. To dwa różne stosy protokołów i przeglądarka nie ma między nimi
+mostu, więc układ z HC-06 nie połączy się z aplikacją. Rozmawia za to
+z dowolnym terminalem szeregowym Bluetooth na Androidzie, protokołem tekstowym
+opisanym w `firmware/arduino/README.md`.
+
+Drogi, które dają połączenie z aplikacją: płytka nRF54L15 (bez zmian
+w aplikacji), Arduino Nano po USB przez Web Serial (wymaga dopisania źródła
+w `app.js`), albo moduł BLE zamiast HC-06 (moduły HM-10 wystawiają własną
+usługę FFE0, więc filtr w aplikacji i tak trzeba zmienić).
+
+Porównanie obu wersji:
+
+| | XIAO nRF54L15 Sense | Arduino Nano + HC-06 |
+| --- | --- | --- |
+| Łączność | BLE, profile standardowe | Bluetooth Classic SPP, tekst |
+| Praca z aplikacją EPI | tak | nie |
+| Pobór prądu w spoczynku | około 1,2 mA | 50–70 mA |
+| Czas pracy z ogniwa 980 mAh | kilka do kilkunastu dni | kilkanaście godzin |
+| Akcelerometr | na płytce | osobny moduł, SEN0443 |
+| Napięcie logiki | 3,3 V, zgodne z czujnikami | 5 V, potrzebny konwerter poziomów |
+| Pamięć RAM | 256 kB | 2 kB, zajęte w 60 % |
+| Zastosowanie | urządzenie noszone | stanowisko testowe, pokaz działania |
 
 ## Model AI/ML
 

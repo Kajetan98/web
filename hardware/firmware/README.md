@@ -6,8 +6,9 @@ niezależną od sprzętu i warstwę integracji z Zephyrem.
 | Katalog | Zawartość | Stan |
 | --- | --- | --- |
 | `lib/` | dioda, bateria, przycisk, detektor | gotowe, pokryte testami |
-| `tests/` | testy uruchamiane na komputerze | 492 sprawdzenia |
+| `tests/` | testy uruchamiane na komputerze | 492 sprawdzenia wersji na nRF, 111 tysięcy sprawdzeń porównawczych |
 | `zephyr/` | devicetree, konfiguracja, czujniki, BLE | szkielet, nie był kompilowany przeciwko SDK |
+| `arduino/` | szkic na Arduino Nano z modułem HC-06 | kompiluje się i konsoliduje dla ATmega328P |
 
 ## Testy
 
@@ -21,6 +22,13 @@ wzorców błysków, tablicę napięć ogniwa razem z filtrem i histerezą, gesty
 przycisku wraz z filtrowaniem drgań styku oraz automat detekcji na sygnale
 syntetycznym (przejście do alarmu, odrzucenie po ustaniu drgań, wyciszenie, brak
 alarmu przy samym ruchu bez kryterium biometrycznego).
+
+Drugi zestaw (`test_nano.c`) podaje obu implementacjom, na nRF54L15 i na
+Arduino Nano, ten sam sygnał i porównuje wyniki: barwy diody dla każdego
+poziomu naładowania, tryb i wypełnienie dla wszystkich kombinacji stanu
+urządzenia, tablicę napięć ogniwa, zdarzenia przycisku oraz ciąg stanów
+automatu. Bez tego dwie kopie tej samej logiki rozjeżdżają się po pierwszej
+poprawce w jednej z nich.
 
 ## Moduły
 
@@ -42,7 +50,13 @@ cechy sygnału (RMS po usunięciu składowej stałej, częstotliwość z przejś
 zero) i te same progi domyślne. Cechy są wystawione osobno
 (`epi_det_features`), bo są wejściem klasyfikatora z drugiego etapu modelu.
 
-## Budowanie na płytkę
+## Budowanie na Arduino Nano
+
+Katalog `arduino/EpiNano/` otwiera się w środowisku Arduino bez przygotowań.
+Szczegóły połączeń, ustawienie modułu HC-06, protokół tekstowy i ograniczenia
+tej wersji opisuje `arduino/README.md`.
+
+## Budowanie na płytkę nRF54L15
 
 ```
 west build -b xiao_nrf54l15/nrf54l15/cpuapp zephyr

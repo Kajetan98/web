@@ -1,16 +1,22 @@
 CC      ?= cc
-CFLAGS  ?= -std=c99 -Wall -Wextra -Werror -O1 -I../lib
+CFLAGS  ?= -std=c99 -Wall -Wextra -Werror -O1 -I../lib -I../arduino/EpiNano
 LDLIBS  := -lm
-SRC     := test_epi.c ../lib/epi_led.c ../lib/epi_battery.c \
-           ../lib/epi_button.c ../lib/epi_detector.c
 
-test: test_epi
+CORE    := ../lib/epi_led.c ../lib/epi_battery.c ../lib/epi_button.c \
+           ../lib/epi_detector.c
+NANO    := ../arduino/EpiNano/epi_logic.c
+
+test: test_epi test_nano
 	./test_epi
+	./test_nano
 
-test_epi: $(SRC) ../lib/*.h
-	$(CC) $(CFLAGS) -o $@ $(SRC) $(LDLIBS)
+test_epi: test_epi.c $(CORE) ../lib/*.h
+	$(CC) $(CFLAGS) -o $@ test_epi.c $(CORE) $(LDLIBS)
+
+test_nano: test_nano.c nano_ref.c $(NANO) $(CORE) ../lib/*.h nano_ref.h
+	$(CC) $(CFLAGS) -o $@ test_nano.c nano_ref.c $(NANO) $(CORE) $(LDLIBS)
 
 clean:
-	rm -f test_epi
+	rm -f test_epi test_nano
 
 .PHONY: test clean
