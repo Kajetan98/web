@@ -362,8 +362,16 @@ static void pollCommands()
 
 static uint16_t readBatteryMv()
 {
-    uint16_t raw = analogRead(PIN_VBAT);
-    uint32_t at_pin = ((uint32_t)raw * ADC_VREF_MV) / 1023u;
+    uint32_t at_pin;
+    uint16_t raw;
+
+    /* Dzielnik ma impedancję 50 kΩ, czyli powyżej tego, co lubi przetwornik
+     * w ATmedze, więc pierwszy odczyt po przełączeniu kanału idzie do kosza —
+     * układ próbkujący zdąży się naładować dopiero przy drugim. */
+    (void)analogRead(PIN_VBAT);
+    delay(2);
+    raw = analogRead(PIN_VBAT);
+    at_pin = ((uint32_t)raw * ADC_VREF_MV) / 1023u;
     return (uint16_t)(at_pin * VBAT_DIV);
 }
 

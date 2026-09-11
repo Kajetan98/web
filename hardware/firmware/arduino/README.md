@@ -35,24 +35,27 @@ własny stabilizator 3,3 V. Wyjście 3V3 na płytce Nano pochodzi z układu USB
 i wydaje kilkadziesiąt miliamperów; sam pulsoksymetr bierze do 15 mA, więc
 działa to na granicy i lepiej dać osobny stabilizator.
 
+Wartości rezystorów, tranzystorów, diod i kondensatorów razem z wyliczeniami
+zebrane są w `hardware/elementy.md`. Poniższa tabela podaje same połączenia.
+
 | Pin Nano | Element | Uwaga |
 | --- | --- | --- |
 | D0 (RX) | HC-06 TXD | bezpośrednio; na czas wgrywania programu odłączyć |
-| D1 (TX) | HC-06 RXD | przez dzielnik 1 kΩ/2 kΩ, wejście modułu jest na 3,3 V |
+| D1 (TX) | HC-06 RXD | przez dzielnik 2,2 kΩ i 3,3 kΩ, wejście modułu jest na 3,3 V |
 | D2 | przycisk do masy | podciągnięcie wewnętrzne, bez rezystora zewnętrznego |
-| D4 | buzzer | przez tranzystor, moduł bierze do 30 mA |
+| D4 | buzzer | przez BC337-40 z rezystorem bazy 1 kΩ, moduł bierze do 30 mA |
 | D6 | dioda, kanał niebieski | PWM z Timer0 |
-| D7 | silnik wibracyjny | MOSFET, dioda gaszeniowa, kondensator 100 nF |
+| D7 | silnik wibracyjny | BC337-40, dioda 1N4148, kondensator 100 nF |
 | D9 | dioda, kanał czerwony | PWM z Timer1 |
 | D10 | dioda, kanał zielony | PWM z Timer1 |
-| A0 | napięcie ogniwa | dzielnik 1:2 z dwóch rezystorów 100 kΩ |
-| A1 | wykrycie ładowarki | dzielnik z wyjścia odbiornika Qi, odczyt cyfrowy |
-| A4 / A5 | SDA / SCL | przez konwerter poziomów do MPU-6050 i pulsoksymetru |
+| A0 | napięcie ogniwa | dzielnik 1:2 z dwóch rezystorów 100 kΩ, 100 nF przy wejściu |
+| A1 | wykrycie ładowarki | 10 kΩ szeregowo, 100 kΩ do masy, odczyt cyfrowy |
+| A4 / A5 | SDA / SCL | przez konwerter poziomów na BSS138 do MPU-6050 i pulsoksymetru |
 | 5V | HC-06 VCC | moduł ZS-040 ma własny stabilizator |
 
 Dioda ze wspólną anodą: anoda do 5 V, katody przez rezystory do D9, D10 i D6.
-Rezystory dobrane osobno dla czerwonej (napięcie przewodzenia około 2 V) i dla
-zielonej z niebieską (około 3 V), na prąd 2–3 mA na kanał. Przy diodzie ze
+Rezystory 1 kΩ na kanał czerwony i 680 Ω na zielony oraz niebieski, co daje
+około 3 mA na kanał. Przy diodzie ze
 wspólną katodą wystarczy zmienić `LED_COMMON_ANODE` na 0.
 
 W tej wersji potrzebny jest osobny akcelerometr, bo Nano nie ma własnego.
@@ -159,8 +162,8 @@ i 2 kB pamięci RAM. Zmierzone zużycie po konsolidacji:
 
 | Wariant | Program | Dane statyczne |
 | --- | --- | --- |
-| UART sprzętowy, buzzer z generatorem | 18840 B (57 %) | 1235 B (60 %) |
-| SoftwareSerial, buzzer sterowany tone() | 21034 B (64 %) | 1298 B (63 %) |
+| UART sprzętowy, buzzer z generatorem | 18836 B (57 %) | 1235 B (60 %) |
+| SoftwareSerial, buzzer sterowany tone() | 21030 B (64 %) | 1298 B (63 %) |
 
 Sam kontekst urządzenia to 469 bajtów, resztę zajmują bufory Serial, Wire
 i zmienne rdzenia Arduino. Na stos zostaje około 800 bajtów, więc dołożenie

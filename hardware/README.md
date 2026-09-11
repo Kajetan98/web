@@ -114,6 +114,10 @@ i nie pobierają nic, kiedy nie świecą.
 Numery wyprowadzeń w plikach devicetree trzeba wpisać z pinoutu płytki; overlay
 w `firmware/zephyr/boards/` ma w tych miejscach komentarz zamiast wartości.
 
+Rezystory, tranzystory, diody i kondensatory potrzebne przy tych wyprowadzeniach,
+razem z wyliczeniem wartości dla obu wersji sprzętu, zebrane są w
+`elementy.md`.
+
 Rozkład jest ciasny. Jeżeli okaże się, że potrzebny jest osobny sygnał do
 sterowania zasilaniem pulsoksymetru, pierwszym kandydatem do zwolnienia jest D8
 (odpytywanie zamiast przerwania).
@@ -254,8 +258,9 @@ Szczelna obudowa tłumi dźwięk. Potrzebny jest otwór akustyczny zamknięty me
 oddychającą, inaczej głośność spada o kilkanaście decybeli.
 
 Silnik MT35 pobiera około 90 mA, czyli więcej, niż wyprowadzenie mikrokontrolera
-może dać. Sterowanie przez tranzystor MOSFET z małym napięciem progowym, z diodą
-gaszeniową równolegle do silnika i kondensatorem 100 nF na jego zaciskach.
+może dać. Sterowanie przez tranzystor BC337-40 z rezystorem bazy 1 kΩ albo przez
+AO3400A z rezystorem bramki 100 Ω, z diodą 1N4148 równolegle do silnika
+i kondensatorem 100 nF na jego zaciskach. Wartości i wyliczenia w `elementy.md`.
 
 Zależność, o której łatwo zapomnieć: silnik i buzzer wprowadzają drgania do tej
 samej obudowy, w której siedzi akcelerometr, a ruch obudowy psuje sygnał PPG.
@@ -317,6 +322,7 @@ Układ katalogu:
 | `firmware/tests/` | testy tej logiki oraz porównanie obu wersji, uruchamiane na komputerze (`make test`) |
 | `firmware/zephyr/` | integracja z nRF54L15: devicetree, konfiguracja, czujniki, BLE |
 | `firmware/arduino/` | szkic na Arduino Nano z modułem HC-06 |
+| `elementy.md` | rezystory, tranzystory, diody i kondensatory z wyliczeniami |
 
 Podział jest celowy. `lib/` kompiluje się zwykłym `cc`, więc zachowanie diody,
 progi baterii, gesty przycisku i cały automat detekcji można sprawdzić bez
